@@ -1,0 +1,95 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "TatBlog.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/TatBlog.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TatBlog.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TatBlog.Core/1.0.0": {
+      "type": "project",
+      "path": "../TatBlog.Core/TatBlog.Core.csproj",
+      "msbuildProject": "../TatBlog.Core/TatBlog.Core.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "TatBlog.Core >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01\\src\\TipsAndTricks\\TatBlog.Data\\TatBlog.Data.csproj",
+      "projectName": "TatBlog.Data",
+      "projectPath": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01\\src\\TipsAndTricks\\TatBlog.Data\\TatBlog.Data.csproj",
+      "packagesPath": "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\",
+      "outputPath": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01\\src\\TipsAndTricks\\TatBlog.Data\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\TRAN DIEU DONG\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01\\src\\TipsAndTricks\\TatBlog.Core\\TatBlog.Core.csproj": {
+              "projectPath": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01\\src\\TipsAndTricks\\TatBlog.Core\\TatBlog.Core.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
