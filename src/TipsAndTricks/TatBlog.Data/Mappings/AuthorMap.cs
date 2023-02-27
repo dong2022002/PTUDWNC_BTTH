@@ -9,7 +9,7 @@ using TatBlog.Core.Entities;
 
 namespace TatBlog.Data.Mappings
 {
-    internal class AuthorMap : IEntityTypeConfiguration<Author>
+    public class AuthorMap : IEntityTypeConfiguration<Author>
     {
         public void Configure(EntityTypeBuilder<Author> builder)
         {
@@ -31,7 +31,7 @@ namespace TatBlog.Data.Mappings
             builder.Property(a => a.Email)
              .HasMaxLength(150);
             builder.Property(a => a.JoinedDate)
-             .HasColumnType("DataTime");
+             .HasColumnType("dateTime");
 
             builder.Property(a => a.Notes)
              .HasMaxLength(500);

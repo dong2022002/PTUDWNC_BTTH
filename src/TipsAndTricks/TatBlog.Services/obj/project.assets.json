@@ -871,6 +871,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.3",
           "TatBlog.Core": "1.0.0"
         },
         "compile": {

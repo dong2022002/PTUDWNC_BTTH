@@ -1,0 +1,12 @@
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\bin\Debug\net6.0\TatBlog.Core.deps.json
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\bin\Debug\net6.0\TatBlog.Core.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\bin\Debug\net6.0\TatBlog.Core.pdb
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\obj\Debug\net6.0\TatBlog.Core.csproj.AssemblyReference.cache
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\obj\Debug\net6.0\TatBlog.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\obj\Debug\net6.0\TatBlog.Core.AssemblyInfoInputs.cache
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\obj\Debug\net6.0\TatBlog.Core.AssemblyInfo.cs
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\obj\Debug\net6.0\TatBlog.Core.csproj.CoreCompileInputs.cache
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\obj\Debug\net6.0\TatBlog.Core.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\obj\Debug\net6.0\refint\TatBlog.Core.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\obj\Debug\net6.0\TatBlog.Core.pdb
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.Core\obj\Debug\net6.0\ref\TatBlog.Core.dll

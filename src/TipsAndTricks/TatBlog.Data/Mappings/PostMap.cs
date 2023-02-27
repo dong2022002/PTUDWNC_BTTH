@@ -9,7 +9,7 @@ using TatBlog.Core.Entities;
 
 namespace TatBlog.Data.Mappings
 {
-    internal class PostMap : IEntityTypeConfiguration<Post>
+    public class PostMap : IEntityTypeConfiguration<Post>
     {
         public void Configure(EntityTypeBuilder<Post> builder)
         {

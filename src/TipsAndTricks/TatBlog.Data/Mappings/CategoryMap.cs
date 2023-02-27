@@ -9,7 +9,7 @@ using TatBlog.Core.Entities;
 
 namespace TatBlog.Data.Mappings
 {
-    internal class CategoryMap : IEntityTypeConfiguration<Category>
+    public class CategoryMap : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
