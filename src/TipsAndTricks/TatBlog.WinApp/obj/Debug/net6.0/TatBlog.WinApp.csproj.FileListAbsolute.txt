@@ -75,3 +75,4 @@ D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.WinApp\bin\Debug\net
 D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.WinApp\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.WinApp\bin\Debug\net6.0\System.Text.Json.dll
 D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.WinApp\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\Lab01\src\TipsAndTricks\TatBlog.WinApp\bin\Debug\net6.0\System.Linq.Dynamic.Core.dll
