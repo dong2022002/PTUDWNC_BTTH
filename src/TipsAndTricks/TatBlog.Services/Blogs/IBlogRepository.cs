@@ -35,8 +35,18 @@ namespace TatBlog.Services.Blogs
         Task<Tag> GetTagFromSlugAsync(
             string slug,
             CancellationToken cancellationToken = default);
+
+        Task<Tag> GetCategoryFromSlugAsync(
+         string slug,
+         CancellationToken cancellationToken = default);
+
         Task<IList<TagItem>> GetTagItemListAsync(
             CancellationToken cancellationToken = default);
+
+        Task<bool> delTagAsync(
+            int id,
+            CancellationToken token = default);
+            
     }
 
 }

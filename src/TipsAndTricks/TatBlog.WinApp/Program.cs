@@ -66,11 +66,14 @@ IBlogRepository blogRepo = new BlogRepository(context);
 
 //var tagsList = await blogRepo.GetPagedTagsAsync(pangingParams);
 
-//var tag = await blogRepo.GetTagFromSlugAsync("google-application");
-var tag = await blogRepo.GetTagFromSlugAsync("netural-network");
+var tag = await blogRepo.GetTagFromSlugAsync("google-application");
+//var tag = await blogRepo.GetTagFromSlugAsync("netural-network");
 ////var tag = await blogRepo.GetTagFromSlugAsync("123");
 //Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Description");
 //Console.WriteLine("{0,-5}{1,-50}{2,10}", tag.Id, tag.Name, tag.Description);
+
+
+//// Xoa Tag
 var tagsList = await blogRepo.GetTagItemListAsync();
 
 
@@ -80,3 +83,16 @@ foreach (var item in tagsList)
 {
     Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
 }
+//if(tag != null)
+//{
+//    Console.WriteLine(tag.Id);
+//    var isSuccess = await blogRepo.delTagAsync(tag.Id);
+//    Console.WriteLine(isSuccess);
+//}
+//Console.WriteLine("----------------");
+//foreach (var item in tagsList)
+//{
+//    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
+//}
+
+
