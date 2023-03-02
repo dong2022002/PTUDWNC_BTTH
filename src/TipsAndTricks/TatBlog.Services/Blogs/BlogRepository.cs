@@ -162,5 +162,25 @@ namespace TatBlog.Services.Blogs
 
         }
         #endregion
+        #region Category
+        public async Task<Category> GetCategoryFromSlugAsync(
+            string slug,
+            CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Category>()
+              .Where(c => c.UrlSlug == slug)
+              .FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<Category> GetCategoryFromIDAsync(
+            int id,
+            CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Category>()
+              .Where(c => c.Id == id)
+              .FirstOrDefaultAsync(cancellationToken);
+        }
+        #endregion
+
     }
 }

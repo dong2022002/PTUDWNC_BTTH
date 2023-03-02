@@ -74,15 +74,15 @@ var tag = await blogRepo.GetTagFromSlugAsync("google-application");
 
 
 //// Xoa Tag
-var tagsList = await blogRepo.GetTagItemListAsync();
+//var tagsList = await blogRepo.GetTagItemListAsync();
 
 
-Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Count");
+//Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Count");
 
-foreach (var item in tagsList)
-{
-    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
-}
+//foreach (var item in tagsList)
+//{
+//    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
+//}
 //if(tag != null)
 //{
 //    Console.WriteLine(tag.Id);
@@ -94,5 +94,16 @@ foreach (var item in tagsList)
 //{
 //    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
 //}
+
+
+
+////////////Category
+///
+var cat1 = await blogRepo.GetCategoryFromSlugAsync("javascript");
+var cat = await blogRepo.GetCategoryFromIDAsync(cat1.Id);
+Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Description");
+Console.WriteLine("{0,-5}{1,-50}{2,10}", cat.Id, cat.Name, cat.Description);
+
+
 
 
