@@ -98,19 +98,28 @@ namespace TatBlog.Services.Blogs
             return await postQuery.FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<TagItem> GetTagFromSlugAsync(string slug, CancellationToken cancellationToken = default)
+        public async Task<Tag> GetTagFromSlugAsync(string slug, CancellationToken cancellationToken = default)
         {
-            var tagQuery = _context.Set<Tag>()
-               .Select(x => new TagItem()
-               {
-                   Id = x.Id,
-                   Name = x.Name,
-                   UrlSlug = x.UrlSlug,
-                   Description = x.Description,
-                   PostCount = x.Posts.Count(p => p.Published)
-               }).Where(t => t.UrlSlug == slug);
-            return await tagQuery.FirstOrDefaultAsync(cancellationToken);
+            return await _context.Set<Tag>()
+               .Where(t => t.UrlSlug == slug)               
+               .FirstOrDefaultAsync(cancellationToken);
                 
+        }
+
+        public async Task<IList<TagItem>> GetTagItemListAsync(CancellationToken cancellationToken = default)
+        {
+            IQueryable<Tag> tagItems = _context.Set<Tag>();
+
+            return await tagItems
+                .Select(x => new TagItem()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlSlug = x.UrlSlug,
+                    Description = x.Description,
+                    PostCount = x.Posts.Count(p => p.Published)
+                })
+            .ToListAsync(cancellationToken);
         }
 
         public async Task IncreaseViewCountAsync(

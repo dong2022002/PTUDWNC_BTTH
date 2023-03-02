@@ -68,13 +68,15 @@ IBlogRepository blogRepo = new BlogRepository(context);
 
 //var tag = await blogRepo.GetTagFromSlugAsync("google-application");
 var tag = await blogRepo.GetTagFromSlugAsync("netural-network");
+////var tag = await blogRepo.GetTagFromSlugAsync("123");
+//Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Description");
+//Console.WriteLine("{0,-5}{1,-50}{2,10}", tag.Id, tag.Name, tag.Description);
+var tagsList = await blogRepo.GetTagItemListAsync();
+
+
 Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Count");
-Console.WriteLine("{0,-5}{1,-50}{2,10}", tag.Id, tag.Name, tag.PostCount);
 
-
-
-
-//foreach (var item in tagsList)
-//{
-//    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
-//}
+foreach (var item in tagsList)
+{
+    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
+}
