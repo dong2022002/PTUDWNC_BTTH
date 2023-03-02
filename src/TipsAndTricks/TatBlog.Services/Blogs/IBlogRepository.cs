@@ -50,7 +50,17 @@ namespace TatBlog.Services.Blogs
         Task<bool> delTagAsync(
             int id,
             CancellationToken token = default);
-            
+
+        Task<int> AddUpdateCategoryAsync(
+            Category newTask,
+            CancellationToken cancellationToken = default);
+        Task<bool> IsCategoryNameExistedAsync(
+            string name,
+            CancellationToken cancellationToken = default);
+
+        Task<bool > DeleteCategoryAsync(
+            int id,
+            CancellationToken cancellationToken = default);
     }
 
 }

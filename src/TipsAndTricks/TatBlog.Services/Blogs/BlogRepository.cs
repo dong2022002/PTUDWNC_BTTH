@@ -180,6 +180,43 @@ namespace TatBlog.Services.Blogs
               .Where(c => c.Id == id)
               .FirstOrDefaultAsync(cancellationToken);
         }
+
+        public async Task<int> AddUpdateCategoryAsync(Category newCat, CancellationToken cancellationToken = default)
+        {
+            if (newCat.Id <= 0)
+            {
+               _context.Categories.Add(newCat);
+                await _context.SaveChangesAsync(cancellationToken);
+                return 1;
+            }
+            else
+            {
+                await _context.Set<Category>()
+                   .Where(x => x.Id == newCat.Id)
+                   .ExecuteUpdateAsync(t =>
+                       t.SetProperty(x => x.Name, newCat.Name)
+                       .SetProperty(x =>x.ShowOnMenu,  newCat.ShowOnMenu)
+                       .SetProperty(x => x.UrlSlug,  newCat.UrlSlug)
+                       .SetProperty(x => x.Description, newCat.Description),
+                       cancellationToken);;
+                return 2;
+            }
+        }
+
+        public async Task<bool> IsCategoryNameExistedAsync(
+            string name,
+            CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Category>()
+                .AnyAsync(x => x.Name == name,cancellationToken);
+        }
+
+        public Task<bool> DeleteCategoryAsync(
+            int id, 
+            CancellationToken cancellationToken = default)
+        {
+            return
+        }
         #endregion
 
     }

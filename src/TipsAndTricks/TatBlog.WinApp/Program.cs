@@ -99,11 +99,38 @@ var tag = await blogRepo.GetTagFromSlugAsync("google-application");
 
 ////////////Category
 ///
-var cat1 = await blogRepo.GetCategoryFromSlugAsync("javascript");
-var cat = await blogRepo.GetCategoryFromIDAsync(cat1.Id);
-Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Description");
-Console.WriteLine("{0,-5}{1,-50}{2,10}", cat.Id, cat.Name, cat.Description);
+//var cat1 = await blogRepo.GetCategoryFromSlugAsync("javascript");
+//var cat = await blogRepo.GetCategoryFromIDAsync(cat1.Id);
+//Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Description");
+//Console.WriteLine("{0,-5}{1,-50}{2,10}", cat.Id, cat.Name, cat.Description);
+
+//var cat = new Category()
+//{
+//    Id = 34,
+//    Name = "New Category",
+//    UrlSlug = "new-category",
+//    Description = "New Category",
+//    ShowOnMenu = true,
+//    Posts = new List<Post>() { },
+//};
+var cat = new Category()
+{
+    Id =43,
+    Name = ".NET Core",
+    UrlSlug = "netcore123456",
+    Description = ".NET Core",
+    ShowOnMenu = false,
+};
+var isSuccess = await blogRepo.AddUpdateCategoryAsync(cat);
+Console.WriteLine(isSuccess);
 
 
 
+//// Category Add and Update
+var categories = await blogRepo.GetCategoriesAsync();
+
+foreach (var item in categories)
+{
+    Console.WriteLine("{0,-5}{1,-30}{3,-20}{2,10}", item.Id, item.Name,item.UrlSlug, item.PostCount);
+}
 
