@@ -1,4 +1,6 @@
 ﻿
+using TatBlog.Core.DTO;
+using TatBlog.Core.Entities;
 using TatBlog.Core.Seeders;
 using TatBlog.Data.Contexts;
 using TatBlog.Services.Blogs;
@@ -54,20 +56,25 @@ IBlogRepository blogRepo = new BlogRepository(context);
 
 
 
-var pangingParams = new PagingParams
-{
-    PageNumber = 1,
-    PageSize = 5,
-    SortColumn = "Name",
-    SortOrder = "DESC",
-};
+//var pangingParams = new PagingParams
+//{
+//    PageNumber = 1,
+//    PageSize = 5,
+//    SortColumn = "Name",
+//    SortOrder = "DESC",
+//};
 
-var tagsList = await blogRepo.GetPagedTagsAsync(pangingParams);
+//var tagsList = await blogRepo.GetPagedTagsAsync(pangingParams);
 
-Console.WriteLine();
+//var tag = await blogRepo.GetTagFromSlugAsync("google-application");
+var tag = await blogRepo.GetTagFromSlugAsync("netural-network");
 Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Count");
+Console.WriteLine("{0,-5}{1,-50}{2,10}", tag.Id, tag.Name, tag.PostCount);
 
-foreach (var item in tagsList)
-{
-    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
-}
+
+
+
+//foreach (var item in tagsList)
+//{
+//    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
+//}

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading.Tasks;
 using TatBlog.Core.Contracts;
@@ -95,6 +96,21 @@ namespace TatBlog.Services.Blogs
             }
 
             return await postQuery.FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<TagItem> GetTagFromSlugAsync(string slug, CancellationToken cancellationToken = default)
+        {
+            var tagQuery = _context.Set<Tag>()
+               .Select(x => new TagItem()
+               {
+                   Id = x.Id,
+                   Name = x.Name,
+                   UrlSlug = x.UrlSlug,
+                   Description = x.Description,
+                   PostCount = x.Posts.Count(p => p.Published)
+               }).Where(t => t.UrlSlug == slug);
+            return await tagQuery.FirstOrDefaultAsync(cancellationToken);
+                
         }
 
         public async Task IncreaseViewCountAsync(
