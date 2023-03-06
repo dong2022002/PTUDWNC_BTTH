@@ -12,7 +12,7 @@ using TatBlog.Data.Contexts;
 namespace TatBlog.Data.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20230227160520_InitialCreate")]
+    [Migration("20230306153501_InitialCreate.")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -62,7 +62,7 @@ namespace TatBlog.Data.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime>("JoinedDate")
-                        .HasColumnType("DataTime");
+                        .HasColumnType("dateTime");
 
                     b.Property<string>("Notes")
                         .HasMaxLength(500)
@@ -178,6 +178,46 @@ namespace TatBlog.Data.Migrations
                     b.ToTable("Posts", (string)null);
                 });
 
+            modelBuilder.Entity("TatBlog.Core.Entities.Subscriber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateRegis")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DateUnFollow")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Desc")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsUserUnFollow")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Mail")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("NoteAdmin")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Subscriber", (string)null);
+                });
+
             modelBuilder.Entity("TatBlog.Core.Entities.Tag", b =>
                 {
                     b.Property<int>("Id")
@@ -241,6 +281,17 @@ namespace TatBlog.Data.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("TatBlog.Core.Entities.Subscriber", b =>
+                {
+                    b.HasOne("TatBlog.Core.Entities.Post", "Post")
+                        .WithMany("Subscribers")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("TatBlog.Core.Entities.Author", b =>
                 {
                     b.Navigation("Posts");
@@ -249,6 +300,11 @@ namespace TatBlog.Data.Migrations
             modelBuilder.Entity("TatBlog.Core.Entities.Category", b =>
                 {
                     b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("TatBlog.Core.Entities.Post", b =>
+                {
+                    b.Navigation("Subscribers");
                 });
 #pragma warning restore 612, 618
         }

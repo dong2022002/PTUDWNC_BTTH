@@ -20,7 +20,7 @@ namespace TatBlog.Data.Migrations
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     UrlSlug = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    JoinedDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    JoinedDate = table.Column<DateTime>(type: "dateTime", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
                 },
@@ -120,6 +120,31 @@ namespace TatBlog.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Subscriber",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Mail = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DateRegis = table.Column<DateTime>(type: "datetime", nullable: false),
+                    DateUnFollow = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Desc = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    IsUserUnFollow = table.Column<bool>(type: "bit", nullable: false),
+                    NoteAdmin = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    PostId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subscriber", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subscriber_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_AuthorId",
                 table: "Posts",
@@ -134,6 +159,11 @@ namespace TatBlog.Data.Migrations
                 name: "IX_PostTags_TagsId",
                 table: "PostTags",
                 column: "TagsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscriber_PostId",
+                table: "Subscriber",
+                column: "PostId");
         }
 
         /// <inheritdoc />
@@ -143,10 +173,13 @@ namespace TatBlog.Data.Migrations
                 name: "PostTags");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Subscriber");
 
             migrationBuilder.DropTable(
                 name: "Tags");
+
+            migrationBuilder.DropTable(
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Authors");
