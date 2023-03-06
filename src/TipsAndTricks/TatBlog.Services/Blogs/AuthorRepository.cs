@@ -21,6 +21,8 @@ namespace TatBlog.Services.Blogs
             _context = context;
         }
 
+        
+
         public async Task<Author> GetAuthorFromIDAsync(
             int id,
             CancellationToken cancellationToken = default)
@@ -58,6 +60,32 @@ namespace TatBlog.Services.Blogs
                });
             return await authorQuery
                 .ToPagedListAsync(pagingParams, cancellationToken);
+        }
+        public async Task<int> AddUpdateAuthorAsync(
+            Author author,
+            CancellationToken cancellationToken = default)
+        {
+            if (author.Id <= 0)
+            {
+                _context.Authors.Add(author);
+                await _context.SaveChangesAsync(cancellationToken);
+                return 1;
+            }
+            else
+            {
+
+                await _context.Set<Author>()
+                           .Where(x => x.Id == author.Id)
+                           .ExecuteUpdateAsync(t =>
+                               t.SetProperty(x => x.FullName, author.FullName)
+                               .SetProperty(x => x.UrlSlug, author.UrlSlug)
+                               .SetProperty(x => x.ImageUrl, author.UrlSlug)
+                               .SetProperty(x => x.JoinedDate, author.JoinedDate)
+                               .SetProperty(x => x.Email, author.Email)
+                               .SetProperty(x => x.Notes, author.Notes),
+                               cancellationToken);
+                return 2;
+            }
         }
     }
 }

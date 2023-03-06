@@ -22,5 +22,9 @@ namespace TatBlog.Services.Blogs
         Task<IPagedList<AuthorItem>> GetPagedAuthorsAsync(
             IPagingParams pagingParams,
             CancellationToken cancellationToken = default);
+
+        Task<int> AddUpdateAuthorAsync(
+                Author author,
+                CancellationToken cancellationToken = default);
     }
 }
