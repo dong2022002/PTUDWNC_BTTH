@@ -87,5 +87,27 @@ namespace TatBlog.Services.Blogs
                 return 2;
             }
         }
+
+        public async Task<IList<AuthorItem>> GetNumberAuthorItemsAsync(
+            int number,
+            CancellationToken cancellation = default)
+        {
+            return await  _context.Set<Author>()
+             .Select(x => new AuthorItem()
+             {
+                 Id = x.Id,
+                 FullName = x.FullName,
+                 UrlSlug = x.UrlSlug,
+                 ImageUrl = x.ImageUrl,
+                 JoinedDate = x.JoinedDate,
+                 Email = x.Email,
+                 Notes = x.Notes,
+                 PostCount = x.Posts.Count(p => p.Published)
+             })
+             .OrderByDescending(x => x.PostCount)
+             .Take(number)
+             .ToListAsync(cancellation);
+
+        }
     }
 }

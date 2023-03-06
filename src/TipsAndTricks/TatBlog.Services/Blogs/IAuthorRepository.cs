@@ -26,5 +26,9 @@ namespace TatBlog.Services.Blogs
         Task<int> AddUpdateAuthorAsync(
                 Author author,
                 CancellationToken cancellationToken = default);
+
+        Task<IList<AuthorItem>> GetNumberAuthorItemsAsync(
+            int number,
+            CancellationToken cancellation = default);
     }
 }
