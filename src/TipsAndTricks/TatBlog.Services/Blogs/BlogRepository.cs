@@ -284,6 +284,52 @@ namespace TatBlog.Services.Blogs
 
         }
 
+
+
+        #endregion
+
+        #region Post
+
+        public async Task<Post> GetPostFromIDAsync(int id, CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Post>()
+              .Where(c => c.Id == id)
+              .FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<int> AddUpdatePostAsync(
+            Post newPost, 
+            CancellationToken cancellationToken = default)
+        {
+            if (newPost.Id <= 0)
+            {
+                _context.Posts.Add(newPost);
+                await _context.SaveChangesAsync(cancellationToken);
+                return 1;
+            }
+            else
+            {
+       
+        await _context.Set<Post>()
+                   .Where(x => x.Id == newPost.Id)
+                   .ExecuteUpdateAsync(t =>
+                       t.SetProperty(x => x.Title, newPost.Title)
+                       .SetProperty(x => x.ShortDescription, newPost.ShortDescription)
+                       .SetProperty(x => x.Description, newPost.Description)
+                       .SetProperty(x => x.Meta, newPost.Meta)
+                       .SetProperty(x => x.UrlSlug, newPost.UrlSlug)
+                       .SetProperty(x => x.ImageUrl, newPost.ImageUrl)
+                       .SetProperty(x => x.ViewCount, newPost.ViewCount)
+                       .SetProperty(x => x.Published, newPost.Published)
+                       .SetProperty(x => x.PostedDate, newPost.PostedDate)
+                       .SetProperty(x => x.ModifiedDate, newPost.ModifiedDate)
+                       .SetProperty(x => x.Author, newPost.Author)
+                       .SetProperty(x => x.Category, newPost.Category)
+                       .SetProperty(x => x.Tags, newPost.Tags),
+                       cancellationToken); ;
+                return 2;
+            }
+        }
         #endregion
     }
 }

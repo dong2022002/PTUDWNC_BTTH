@@ -72,6 +72,21 @@ namespace TatBlog.Services.Blogs
         Task<IList<DatePost>> CountPostMonth(
             int month,
             CancellationToken cancellationToken= default);
+
+        #region post
+
+        Task<Post> GetPostFromIDAsync(
+           int id,
+           CancellationToken cancellationToken = default);
+
+         Task<int> AddUpdatePostAsync(
+            Post newPost,
+            CancellationToken cancellationToken = default);
+
+        Task SetPublishedPostAsync(
+            bool isPuslished,
+            CancellationTokenSource cancellationToken = default);
+        #endregion
     }
 
 }
