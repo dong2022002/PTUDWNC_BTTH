@@ -40,7 +40,17 @@ var context = new BlogDbContext();
 IBlogRepository blogRepo = new BlogRepository(context);
 
 //var posts = await blogRepo.GetPopularArticlesAsync(3);
-var posts = await blogRepo.GetPostsRandomAsync(3);
+//var posts = await blogRepo.GetPostsRandomAsync(3);
+
+var queryPost = new PostQuery()
+{
+    AuthorId = 18,
+    //YearPost = 2023,
+    //MonthPost = 3,
+    //TagId = 44,
+};
+var posts = await blogRepo.GetPostsFromPostQuery(queryPost);
+
 
 
 foreach (var post in posts)
@@ -49,10 +59,11 @@ foreach (var post in posts)
     Console.WriteLine("Title     : {0}", post.Title);
     Console.WriteLine("View      : {0}", post.ViewCount);
     Console.WriteLine("Date      : {0:MM/dd/yyyy}", post.PostedDate);
-    Console.WriteLine("Author    : {0}", post.Author);
-    Console.WriteLine("Category  : {0}", post.Category);
+    Console.WriteLine("Author    : {0}", post.AuthorId);
+    Console.WriteLine("Category  : {0}", post.CategoryId);
     Console.WriteLine("".PadRight(80, '-'));
 }
+Console.WriteLine(queryPost.Count);
 //var categories = await blogRepo.GetCategoriesAsync();
 
 

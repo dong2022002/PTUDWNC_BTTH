@@ -148,6 +148,7 @@ namespace TatBlog.Services.Blogs
 
         }
         #endregion
+
         #region Category
         public async Task<Category> GetCategoryFromSlugAsync(
             string slug,
@@ -260,7 +261,7 @@ namespace TatBlog.Services.Blogs
 
         #region Count
         public async Task<IList<DatePost>> CountPostMonth(
-            int month, 
+            int month,
             CancellationToken cancellationToken = default)
         {
             var now = DateTime.Now;
@@ -280,7 +281,7 @@ namespace TatBlog.Services.Blogs
                 .ThenByDescending(p => p.Month)
                 .Take(month)
                 .ToListAsync(cancellationToken);
-                
+
 
         }
 
@@ -298,7 +299,7 @@ namespace TatBlog.Services.Blogs
         }
 
         public async Task<int> AddUpdatePostAsync(
-            Post newPost, 
+            Post newPost,
             CancellationToken cancellationToken = default)
         {
             if (newPost.Id <= 0)
@@ -350,5 +351,25 @@ namespace TatBlog.Services.Blogs
                 .ToListAsync(cancellationToken);
         }
         #endregion
+
+        #region PostQuery
+        public async Task<IList<Post>> GetPostsFromPostQuery(
+            PostQuery query, CancellationToken cancellationToken = default)
+        {
+            query.Count = 0;
+            var data =  _context.Set<Post>()
+            .Where(p => (p.AuthorId == query.AuthorId || query.AuthorId == 0) &&
+            (p.CategoryId == query.CatgoryId || query.CatgoryId == 0) &&
+            (p.PostedDate.Month == query.MonthPost || query.MonthPost == 0) &&
+            (p.PostedDate.Year == query.YearPost || query.YearPost == 0) &&
+            (p.Tags.Any(t => t.Id == query.TagId) || query.TagId == 0));
+
+            query.Count = await data.CountAsync(cancellationToken);
+            return await data.ToListAsync(cancellationToken);
+        }
+
+        
+        #endregion
     }
 }
+

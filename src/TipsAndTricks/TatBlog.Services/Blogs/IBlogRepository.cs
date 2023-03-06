@@ -91,6 +91,13 @@ namespace TatBlog.Services.Blogs
             int number,
             CancellationToken cancellationToken = default);
         #endregion
+
+        #region PostQuery
+        Task<IList<Post>> GetPostsFromPostQuery(
+            PostQuery query, CancellationToken cancellationToken = default);
+
+        
+        #endregion
     }
 
 }
