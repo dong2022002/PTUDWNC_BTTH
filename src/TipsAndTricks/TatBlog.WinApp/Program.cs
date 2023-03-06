@@ -56,15 +56,21 @@ IBlogRepository blogRepo = new BlogRepository(context);
 
 
 
-//var pangingParams = new PagingParams
-//{
-//    PageNumber = 1,
-//    PageSize = 5,
-//    SortColumn = "Name",
-//    SortOrder = "DESC",
-//};
+var pangingParams = new PagingParams
+{
+    PageNumber = 1,
+    PageSize = 4,
+    SortColumn = "Name",
+    SortOrder = "DESC",
+};
 
 //var tagsList = await blogRepo.GetPagedTagsAsync(pangingParams);
+var catsList = await blogRepo.GetPagedCategoriesAsync(pangingParams);
+
+foreach (var item in catsList)
+{
+    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
+}
 
 var tag = await blogRepo.GetTagFromSlugAsync("google-application");
 //var tag = await blogRepo.GetTagFromSlugAsync("netural-network");
@@ -113,24 +119,24 @@ var tag = await blogRepo.GetTagFromSlugAsync("google-application");
 //    ShowOnMenu = true,
 //    Posts = new List<Post>() { },
 //};
-var cat = new Category()
-{
-    Id =43,
-    Name = ".NET Core",
-    UrlSlug = "netcore123456",
-    Description = ".NET Core",
-    ShowOnMenu = false,
-};
-var isSuccess = await blogRepo.AddUpdateCategoryAsync(cat);
-Console.WriteLine(isSuccess);
+//var cat = new Category()
+//{
+//    Id =43,
+//    Name = ".NET Core",
+//    UrlSlug = "netcore123456",
+//    Description = ".NET Core",
+//    ShowOnMenu = false,
+//};
+//var isSuccess = await blogRepo.AddUpdateCategoryAsync(cat);
+//Console.WriteLine(isSuccess);
 
 
 
 //// Category Add and Update
-var categories = await blogRepo.GetCategoriesAsync();
+//var categories = await blogRepo.GetCategoriesAsync();
 
-foreach (var item in categories)
-{
-    Console.WriteLine("{0,-5}{1,-30}{3,-20}{2,10}", item.Id, item.Name,item.UrlSlug, item.PostCount);
-}
+//foreach (var item in categories)
+//{
+//    Console.WriteLine("{0,-5}{1,-30}{3,-20}{2,10}", item.Id, item.Name,item.UrlSlug, item.PostCount);
+//}
 

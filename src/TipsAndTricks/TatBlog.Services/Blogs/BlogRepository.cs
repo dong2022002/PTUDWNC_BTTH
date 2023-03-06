@@ -136,22 +136,7 @@ namespace TatBlog.Services.Blogs
                .FirstOrDefaultAsync(cancellationToken);
 
         }
-        public async Task<IPagedList<TagItem>> GetPagedTagsAsync(
-            IPagingParams pagingParams,
-            CancellationToken cancellationToken = default)
-        {
-            var tagQuery = _context.Set<Tag>()
-                .Select(x => new TagItem()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    UrlSlug = x.UrlSlug,
-                    Description = x.Description,
-                    PostCount = x.Posts.Count(p => p.Published)
-                });
-            return await tagQuery
-                .ToPagedListAsync(pagingParams, cancellationToken);
-        }
+     
         public async Task<bool> delTagAsync(int id, CancellationToken cancellationToken = default)
         {
             var tag = _context.Set<Tag>()
@@ -231,6 +216,43 @@ namespace TatBlog.Services.Blogs
                            .AnyAsync(x => x.Id != catId && x.UrlSlug == slug,
                            cancellationToken);
         }
+        #endregion
+
+        #region PageList
+        public async Task<IPagedList<TagItem>> GetPagedTagsAsync(
+         IPagingParams pagingParams,
+         CancellationToken cancellationToken = default)
+        {
+            var tagQuery = _context.Set<Tag>()
+                .Select(x => new TagItem()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlSlug = x.UrlSlug,
+                    Description = x.Description,
+                    PostCount = x.Posts.Count(p => p.Published)
+                });
+            return await tagQuery
+                .ToPagedListAsync(pagingParams, cancellationToken);
+        }
+        public async Task<IPagedList<CategoryItem>> GetPagedCategoriesAsync(
+         IPagingParams pagingParams,
+         CancellationToken cancellationToken = default)
+        {
+            var catQuery = _context.Set<Category>()
+                .Select(x => new CategoryItem()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlSlug = x.UrlSlug,
+                    Description = x.Description,
+                    PostCount = x.Posts.Count(p => p.Published)
+                });
+            return await catQuery
+                .ToPagedListAsync(pagingParams, cancellationToken);
+        }
+
+      
         #endregion
 
     }

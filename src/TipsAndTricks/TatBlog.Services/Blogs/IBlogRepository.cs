@@ -64,6 +64,10 @@ namespace TatBlog.Services.Blogs
         Task<bool > DeleteCategoryAsync(
             int id,
             CancellationToken cancellationToken = default);
+
+         Task<IPagedList<CategoryItem>> GetPagedCategoriesAsync(
+               IPagingParams pagingParams,
+               CancellationToken cancellationToken = default);
     }
 
 }
