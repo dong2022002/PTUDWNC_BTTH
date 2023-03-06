@@ -309,26 +309,45 @@ namespace TatBlog.Services.Blogs
             }
             else
             {
-       
-        await _context.Set<Post>()
-                   .Where(x => x.Id == newPost.Id)
-                   .ExecuteUpdateAsync(t =>
-                       t.SetProperty(x => x.Title, newPost.Title)
-                       .SetProperty(x => x.ShortDescription, newPost.ShortDescription)
-                       .SetProperty(x => x.Description, newPost.Description)
-                       .SetProperty(x => x.Meta, newPost.Meta)
-                       .SetProperty(x => x.UrlSlug, newPost.UrlSlug)
-                       .SetProperty(x => x.ImageUrl, newPost.ImageUrl)
-                       .SetProperty(x => x.ViewCount, newPost.ViewCount)
-                       .SetProperty(x => x.Published, newPost.Published)
-                       .SetProperty(x => x.PostedDate, newPost.PostedDate)
-                       .SetProperty(x => x.ModifiedDate, newPost.ModifiedDate)
-                       .SetProperty(x => x.Author, newPost.Author)
-                       .SetProperty(x => x.Category, newPost.Category)
-                       .SetProperty(x => x.Tags, newPost.Tags),
-                       cancellationToken); ;
+
+                await _context.Set<Post>()
+                           .Where(x => x.Id == newPost.Id)
+                           .ExecuteUpdateAsync(t =>
+                               t.SetProperty(x => x.Title, newPost.Title)
+                               .SetProperty(x => x.ShortDescription, newPost.ShortDescription)
+                               .SetProperty(x => x.Description, newPost.Description)
+                               .SetProperty(x => x.Meta, newPost.Meta)
+                               .SetProperty(x => x.UrlSlug, newPost.UrlSlug)
+                               .SetProperty(x => x.ImageUrl, newPost.ImageUrl)
+                               .SetProperty(x => x.ViewCount, newPost.ViewCount)
+                               .SetProperty(x => x.Published, newPost.Published)
+                               .SetProperty(x => x.PostedDate, newPost.PostedDate)
+                               .SetProperty(x => x.ModifiedDate, newPost.ModifiedDate)
+                               .SetProperty(x => x.Author, newPost.Author)
+                               .SetProperty(x => x.Category, newPost.Category)
+                               .SetProperty(x => x.Tags, newPost.Tags),
+                               cancellationToken);
                 return 2;
             }
+        }
+
+        public async Task SetPublishedPostAsync(
+         bool isPuslished,
+         CancellationTokenSource cancellationToken = default)
+        {
+            await _context.Set<Post>()
+                .ExecuteUpdateAsync(p =>
+                p.SetProperty(x => x.Published, isPuslished));
+        }
+
+        public async Task<IList<Post>> GetPostsRandomAsync(
+          int number,
+          CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Post>()
+                .OrderBy(x => Guid.NewGuid())
+                .Take(number)
+                .ToListAsync(cancellationToken);
         }
         #endregion
     }

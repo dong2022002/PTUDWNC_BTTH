@@ -86,6 +86,10 @@ namespace TatBlog.Services.Blogs
         Task SetPublishedPostAsync(
             bool isPuslished,
             CancellationTokenSource cancellationToken = default);
+
+        Task<IList<Post>> GetPostsRandomAsync(
+            int number,
+            CancellationToken cancellationToken = default);
         #endregion
     }
 

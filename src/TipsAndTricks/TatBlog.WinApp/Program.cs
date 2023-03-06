@@ -40,18 +40,19 @@ var context = new BlogDbContext();
 IBlogRepository blogRepo = new BlogRepository(context);
 
 //var posts = await blogRepo.GetPopularArticlesAsync(3);
+var posts = await blogRepo.GetPostsRandomAsync(3);
 
 
-//foreach (var post in posts)
-//{
-//    Console.WriteLine("ID        : {0}", post.Id);
-//    Console.WriteLine("Title     : {0}", post.Title);
-//    Console.WriteLine("View      : {0}", post.ViewCount);
-//    Console.WriteLine("Date      : {0:MM/dd/yyyy}", post.PostedDate);
-//    Console.WriteLine("Author    : {0}", post.Author);
-//    Console.WriteLine("Category  : {0}", post.Category);
-//    Console.WriteLine("".PadRight(80, '-'));
-//}
+foreach (var post in posts)
+{
+    Console.WriteLine("ID        : {0}", post.Id);
+    Console.WriteLine("Title     : {0}", post.Title);
+    Console.WriteLine("View      : {0}", post.ViewCount);
+    Console.WriteLine("Date      : {0:MM/dd/yyyy}", post.PostedDate);
+    Console.WriteLine("Author    : {0}", post.Author);
+    Console.WriteLine("Category  : {0}", post.Category);
+    Console.WriteLine("".PadRight(80, '-'));
+}
 //var categories = await blogRepo.GetCategoriesAsync();
 
 
@@ -139,8 +140,8 @@ var tag = await blogRepo.GetTagFromSlugAsync("google-application");
 //{
 //    Console.WriteLine("{0,-5}{1,-30}{3,-20}{2,10}", item.Id, item.Name,item.UrlSlug, item.PostCount);
 //}
-var ListDatePost = await blogRepo.CountPostMonth(4);
-foreach (var item in ListDatePost)
-{
-    Console.WriteLine("{0,-5}{1,-30}{2,10}", item.Year.ToString(),item.Month.ToString(),item.PostCount.ToString());
-}
+//var ListDatePost = await blogRepo.CountPostMonth(4);
+//foreach (var item in ListDatePost)
+//{
+//    Console.WriteLine("{0,-5}{1,-30}{2,10}", item.Year.ToString(),item.Month.ToString(),item.PostCount.ToString());
+//}
