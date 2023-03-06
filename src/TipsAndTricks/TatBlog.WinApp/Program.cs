@@ -8,10 +8,10 @@ using TatBlog.WinApp;
 
 var context = new BlogDbContext();
 
-//var seeder = new DataSeeder(context);
+var seeder = new DataSeeder(context);
 
 
-//seeder.Initialize();
+seeder.Initialize();
 
 //var authors = context.Authors.ToList();
 
