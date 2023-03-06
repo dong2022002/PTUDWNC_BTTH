@@ -211,11 +211,25 @@ namespace TatBlog.Services.Blogs
                 .AnyAsync(x => x.Name == name,cancellationToken);
         }
 
-        public Task<bool> DeleteCategoryAsync(
+        public async Task<bool> DeleteCategoryAsync(
             int id, 
             CancellationToken cancellationToken = default)
         {
-            return
+            var cat = _context.Set<Category>()
+              .Where(t => t.Id == id);
+            if (cat == null) return false;
+            await cat.ExecuteDeleteAsync(cancellationToken);
+            return true;
+        }
+
+        public async Task<bool> IsCatSlugExitedAsync(
+            int catId,
+            string slug, 
+            CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Category>()
+                           .AnyAsync(x => x.Id != catId && x.UrlSlug == slug,
+                           cancellationToken);
         }
         #endregion
 

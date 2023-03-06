@@ -22,6 +22,9 @@ namespace TatBlog.Services.Blogs
         Task<bool> IsPostSlugExitedAsync(
             int postId, string slug,
             CancellationToken cancellationToken = default);
+        Task<bool> IsCatSlugExitedAsync(
+          int catId, string slug,
+          CancellationToken cancellationToken = default);
         Task IncreaseViewCountAsync(
             int postId,
             CancellationToken cancellationToken = default);
