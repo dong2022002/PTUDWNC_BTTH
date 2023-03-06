@@ -278,6 +278,7 @@ namespace TatBlog.Services.Blogs
              IPagingParams pagingParams,
              Func<IQueryable<Post>, IQueryable<T>> mapper,
              PostQuery query,
+
              CancellationToken cancellationToken = default)
         {
             var postQuery = postQueryable(query);

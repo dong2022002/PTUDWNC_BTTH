@@ -58,7 +58,7 @@ var pangingParams = new PagingParams
 };
 
 
-var posts = await blogRepo.GetPagedListPostFromQueryableAsync<PostCustom>(
+var posts = await blogRepo.GetPagedListPostFromQueryableAsync(
     pangingParams,
     p =>
     p.Select(x => new PostCustom()
