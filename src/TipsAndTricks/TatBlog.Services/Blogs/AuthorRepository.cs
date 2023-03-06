@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TatBlog.Core.Contracts;
+using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
+using TatBlog.Services.Extensions;
 
 namespace TatBlog.Services.Blogs
 {
@@ -35,6 +38,26 @@ namespace TatBlog.Services.Blogs
                .Where(t => t.UrlSlug == slug)
                .FirstOrDefaultAsync(cancellationToken);
 
+        }
+
+        public async Task<IPagedList<AuthorItem>> GetPagedAuthorsAsync(
+            IPagingParams pagingParams, 
+            CancellationToken cancellationToken = default)
+        {
+            var authorQuery = _context.Set<Author>()
+               .Select(x => new AuthorItem()
+               {
+                   Id = x.Id,
+                   FullName = x.FullName,
+                   UrlSlug = x.UrlSlug,
+                   ImageUrl = x.ImageUrl,
+                   JoinedDate = x.JoinedDate,
+                   Email = x.Email,
+                   Notes = x.Notes,
+                   PostCount = x.Posts.Count(p => p.Published)
+               });
+            return await authorQuery
+                .ToPagedListAsync(pagingParams, cancellationToken);
         }
     }
 }
