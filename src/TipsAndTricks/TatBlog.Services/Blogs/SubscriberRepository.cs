@@ -18,9 +18,31 @@ namespace TatBlog.Services.Blogs
             _context = context;
         }
 
-   
+        public Task BlockSubscriberAsync(int id, string notes, string reason, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
 
-     
+        public async Task DeleteSubscriberAsync(int id, CancellationToken cancellationToken = default)
+        {
+           await _context.Set<Subscriber>()
+                .Where(s => s.Id == id)
+                .ExecuteDeleteAsync(cancellationToken);
+        }
+
+        public async Task<IList<Subscriber>> GetSubscriberByEmailAsync(string email, CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Subscriber>()
+                .Where(s => s.Mail== email)
+                .ToListAsync(cancellationToken);
+        }
+
+        public async Task<Subscriber> GetSubscriberByIdAsync(int id, CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Subscriber>()
+                .Where(s => s.Id == id)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
 
         public async Task SubscriberAsync(int postId, string email, CancellationToken cancellationToken = default)
         {
@@ -40,10 +62,17 @@ namespace TatBlog.Services.Blogs
             bool isVoluntary,
             CancellationToken cancellationToken = default)
         {
-            var sub = _context.Set<Subscriber>()
+           await _context.Set<Subscriber>()
                 .Include(x => x.Post)
-               .Where(t => t.Mail == email && t.PostId == postId);
-            await sub.ExecuteDeleteAsync(cancellationToken);
+               .Where(t => t.Mail == email && t.PostId == postId)
+               .ExecuteUpdateAsync(p =>
+               p.SetProperty(p => p.IsUserUnFollow, isVoluntary)
+               .SetProperty(p => p.Desc, reason)
+               .SetProperty(p => p.DateUnFollow, DateTime.Now)
+               , cancellationToken);
+
+
+          
 
         }
     }
