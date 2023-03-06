@@ -44,8 +44,8 @@ IBlogRepository blogRepo = new BlogRepository(context);
 
 var queryPost = new PostQuery()
 {
-    AuthorId = 18,
-    //YearPost = 2023,
+    //AuthorId = 18,
+    YearPost = 2023,
     //MonthPost = 3,
     //TagId = 44,
 };
@@ -56,10 +56,25 @@ var pangingParams = new PagingParams
     SortColumn = "Title",
     SortOrder = "DESC",
 };
-var posts = await blogRepo.GetPagedListPostFromPostQueryAsync(pangingParams, queryPost);
+
+
+var posts = await blogRepo.GetPagedListPostFromQueryableAsync<PostCustom>(
+    pangingParams,
+    p =>
+    p.Select(x => new PostCustom()
+    {
+        Id = x.Id,
+        Title = x.Title,
+        AuthorId = x.AuthorId,
+        Description = x.Description,
+    }),
+    queryPost
+    );
+    
+
 foreach (var item in posts)
 {
-    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Title, item.UrlSlug);
+    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Title, item.AuthorId);
 }
 
 

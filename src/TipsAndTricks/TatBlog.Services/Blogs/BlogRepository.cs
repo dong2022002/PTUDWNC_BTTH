@@ -12,6 +12,7 @@ using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
 using TatBlog.Services.Extensions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TatBlog.Services.Blogs
 {
@@ -273,7 +274,17 @@ namespace TatBlog.Services.Blogs
                 .ToPagedListAsync(pagingParams, cancellationToken);
         }
 
+        public async Task<IPagedList<T>> GetPagedListPostFromQueryableAsync<T>(
+             IPagingParams pagingParams,
+             Func<IQueryable<Post>, IQueryable<T>> mapper,
+             PostQuery query,
+             CancellationToken cancellationToken = default)
+        {
+            var postQuery = postQueryable(query);
 
+            return await mapper(postQuery)
+                 .ToPagedListAsync(pagingParams, cancellationToken);
+        }
         #endregion
 
         #region Count
@@ -387,6 +398,8 @@ namespace TatBlog.Services.Blogs
         private IQueryable<Post> postQueryable(PostQuery query)
         {
             return _context.Set<Post>()
+                    .Include(a => a.Author)
+                    .Include(c => c.Category)
                         .Where(p => (p.AuthorId == query.AuthorId || query.AuthorId == 0) &&
                         (p.CategoryId == query.CatgoryId || query.CatgoryId == 0) &&
                         (p.PostedDate.Month == query.MonthPost || query.MonthPost == 0) &&
@@ -394,6 +407,7 @@ namespace TatBlog.Services.Blogs
                         (p.Tags.Any(t => t.Id == query.TagId) || query.TagId == 0));
         }
 
+       
     }
 }
 

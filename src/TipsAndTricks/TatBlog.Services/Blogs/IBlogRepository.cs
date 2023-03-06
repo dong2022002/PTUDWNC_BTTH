@@ -77,6 +77,12 @@ namespace TatBlog.Services.Blogs
             IPagingParams pagingParams,
             CancellationToken cancellationToken = default);
 
+        Task<IPagedList<T>> GetPagedListPostFromQueryableAsync<T>(
+              IPagingParams pagingParams,
+              Func<IQueryable<Post>,IQueryable<T>> mapper,
+              PostQuery query,
+              CancellationToken cancellationToken = default);
+
         #region post
 
         Task<Post> GetPostFromIDAsync(
@@ -104,9 +110,11 @@ namespace TatBlog.Services.Blogs
                    IPagingParams pagingParams,
                    PostQuery query,
                    CancellationToken cancellationToken = default);
-
+      
+            
         #endregion
     }
+   
 
 }
 
