@@ -56,21 +56,21 @@ IBlogRepository blogRepo = new BlogRepository(context);
 
 
 
-var pangingParams = new PagingParams
-{
-    PageNumber = 1,
-    PageSize = 4,
-    SortColumn = "Name",
-    SortOrder = "DESC",
-};
+//var pangingParams = new PagingParams
+//{
+//    PageNumber = 1,
+//    PageSize = 4,
+//    SortColumn = "Name",
+//    SortOrder = "DESC",
+//};
 
-//var tagsList = await blogRepo.GetPagedTagsAsync(pangingParams);
-var catsList = await blogRepo.GetPagedCategoriesAsync(pangingParams);
+////var tagsList = await blogRepo.GetPagedTagsAsync(pangingParams);
+//var catsList = await blogRepo.GetPagedCategoriesAsync(pangingParams);
 
-foreach (var item in catsList)
-{
-    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
-}
+//foreach (var item in catsList)
+//{
+//    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
+//}
 
 var tag = await blogRepo.GetTagFromSlugAsync("google-application");
 //var tag = await blogRepo.GetTagFromSlugAsync("netural-network");
@@ -139,4 +139,8 @@ var tag = await blogRepo.GetTagFromSlugAsync("google-application");
 //{
 //    Console.WriteLine("{0,-5}{1,-30}{3,-20}{2,10}", item.Id, item.Name,item.UrlSlug, item.PostCount);
 //}
-
+var ListDatePost = await blogRepo.CountPostMonth(4);
+foreach (var item in ListDatePost)
+{
+    Console.WriteLine("{0,-5}{1,-30}{2,10}", item.Year.ToString(),item.Month.ToString(),item.PostCount.ToString());
+}

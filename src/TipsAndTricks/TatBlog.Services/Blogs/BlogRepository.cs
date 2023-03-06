@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -23,7 +24,7 @@ namespace TatBlog.Services.Blogs
             _context = context;
         }
 
-    
+
 
         public async Task<IList<CategoryItem>> GetCategoriesAsync(
             bool showOnMenu = false,
@@ -49,7 +50,7 @@ namespace TatBlog.Services.Blogs
                 .ToListAsync(cancellationToken);
         }
 
-        
+
 
         public async Task<IList<Post>> GetPopularArticlesAsync(int numPosts, CancellationToken cancellationToken = default)
         {
@@ -86,9 +87,9 @@ namespace TatBlog.Services.Blogs
             return await postQuery.FirstOrDefaultAsync(cancellationToken);
         }
 
-       
 
-      
+
+
 
         public async Task IncreaseViewCountAsync(
             int postId,
@@ -128,7 +129,7 @@ namespace TatBlog.Services.Blogs
             .ToListAsync(cancellationToken);
         }
         public async Task<Tag> GetTagFromSlugAsync(
-            string slug, 
+            string slug,
             CancellationToken cancellationToken = default)
         {
             return await _context.Set<Tag>()
@@ -136,7 +137,7 @@ namespace TatBlog.Services.Blogs
                .FirstOrDefaultAsync(cancellationToken);
 
         }
-     
+
         public async Task<bool> delTagAsync(int id, CancellationToken cancellationToken = default)
         {
             var tag = _context.Set<Tag>()
@@ -170,7 +171,7 @@ namespace TatBlog.Services.Blogs
         {
             if (newCat.Id <= 0)
             {
-               _context.Categories.Add(newCat);
+                _context.Categories.Add(newCat);
                 await _context.SaveChangesAsync(cancellationToken);
                 return 1;
             }
@@ -180,10 +181,10 @@ namespace TatBlog.Services.Blogs
                    .Where(x => x.Id == newCat.Id)
                    .ExecuteUpdateAsync(t =>
                        t.SetProperty(x => x.Name, newCat.Name)
-                       .SetProperty(x =>x.ShowOnMenu,  newCat.ShowOnMenu)
-                       .SetProperty(x => x.UrlSlug,  newCat.UrlSlug)
+                       .SetProperty(x => x.ShowOnMenu, newCat.ShowOnMenu)
+                       .SetProperty(x => x.UrlSlug, newCat.UrlSlug)
                        .SetProperty(x => x.Description, newCat.Description),
-                       cancellationToken);;
+                       cancellationToken); ;
                 return 2;
             }
         }
@@ -193,11 +194,11 @@ namespace TatBlog.Services.Blogs
             CancellationToken cancellationToken = default)
         {
             return await _context.Set<Category>()
-                .AnyAsync(x => x.Name == name,cancellationToken);
+                .AnyAsync(x => x.Name == name, cancellationToken);
         }
 
         public async Task<bool> DeleteCategoryAsync(
-            int id, 
+            int id,
             CancellationToken cancellationToken = default)
         {
             var cat = _context.Set<Category>()
@@ -209,7 +210,7 @@ namespace TatBlog.Services.Blogs
 
         public async Task<bool> IsCatSlugExitedAsync(
             int catId,
-            string slug, 
+            string slug,
             CancellationToken cancellationToken = default)
         {
             return await _context.Set<Category>()
@@ -252,8 +253,37 @@ namespace TatBlog.Services.Blogs
                 .ToPagedListAsync(pagingParams, cancellationToken);
         }
 
-      
+
+
+
         #endregion
 
+        #region Count
+        public async Task<IList<DatePost>> CountPostMonth(
+            int month, 
+            CancellationToken cancellationToken = default)
+        {
+            var now = DateTime.Now;
+            return await _context.Set<Post>()
+                .Where(p => p.Published)
+                .GroupBy(
+                p => new {
+                    p.PostedDate.Month,
+                    p.PostedDate.Year },
+                (key, g) => new DatePost()
+                {
+                    Month = key.Month,
+                    Year = key.Year,
+                    PostCount = g.Count()
+                })
+                .OrderByDescending(p => p.Year)
+                .ThenByDescending(p => p.Month)
+                .Take(month)
+                .ToListAsync(cancellationToken);
+                
+
+        }
+
+        #endregion
     }
 }
