@@ -253,8 +253,25 @@ namespace TatBlog.Services.Blogs
             return await catQuery
                 .ToPagedListAsync(pagingParams, cancellationToken);
         }
+        public async Task<IPagedList<Post>> GetPagedPostAsync(
+             IPagingParams pagingParams,
+             CancellationToken cancellationToken = default)
+        {
+            var postQuery = _context.Set<Post>();
+               
+            return await postQuery
+                .ToPagedListAsync(pagingParams, cancellationToken);
+        }
 
-
+        public async Task<IPagedList<Post>> GetPagedListPostFromPostQueryAsync(
+               IPagingParams pagingParams,
+               PostQuery query,
+               CancellationToken cancellationToken = default)
+        {
+            var postQuery = postQueryable(query);
+            return await postQuery
+                .ToPagedListAsync(pagingParams, cancellationToken);
+        }
 
 
         #endregion
@@ -357,19 +374,26 @@ namespace TatBlog.Services.Blogs
             PostQuery query, CancellationToken cancellationToken = default)
         {
             query.Count = 0;
-            var data =  _context.Set<Post>()
-            .Where(p => (p.AuthorId == query.AuthorId || query.AuthorId == 0) &&
-            (p.CategoryId == query.CatgoryId || query.CatgoryId == 0) &&
-            (p.PostedDate.Month == query.MonthPost || query.MonthPost == 0) &&
-            (p.PostedDate.Year == query.YearPost || query.YearPost == 0) &&
-            (p.Tags.Any(t => t.Id == query.TagId) || query.TagId == 0));
+            IQueryable<Post> data = postQueryable(query);
 
             query.Count = await data.CountAsync(cancellationToken);
             return await data.ToListAsync(cancellationToken);
         }
 
-        
+
+
+
         #endregion
+        private IQueryable<Post> postQueryable(PostQuery query)
+        {
+            return _context.Set<Post>()
+                        .Where(p => (p.AuthorId == query.AuthorId || query.AuthorId == 0) &&
+                        (p.CategoryId == query.CatgoryId || query.CatgoryId == 0) &&
+                        (p.PostedDate.Month == query.MonthPost || query.MonthPost == 0) &&
+                        (p.PostedDate.Year == query.YearPost || query.YearPost == 0) &&
+                        (p.Tags.Any(t => t.Id == query.TagId) || query.TagId == 0));
+        }
+
     }
 }
 

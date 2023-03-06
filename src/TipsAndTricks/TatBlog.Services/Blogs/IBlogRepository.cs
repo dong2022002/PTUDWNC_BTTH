@@ -73,6 +73,10 @@ namespace TatBlog.Services.Blogs
             int month,
             CancellationToken cancellationToken= default);
 
+        Task<IPagedList<Post>> GetPagedPostAsync(
+            IPagingParams pagingParams,
+            CancellationToken cancellationToken = default);
+
         #region post
 
         Task<Post> GetPostFromIDAsync(
@@ -96,7 +100,11 @@ namespace TatBlog.Services.Blogs
         Task<IList<Post>> GetPostsFromPostQuery(
             PostQuery query, CancellationToken cancellationToken = default);
 
-        
+        Task<IPagedList<Post>> GetPagedListPostFromPostQueryAsync(
+                   IPagingParams pagingParams,
+                   PostQuery query,
+                   CancellationToken cancellationToken = default);
+
         #endregion
     }
 
