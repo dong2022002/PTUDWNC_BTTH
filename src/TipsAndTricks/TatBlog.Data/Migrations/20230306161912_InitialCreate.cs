@@ -138,7 +138,7 @@ namespace TatBlog.Data.Migrations
                 {
                     table.PrimaryKey("PK_Subscriber", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Subscriber_Posts_PostId",
+                        name: "FK_Posts_Subcriber",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",

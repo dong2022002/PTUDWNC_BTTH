@@ -8,5 +8,16 @@ namespace TatBlog.Services.Blogs
 {
     public interface ISubscriberRepository
     {
+
+        Task SubscriberAsync(
+            int postId,
+            string email,
+            CancellationToken cancellationToken =default);
+        Task UnSubscriberAsync(
+            int postId,
+        string email,
+        string reason,
+        bool isVoluntary,
+        CancellationToken cancellationToken = default);
     }
 }

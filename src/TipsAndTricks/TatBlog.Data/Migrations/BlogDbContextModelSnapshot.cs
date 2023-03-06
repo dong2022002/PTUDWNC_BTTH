@@ -284,7 +284,8 @@ namespace TatBlog.Data.Migrations
                         .WithMany("Subscribers")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Posts_Subcriber");
 
                     b.Navigation("Post");
                 });

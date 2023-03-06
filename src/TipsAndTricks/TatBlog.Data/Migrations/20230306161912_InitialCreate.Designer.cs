@@ -12,7 +12,7 @@ using TatBlog.Data.Contexts;
 namespace TatBlog.Data.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20230306153501_InitialCreate.")]
+    [Migration("20230306161912_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -287,7 +287,8 @@ namespace TatBlog.Data.Migrations
                         .WithMany("Subscribers")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Posts_Subcriber");
 
                     b.Navigation("Post");
                 });
