@@ -23,9 +23,10 @@ namespace TatBlog.Core.Entities
         public int CategoryId { get; set; }
         public int AuthorId { get; set; }
 
-
         public Category Category { get; set; }
         public Author Author { get; set; }
         public IList<Tag> Tags { get; set; }
+        public IList<Subscriber> Subscribers { get; set; }
+
     }
 }

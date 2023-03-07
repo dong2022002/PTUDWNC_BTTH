@@ -67,6 +67,12 @@ namespace TatBlog.Data.Mappings
               .HasConstraintName("FK_Posts_Authors")
               .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(p => p.Subscribers)
+                .WithOne(s => s.Post)
+                .HasForeignKey(p => p.PostId)
+                .HasConstraintName("FK_Posts_Subcriber")
+                 .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasMany(p => p.Tags)
               .WithMany(c => c.Posts)
               .UsingEntity(pt => pt.ToTable("PostTags"));
