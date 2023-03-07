@@ -3535,11 +3535,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01\\src\\TipsAndTricks\\TatBlog.Data\\TatBlog.Data.csproj",
+      "projectUniqueName": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.Data\\TatBlog.Data.csproj",
       "projectName": "TatBlog.Data",
-      "projectPath": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01\\src\\TipsAndTricks\\TatBlog.Data\\TatBlog.Data.csproj",
+      "projectPath": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.Data\\TatBlog.Data.csproj",
       "packagesPath": "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\",
-      "outputPath": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01\\src\\TipsAndTricks\\TatBlog.Data\\obj\\",
+      "outputPath": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3560,8 +3560,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01\\src\\TipsAndTricks\\TatBlog.Core\\TatBlog.Core.csproj": {
-              "projectPath": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01\\src\\TipsAndTricks\\TatBlog.Core\\TatBlog.Core.csproj"
+            "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.Core\\TatBlog.Core.csproj": {
+              "projectPath": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.Core\\TatBlog.Core.csproj"
             }
           }
         }
