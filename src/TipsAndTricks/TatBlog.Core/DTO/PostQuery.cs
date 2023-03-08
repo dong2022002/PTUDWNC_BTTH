@@ -9,11 +9,12 @@ namespace TatBlog.Core.DTO
 {
     public class PostQuery
     {
-        public int AuthorId { get; set; }
-        public int CatgoryId { get; set; }
+        public string Keyword { get; set; }
+        public string AuthorSlug { get; set; }
+        public string CategorySlug { get; set; }
         public int MonthPost { get; set; }
         public int YearPost { get; set; }
-        public int TagId { get; set; }
+        public string TagSlug { get; set; }
         public int Count { get; set; }
         public bool PublishedOnly { get; set; }
     }

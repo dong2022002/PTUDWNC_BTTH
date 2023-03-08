@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TatBlog.Core.Contracts;
 using TatBlog.Core.DTO;
+using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
 
 namespace TatBlog.WebApp.Controllers
@@ -13,26 +15,32 @@ namespace TatBlog.WebApp.Controllers
             _blogRepository = blogRepository;
         }
         public async Task<IActionResult> Index(
+            [FromQuery(Name ="k")] string keyword =null,
             [FromQuery(Name ="p")] int pageNumber =1,
-            [FromQuery(Name ="ps")] int pageSize =10)
+            [FromQuery(Name ="ps")] int pageSize =3)
         {
             var postQuery = new PostQuery()
             {
                 PublishedOnly = true,
+                Keyword = keyword
             };
-            var tagList = await _blogRepository
-                .GetTagItemListAsync();
+
 
             var postsList = await _blogRepository
                 .GetPagedPostsAsync(postQuery, pageNumber, pageSize);
+            postsList = SearchPostList(postsList, keyword);
 
             ViewBag.PostQuery = postQuery;
 
             return View(postsList);
         }
 
+		private IPagedList<Post> SearchPostList(IPagedList<Post> postsList, string keyword)
+		{
+            return (IPagedList<Post>)postsList.Where(p => p.Tags.Any(t => keyword.Contains(t.Name, StringComparison.OrdinalIgnoreCase)));  
+		}
 
-        public IActionResult About() => View();
+		public IActionResult About() => View();
         public IActionResult Contact() => View();
         public IActionResult Rss() => Content("Nội dung sẽ được cập nhật");
 

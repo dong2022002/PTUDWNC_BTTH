@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -257,13 +258,14 @@ namespace TatBlog.Services.Blogs
         public async Task<IPagedList<Post>> GetPagedPostsAsync(
              PostQuery condition,
              int pageNumber = 1,
-             int pageSize = 10,
+             int pageSize = 2,
              CancellationToken cancellationToken = default)
         {
             return await FilterPosts(condition).ToPagedListAsync(
                 pageNumber, pageSize,
                 nameof(Post.PostedDate), "DESC",
                 cancellationToken);
+     
         }
 
         public async Task<IPagedList<Post>> GetPagedListPostFromPostQueryAsync(
@@ -399,21 +401,24 @@ namespace TatBlog.Services.Blogs
 
         #endregion
         private IQueryable<Post> FilterPosts(PostQuery query)
-        {
-            return _context.Set<Post>()
-                    .Include(a => a.Author)
-                    .Include(c => c.Category)
-                    .Include(t => t.Tags)
-                        .Where(p => (p.AuthorId == query.AuthorId || query.AuthorId == 0) &&
-                        (p.CategoryId == query.CatgoryId || query.CatgoryId == 0) &&
-                        (p.PostedDate.Month == query.MonthPost || query.MonthPost == 0) &&
-                        (p.PostedDate.Year == query.YearPost || query.YearPost == 0) &&
-                        (p.Tags.Any(t => t.Id == query.TagId) || query.TagId == 0) &&
-                        (p.Published == query.PublishedOnly ) );
-          
-        }
+		{
 
-       
-    }
+
+			return  _context.Set<Post>()
+					.Include(a => a.Author)
+					.Include(c => c.Category)
+					.Include(t => t.Tags)
+						.Where(p =>
+                        (p.Author.UrlSlug == query.AuthorSlug || query.AuthorSlug.IsNullOrEmpty()) &&
+						(p.Category.UrlSlug == query.CategorySlug || query.CategorySlug.IsNullOrEmpty() &&
+						(p.PostedDate.Month == query.MonthPost || query.MonthPost == 0) &&
+						(p.PostedDate.Year == query.YearPost || query.YearPost == 0) &&
+                        (p.Published == query.PublishedOnly)));
+
+		}
+
+		
+
+	}
 }
 
