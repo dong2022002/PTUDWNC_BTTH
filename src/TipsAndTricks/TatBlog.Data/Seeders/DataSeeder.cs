@@ -83,7 +83,7 @@ namespace TatBlog.Data.Seeders
                 new() { Name = "Architeture", Description = "Architecture", UrlSlug = "architecture", ShowOnMenu = true },
                 new() { Name = "Messaging", Description = "Messaging", UrlSlug = "messaging", ShowOnMenu = true },
                 new() { Name = "OOP", Description = "Object-Oriented Program", UrlSlug = "oop", ShowOnMenu = true },
-                new() { Name = "Desgin Patters", Description = "Desgin Patters", UrlSlug = "desgin-patters", ShowOnMenu = true },
+                new() { Name = "Design Patters", Description = "Design Patters", UrlSlug = "design-patters", ShowOnMenu = true },
                 new() { Name = "Java", Description = "Java", UrlSlug = "java" },
                 new() { Name = "C#", Description = "C#", UrlSlug = "c-sharp"  },
                 new() { Name = "Javascript", Description = "Javascript", UrlSlug = "javascript" },

@@ -400,20 +400,42 @@ namespace TatBlog.Services.Blogs
 
 
         #endregion
-        private IQueryable<Post> FilterPosts(PostQuery query)
+        private  IQueryable<Post> FilterPosts(PostQuery query)
 		{
-
-
-			return  _context.Set<Post>()
-					.Include(a => a.Author)
-					.Include(c => c.Category)
-					.Include(t => t.Tags)
-						.Where(p =>
-                        (p.Author.UrlSlug == query.AuthorSlug || query.AuthorSlug.IsNullOrEmpty()) &&
-						(p.Category.UrlSlug == query.CategorySlug || query.CategorySlug.IsNullOrEmpty() &&
-						(p.PostedDate.Month == query.MonthPost || query.MonthPost == 0) &&
-						(p.PostedDate.Year == query.YearPost || query.YearPost == 0) &&
-                        (p.Published == query.PublishedOnly)));
+            IQueryable<Post> result;
+            result = _context.Set<Post>()
+				.Include(a => a.Author)
+				.Include(a => a.Category)
+				.Include(a => a.Tags)
+				.Where(p =>
+				        ((p.PostedDate.Month == query.MonthPost) || query.MonthPost == 0) &&
+						((p.PostedDate.Year == query.YearPost )|| query.YearPost == 0) &&
+						(p.Published == query.PublishedOnly));
+            if (!query.AuthorSlug.IsNullOrEmpty())
+            {
+				result = result
+					 .Where(p =>
+					 (p.Author.UrlSlug == query.AuthorSlug));
+			}
+            if (!query.CategorySlug.IsNullOrEmpty())
+            {
+				result = result
+				         .Where(p =>
+					        (p.Category.UrlSlug == query.CategorySlug));
+			}
+            if (!query.TagSlug.IsNullOrEmpty())
+            {
+				result = result
+						 .Where(p =>
+							(p.Tags.Any(t=> t.UrlSlug.Equals(query.TagSlug))));
+			}
+			if (!query.Keyword.IsNullOrEmpty())
+			{
+				result = result
+						 .Where(p =>
+							(p.Tags.Any(t => t.Name.Contains(query.Keyword))));
+			}
+			 return result;
 
 		}
 
