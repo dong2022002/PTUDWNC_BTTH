@@ -13,12 +13,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\fonts\" />
-    <Folder Include="Controllers\lib\" />
-    <Folder Include="Controllers\templates\emails\" />
-    <Folder Include="Controllers\uploads\pictures\" />
+    <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\templates\emails\" />
+    <Folder Include="wwwroot\uploads\pictures\" />
     <Folder Include="Models\" />
-    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\main.css" />
+    <None Include="wwwroot\images\author.jpg" />
+    <None Include="wwwroot\images\bg_1.jpg" />
+    <None Include="wwwroot\images\image_1.jpg" />
+    <None Include="wwwroot\images\image_2.jpg" />
+    <None Include="wwwroot\images\image_3.jpg" />
+    <None Include="wwwroot\images\image_4.jpg" />
+    <None Include="wwwroot\images\image_5.jpg" />
+    <None Include="wwwroot\images\image_6.jpg" />
+    <None Include="wwwroot\images\image_7.jpg" />
+    <None Include="wwwroot\images\person_1.jpg" />
+    <None Include="wwwroot\images\person_2.jpg" />
+    <None Include="wwwroot\images\person_4.jpg" />
+    <None Include="wwwroot\js\main.js" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,62 @@
 {
   "Files": [
     {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\css\\main.css",
+      "PackagePath": "staticwebassets\\css\\main.css"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\author.jpg",
+      "PackagePath": "staticwebassets\\images\\author.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\bg_1.jpg",
+      "PackagePath": "staticwebassets\\images\\bg_1.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\image_1.jpg",
+      "PackagePath": "staticwebassets\\images\\image_1.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\image_2.jpg",
+      "PackagePath": "staticwebassets\\images\\image_2.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\image_3.jpg",
+      "PackagePath": "staticwebassets\\images\\image_3.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\image_4.jpg",
+      "PackagePath": "staticwebassets\\images\\image_4.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\image_5.jpg",
+      "PackagePath": "staticwebassets\\images\\image_5.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\image_6.jpg",
+      "PackagePath": "staticwebassets\\images\\image_6.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\image_7.jpg",
+      "PackagePath": "staticwebassets\\images\\image_7.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\person_1.jpg",
+      "PackagePath": "staticwebassets\\images\\person_1.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\person_2.jpg",
+      "PackagePath": "staticwebassets\\images\\person_2.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\images\\person_4.jpg",
+      "PackagePath": "staticwebassets\\images\\person_4.jpg"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\js\\main.js",
+      "PackagePath": "staticwebassets\\js\\main.js"
+    },
+    {
       "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\Lab01_TranDieuDong_2014446\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
