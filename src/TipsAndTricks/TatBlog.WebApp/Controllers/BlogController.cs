@@ -28,18 +28,14 @@ namespace TatBlog.WebApp.Controllers
 
             var postsList = await _blogRepository
                 .GetPagedPostsAsync(postQuery, pageNumber, pageSize);
-            postsList = SearchPostList(postsList, keyword);
+        
 
             ViewBag.PostQuery = postQuery;
 
             return View(postsList);
         }
 
-		private IPagedList<Post> SearchPostList(IPagedList<Post> postsList, string keyword)
-		{
-            return (IPagedList<Post>)postsList.Where(p => p.Tags.Any(t => keyword.Contains(t.Name, StringComparison.OrdinalIgnoreCase)));  
-		}
-
+		
 		public IActionResult About() => View();
         public IActionResult Contact() => View();
         public IActionResult Rss() => Content("Nội dung sẽ được cập nhật");
