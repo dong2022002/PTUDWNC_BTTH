@@ -254,14 +254,16 @@ namespace TatBlog.Services.Blogs
             return await catQuery
                 .ToPagedListAsync(pagingParams, cancellationToken);
         }
-        public async Task<IPagedList<Post>> GetPagedPostAsync(
-             IPagingParams pagingParams,
+        public async Task<IPagedList<Post>> GetPagedPostsAsync(
+             PostQuery condition,
+             int pageNumber = 1,
+             int pageSize = 10,
              CancellationToken cancellationToken = default)
         {
-            var postQuery = _context.Set<Post>();
-               
-            return await postQuery
-                .ToPagedListAsync(pagingParams, cancellationToken);
+            return await FilterPosts(condition).ToPagedListAsync(
+                pageNumber, pageSize,
+                nameof(Post.PostedDate), "DESC",
+                cancellationToken);
         }
 
         public async Task<IPagedList<Post>> GetPagedListPostFromPostQueryAsync(
@@ -269,7 +271,7 @@ namespace TatBlog.Services.Blogs
                PostQuery query,
                CancellationToken cancellationToken = default)
         {
-            var postQuery = postQueryable(query);
+            var postQuery = FilterPosts(query);
             return await postQuery
                 .ToPagedListAsync(pagingParams, cancellationToken);
         }
@@ -281,7 +283,7 @@ namespace TatBlog.Services.Blogs
 
              CancellationToken cancellationToken = default)
         {
-            var postQuery = postQueryable(query);
+            var postQuery = FilterPosts(query);
 
             return await mapper(postQuery)
                  .ToPagedListAsync(pagingParams, cancellationToken);
@@ -386,7 +388,7 @@ namespace TatBlog.Services.Blogs
             PostQuery query, CancellationToken cancellationToken = default)
         {
             query.Count = 0;
-            IQueryable<Post> data = postQueryable(query);
+            IQueryable<Post> data = FilterPosts(query);
 
             query.Count = await data.CountAsync(cancellationToken);
             return await data.ToListAsync(cancellationToken);
@@ -396,16 +398,19 @@ namespace TatBlog.Services.Blogs
 
 
         #endregion
-        private IQueryable<Post> postQueryable(PostQuery query)
+        private IQueryable<Post> FilterPosts(PostQuery query)
         {
             return _context.Set<Post>()
                     .Include(a => a.Author)
                     .Include(c => c.Category)
+                    .Include(t => t.Tags)
                         .Where(p => (p.AuthorId == query.AuthorId || query.AuthorId == 0) &&
                         (p.CategoryId == query.CatgoryId || query.CatgoryId == 0) &&
                         (p.PostedDate.Month == query.MonthPost || query.MonthPost == 0) &&
                         (p.PostedDate.Year == query.YearPost || query.YearPost == 0) &&
-                        (p.Tags.Any(t => t.Id == query.TagId) || query.TagId == 0));
+                        (p.Tags.Any(t => t.Id == query.TagId) || query.TagId == 0) &&
+                        (p.Published == query.PublishedOnly ) );
+          
         }
 
        

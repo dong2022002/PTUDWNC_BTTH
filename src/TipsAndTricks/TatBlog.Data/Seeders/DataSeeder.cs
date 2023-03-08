@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
 
-namespace TatBlog.Core.Seeders
+namespace TatBlog.Data.Seeders
 {
-    public class DataSeeder : Data.Seeders.IDataSeeder
+    public class DataSeeder : IDataSeeder
     {
         private readonly BlogDbContext _dbContext;
 

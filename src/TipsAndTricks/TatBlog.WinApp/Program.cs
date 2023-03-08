@@ -6,12 +6,12 @@ using TatBlog.Data.Contexts;
 using TatBlog.Services.Blogs;
 using TatBlog.WinApp;
 
-var context = new BlogDbContext();
+//var context = new BlogDbContext();
 
-var seeder = new DataSeeder(context);
+//var seeder = new DataSeeder(context);
 
 
-seeder.Initialize();
+//seeder.Initialize();
 
 //var authors = context.Authors.ToList();
 
@@ -37,7 +37,7 @@ seeder.Initialize();
 //    .ToList();
 
 
-IBlogRepository blogRepo = new BlogRepository(context);
+//IBlogRepository blogRepo = new BlogRepository(context);
 
 //var posts = await blogRepo.GetPopularArticlesAsync(3);
 //var posts = await blogRepo.GetPostsRandomAsync(3);
@@ -58,24 +58,24 @@ var pangingParams = new PagingParams
 };
 
 
-var posts = await blogRepo.GetPagedListPostFromQueryableAsync(
-    pangingParams,
-    p =>
-    p.Select(x => new PostCustom()
-    {
-        Id = x.Id,
-        Title = x.Title,
-        AuthorId = x.AuthorId,
-        Description = x.Description,
-    }),
-    queryPost
-    );
+//var posts = await blogRepo.GetPagedListPostFromQueryableAsync(
+//    pangingParams,
+//    p =>
+//    p.Select(x => new PostCustom()
+//    {
+//        Id = x.Id,
+//        Title = x.Title,
+//        AuthorId = x.AuthorId,
+//        Description = x.Description,
+//    }),
+//    queryPost
+//    );
     
 
-foreach (var item in posts)
-{
-    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Title, item.AuthorId);
-}
+//foreach (var item in posts)
+//{
+//    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Title, item.AuthorId);
+//}
 
 
 //foreach (var post in posts)
@@ -103,7 +103,7 @@ foreach (var item in posts)
 //    Console.WriteLine("{0,-5}{1,-50}{2,10}", item.Id, item.Name, item.PostCount);
 //}
 
-var tag = await blogRepo.GetTagFromSlugAsync("google-application");
+//var tag = await blogRepo.GetTagFromSlugAsync("google-application");
 //var tag = await blogRepo.GetTagFromSlugAsync("netural-network");
 ////var tag = await blogRepo.GetTagFromSlugAsync("123");
 //Console.WriteLine("{0,-5}{1,-50}{2,10}", "ID", "Name", "Description");

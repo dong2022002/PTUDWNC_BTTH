@@ -10,9 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 	builder.Services.AddDbContext<BlogDbContext>(options =>
 		options.UseSqlServer(
 				builder.Configuration.GetConnectionString("DefaultConnection")));
-
-	builder.Services.AddScoped<IBlogRepository,BlogRepository>();
-	builder.Services.AddScoped<IDataSeeder,IDataSeeder>();
+	builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+	builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 }
 
 var app = builder.Build();
@@ -40,10 +39,10 @@ var app = builder.Build();
 
 	
 }
-using (var scope = app.Services.CreateScope())
-{
-	var seeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
-	seeder.Initialize();
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//	var seeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
+//	seeder.Initialize();
+//}
 app.Run();
 

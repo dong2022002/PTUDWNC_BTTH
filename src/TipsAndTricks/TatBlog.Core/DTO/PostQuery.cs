@@ -15,5 +15,6 @@ namespace TatBlog.Core.DTO
         public int YearPost { get; set; }
         public int TagId { get; set; }
         public int Count { get; set; }
+        public bool PublishedOnly { get; set; }
     }
 }
