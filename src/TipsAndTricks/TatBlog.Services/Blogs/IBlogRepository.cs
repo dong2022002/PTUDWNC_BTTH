@@ -73,11 +73,15 @@ namespace TatBlog.Services.Blogs
             int month,
             CancellationToken cancellationToken= default);
 
-        Task<IPagedList<Post>> GetPagedPostAsync(
-            IPagingParams pagingParams,
-            CancellationToken cancellationToken = default);
 
-        Task<IPagedList<T>> GetPagedListPostFromQueryableAsync<T>(
+        Task<IPagedList<Post>> GetPagedPostsAsync(
+           PostQuery condition,
+           int pageNumber = 1,
+           int pageSize = 10,
+           CancellationToken cancellationToken = default);
+
+
+		Task<IPagedList<T>> GetPagedListPostFromQueryableAsync<T>(
               IPagingParams pagingParams,
               Func<IQueryable<Post>,IQueryable<T>> mapper,
               PostQuery query,
