@@ -15,6 +15,8 @@ namespace TatBlog.WebApp.Controllers
         {
             _blogRepository = blogRepository;
         }
+
+
         public async Task<IActionResult> Index(
             [FromQuery(Name ="k")] string keyword =null,
             [FromQuery(Name ="p")] int pageNumber =1,
@@ -109,6 +111,23 @@ namespace TatBlog.WebApp.Controllers
 			await _blogRepository.IncreaseViewCountAsync(post.Id);
 
 			return View(post);
+		}
+
+		public async Task<IActionResult> Archives(
+				int year,
+				int month)
+		{
+			var postQuery = new PostQuery()
+			{
+				PublishedOnly = true,
+				YearPost = year,
+				MonthPost = month
+			};
+			var postList = _blogRepository.GetPagedPostsAsync(postQuery);
+
+			ViewBag.PostQuery = postQuery;
+
+			return View(postList);
 		}
 
 
