@@ -16,22 +16,45 @@
 			</div>
 			<div class=" col-md-8">
 				<div class="card-body">
-					<h5 class="card-title"> 
-						@Model.Title
-					</h5>
+					<a  asp-controller="blog"
+						asp-action="post"
+						asp-route-year="@Model.PostedDate.Year"
+						asp-route-month="@Model.PostedDate.Month"
+						asp-route-day="@Model.PostedDate.Day"
+						asp-route-slug="@Model.UrlSlug"
+						class="text-decoration-none">
+						<h5 class="card-title">
+							@Model.Title
+						</h5>
+					</a>
+					
 					<p class="card-text">
 						<small class="text-muted">
 							Tác giả:
 						</small>
-						<span class="text-primary">
-							@Model.Author.FullName
-						</span>
+						<a	asp-controller="blog"
+							asp-action="author"
+							asp-route-slug="@Model.Author.UrlSlug"
+							class="text-decoration-none">
+							<span class="text-primary">
+
+								@Model.Author.FullName
+							</span>
+						</a	>
+						
 						<small class="text-muted">
 							Chủ đề:
 						</small>
-						<span class="text-primary">
-							@Model.Category.Name
-						</span>
+						<a	asp-controller="blog"
+							asp-action="category"
+							asp-route-slug="@Model.Category.UrlSlug"
+							class="text-decoration-none">
+							<span class="text-primary">
+
+								@Model.Category.Name
+							</span>
+						</a>
+						
 					</p>
 					<p class="card-text">
 						@Html.Raw(Model.ShortDescription)
@@ -41,8 +64,8 @@
 					</div>
 
 					<div class="text-end">
-						<a asp-controller="Blog"
-							asp-action="Post"
+						<a asp-controller="blog"
+							asp-action="post"
 							asp-route-year="@Model.PostedDate.Year"
 							asp-route-month="@Model.PostedDate.Month"
 							asp-route-day="@Model.PostedDate.Day"
