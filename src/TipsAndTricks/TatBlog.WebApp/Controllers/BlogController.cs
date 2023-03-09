@@ -3,6 +3,7 @@ using TatBlog.Core.Contracts;
 using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
+using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace TatBlog.WebApp.Controllers
 {
@@ -32,6 +33,26 @@ namespace TatBlog.WebApp.Controllers
 
             ViewBag.PostQuery = postQuery;
 
+            return View(postsList);
+        }
+        public async Task<IActionResult> Category(
+			[FromRoute(Name = "slug")] string catslug = null,
+			[FromQuery(Name = "p")] int pageNumber = 1,
+			[FromQuery(Name = "ps")] int pageSize = 3
+			)
+		{
+			var postQuery = new PostQuery()
+			{
+				PublishedOnly = true,
+				CategorySlug = catslug
+			};
+            var postsList = await _blogRepository
+                .GetPagedPostsAsync(postQuery, pageNumber, pageSize);
+            ViewBag.PostQuery = postQuery;
+            var cat = await _blogRepository
+                .GetCategoryFromSlugAsync(catslug);
+
+			ViewBag.NameCat = cat.Name?? "Không tìm thấy chủ đề";
             return View(postsList);
         }
 

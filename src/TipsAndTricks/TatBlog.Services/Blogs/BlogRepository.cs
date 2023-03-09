@@ -402,11 +402,13 @@ namespace TatBlog.Services.Blogs
         #endregion
         private  IQueryable<Post> FilterPosts(PostQuery query)
 		{
-            IQueryable<Post> result;
-            result = _context.Set<Post>()
-				.Include(a => a.Author)
-				.Include(a => a.Category)
-				.Include(a => a.Tags)
+            var posts = _context.Set<Post>()
+                .Include(a => a.Author)
+                .Include(a => a.Category)
+                .Include(a => a.Tags);
+
+			IQueryable<Post> result;
+            result = posts
 				.Where(p =>
 				        ((p.PostedDate.Month == query.MonthPost) || query.MonthPost == 0) &&
 						((p.PostedDate.Year == query.YearPost )|| query.YearPost == 0) &&
