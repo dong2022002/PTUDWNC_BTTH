@@ -18,7 +18,7 @@ namespace TatBlog.WebApp.Controllers
         public async Task<IActionResult> Index(
             [FromQuery(Name ="k")] string keyword =null,
             [FromQuery(Name ="p")] int pageNumber =1,
-            [FromQuery(Name ="ps")] int pageSize =3)
+            [FromQuery(Name ="ps")] int pageSize =5)
         {
             var postQuery = new PostQuery()
             {
@@ -38,7 +38,7 @@ namespace TatBlog.WebApp.Controllers
         public async Task<IActionResult> Category(
 			[FromRoute(Name = "slug")] string catslug = null,
 			[FromQuery(Name = "p")] int pageNumber = 1,
-			[FromQuery(Name = "ps")] int pageSize = 3
+			[FromQuery(Name = "ps")] int pageSize = 5
 			)
 		{
 			var postQuery = new PostQuery()
@@ -55,8 +55,49 @@ namespace TatBlog.WebApp.Controllers
 			ViewBag.NameCat = cat.Name?? "Không tìm thấy chủ đề";
             return View(postsList);
         }
+		public async Task<IActionResult> Author(
+		   [FromRoute(Name = "slug")] string authorSlug = null,
+		   [FromQuery(Name = "p")] int pageNumber = 1,
+		   [FromQuery(Name = "ps")] int pageSize = 5
+		   )
+		{
+			var postQuery = new PostQuery()
+			{
+				PublishedOnly = true,
+				AuthorSlug = authorSlug
+			};
+			var postsList = await _blogRepository
+				.GetPagedPostsAsync(postQuery, pageNumber, pageSize);
+			ViewBag.PostQuery = postQuery;
+			var author = await _blogRepository
+				.GetAuthorFromSlugAsync(authorSlug);
 
-		
+			ViewBag.NameAuthor = author.FullName;
+			return View(postsList);
+		}
+
+		public async Task<IActionResult> Tag(
+		   [FromRoute(Name = "slug")] string tagSlug = null,
+		   [FromQuery(Name = "p")] int pageNumber = 1,
+		   [FromQuery(Name = "ps")] int pageSize = 5
+		   )
+		{
+			var postQuery = new PostQuery()
+			{
+				PublishedOnly = true,
+				TagSlug = tagSlug
+			};
+			var postsList = await _blogRepository
+				.GetPagedPostsAsync(postQuery, pageNumber, pageSize);
+			ViewBag.PostQuery = postQuery;
+			var tag = await _blogRepository
+				.GetTagFromSlugAsync(tagSlug);
+
+			ViewBag.NameTag = tag.Name;
+			return View(postsList);
+		}
+
+
 		public IActionResult About() => View();
         public IActionResult Contact() => View();
         public IActionResult Rss() => Content("Nội dung sẽ được cập nhật");

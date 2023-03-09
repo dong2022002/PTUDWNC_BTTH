@@ -2,7 +2,7 @@
 @{
 	ViewData["PageTitle"] = "Chủ đề";
 
-	var nameCat = (ViewBag.NameCat as string);
+	var nameCat = (ViewBag.NameCat as string) ?? "Không tìm thấy chủ đề";
 }
 
 <div class="p-4">

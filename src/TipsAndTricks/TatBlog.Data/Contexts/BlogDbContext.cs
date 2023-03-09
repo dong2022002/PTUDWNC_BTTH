@@ -17,9 +17,9 @@ namespace TatBlog.Data.Contexts
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Subscriber> Subscribers { get; set; }
 
-        public BlogDbContext(DbContextOptions<BlogDbContext> options):base(options)
+        public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
         {
-            
+
         }
 
         //protected override void OnConfiguring(

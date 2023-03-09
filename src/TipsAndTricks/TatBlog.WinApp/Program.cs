@@ -1,7 +1,7 @@
 ﻿
 using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
-using TatBlog.Core.Seeders;
+//using TatBlog.Core.Seeders;
 using TatBlog.Data.Contexts;
 using TatBlog.Services.Blogs;
 using TatBlog.WinApp;

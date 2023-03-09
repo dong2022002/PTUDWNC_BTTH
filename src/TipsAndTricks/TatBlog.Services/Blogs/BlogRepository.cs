@@ -441,8 +441,14 @@ namespace TatBlog.Services.Blogs
 
 		}
 
-		
-
+		public async Task<Author> GetAuthorFromSlugAsync(
+            string slug, 
+            CancellationToken cancellationToken = default)
+		{
+			return await _context.Set<Author>()
+			  .Where(t => t.UrlSlug == slug)
+			  .FirstOrDefaultAsync(cancellationToken);
+		}
 	}
 }
 
