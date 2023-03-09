@@ -41,6 +41,7 @@ namespace TatBlog.Services.Blogs
 		Task<Author> GetAuthorFromSlugAsync(
 			string slug,
 			CancellationToken cancellationToken = default);
+         Task<IList<AuthorItem>> GetAuthorsAsync(CancellationToken cancellationToken = default);
 
 		Task<Category> GetCategoryFromSlugAsync(
          string slug,
@@ -57,7 +58,7 @@ namespace TatBlog.Services.Blogs
             int id,
             CancellationToken token = default);
 
-        Task<int> AddUpdateCategoryAsync(
+        Task<Category> AddUpdateCategoryAsync(
             Category newTask,
             CancellationToken cancellationToken = default);
         Task<bool> IsCategoryNameExistedAsync(
@@ -72,12 +73,16 @@ namespace TatBlog.Services.Blogs
                IPagingParams pagingParams,
                CancellationToken cancellationToken = default);
 
-        Task<IList<DatePost>> CountPostMonth(
+        Task<IList<DatePost>> CountPostMonthAysnc(
             int month,
             CancellationToken cancellationToken= default);
 
+        Task<int> CountPostsAsync(
+        PostQuery condition, CancellationToken cancellationToken = default);
 
-        Task<IPagedList<Post>> GetPagedPostsAsync(
+
+
+		Task<IPagedList<Post>> GetPagedPostsAsync(
            PostQuery condition,
            int pageNumber = 1,
            int pageSize = 10,
@@ -92,17 +97,19 @@ namespace TatBlog.Services.Blogs
 
         #region post
 
-        Task<Post> GetPostFromIDAsync(
+        Task<Post> GetPostByIdAsync(
            int id,
-           CancellationToken cancellationToken = default);
+			bool includeDetails,
+		   CancellationToken cancellationToken = default);
 
-         Task<int> AddUpdatePostAsync(
-            Post newPost,
-            CancellationToken cancellationToken = default);
+         Task<Post> AddUpdatePostAsync(
+            Post post,
+			 IEnumerable<string> tags,
+			CancellationToken cancellationToken = default);
 
-        Task SetPublishedPostAsync(
+        Task<bool> SetPublishedPostAsync(
             bool isPuslished,
-            CancellationTokenSource cancellationToken = default);
+            CancellationToken cancellationToken = default);
 
         Task<IList<Post>> GetPostsRandomAsync(
             int number,
