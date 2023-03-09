@@ -459,7 +459,10 @@ namespace TatBlog.Services.Blogs
                 .Include(a => a.Category)
                 .Include(a => a.Tags);
 
-
+            if (query.TitleSlug != null)
+            {
+                posts = posts.Where(x => x.UrlSlug == query.TitleSlug);
+            }
             if (query.PublishedOnly)
             {
                 posts = posts.Where(x => x.Published);
@@ -528,8 +531,20 @@ namespace TatBlog.Services.Blogs
 			  .FirstOrDefaultAsync(cancellationToken);
 		}
 
-		
-		
+
+		public async Task<IList<Post>> GetFeaturePostAysnc(
+		  int numberPost,
+		  CancellationToken cancellationToken = default)
+        {
+
+            return await _context.Set<Post>()
+                .Include(x => x.Category)
+                .Include(x => x.Author)
+                .Include(x => x.Tags)
+                .OrderByDescending(x => x.ViewCount)
+                .Take(numberPost)
+                .ToListAsync(cancellationToken);
+		}
 
 	}
 }

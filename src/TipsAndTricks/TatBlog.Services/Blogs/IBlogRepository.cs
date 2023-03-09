@@ -114,6 +114,10 @@ namespace TatBlog.Services.Blogs
         Task<IList<Post>> GetPostsRandomAsync(
             int number,
             CancellationToken cancellationToken = default);
+
+        Task<IList<Post>> GetFeaturePostAysnc(
+            int numberPost,
+            CancellationToken cancellationToken = default);
         #endregion
 
         #region PostQuery
