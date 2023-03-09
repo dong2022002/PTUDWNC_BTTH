@@ -36,7 +36,7 @@ namespace TatBlog.WebApp.Controllers
             return View(postsList);
         }
         public async Task<IActionResult> Category(
-			[FromRoute(Name = "slug")] string catslug = null,
+			string slug,
 			[FromQuery(Name = "p")] int pageNumber = 1,
 			[FromQuery(Name = "ps")] int pageSize = 5
 			)
@@ -44,19 +44,19 @@ namespace TatBlog.WebApp.Controllers
 			var postQuery = new PostQuery()
 			{
 				PublishedOnly = true,
-				CategorySlug = catslug
+				CategorySlug = slug
 			};
             var postsList = await _blogRepository
                 .GetPagedPostsAsync(postQuery, pageNumber, pageSize);
             ViewBag.PostQuery = postQuery;
             var cat = await _blogRepository
-                .GetCategoryFromSlugAsync(catslug);
+                .GetCategoryFromSlugAsync(slug);
 
 			ViewBag.NameCat = cat.Name?? "Không tìm thấy chủ đề";
             return View(postsList);
         }
 		public async Task<IActionResult> Author(
-		   [FromRoute(Name = "slug")] string authorSlug = null,
+		   string slug,
 		   [FromQuery(Name = "p")] int pageNumber = 1,
 		   [FromQuery(Name = "ps")] int pageSize = 5
 		   )
@@ -64,20 +64,20 @@ namespace TatBlog.WebApp.Controllers
 			var postQuery = new PostQuery()
 			{
 				PublishedOnly = true,
-				AuthorSlug = authorSlug
+				AuthorSlug = slug
 			};
 			var postsList = await _blogRepository
 				.GetPagedPostsAsync(postQuery, pageNumber, pageSize);
 			ViewBag.PostQuery = postQuery;
 			var author = await _blogRepository
-				.GetAuthorFromSlugAsync(authorSlug);
+				.GetAuthorFromSlugAsync(slug);
 
 			ViewBag.NameAuthor = author.FullName;
 			return View(postsList);
 		}
 
 		public async Task<IActionResult> Tag(
-		   [FromRoute(Name = "slug")] string tagSlug = null,
+		   string slug,
 		   [FromQuery(Name = "p")] int pageNumber = 1,
 		   [FromQuery(Name = "ps")] int pageSize = 5
 		   )
@@ -85,13 +85,13 @@ namespace TatBlog.WebApp.Controllers
 			var postQuery = new PostQuery()
 			{
 				PublishedOnly = true,
-				TagSlug = tagSlug
+				TagSlug = slug
 			};
 			var postsList = await _blogRepository
 				.GetPagedPostsAsync(postQuery, pageNumber, pageSize);
 			ViewBag.PostQuery = postQuery;
 			var tag = await _blogRepository
-				.GetTagFromSlugAsync(tagSlug);
+				.GetTagFromSlugAsync(slug);
 
 			ViewBag.NameTag = tag.Name;
 			return View(postsList);
