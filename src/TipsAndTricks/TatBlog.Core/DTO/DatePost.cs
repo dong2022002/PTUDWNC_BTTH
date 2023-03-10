@@ -11,5 +11,12 @@ namespace TatBlog.Core.DTO
         public int Year { get; set; }
         public int Month { get; set; }
         public int PostCount { get; set; }
-    }
+		public string getAbbreviatedName()
+		{
+			DateTime date = new DateTime(2020, Month, 1);
+
+			return date.ToString("MMM");
+		}
+
+	}
 }

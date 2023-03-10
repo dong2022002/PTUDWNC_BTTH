@@ -10,12 +10,10 @@ namespace TatBlog.Services.Blogs
     public interface ISubscriberRepository
     {
 
-        Task SubscriberAsync(
-            int postId,
+        Task<bool> SubscriberAsync(
             string email,
             CancellationToken cancellationToken =default);
         Task UnSubscriberAsync(
-            int postId,
         string email,
         string reason,
         bool isVoluntary,
@@ -32,7 +30,7 @@ namespace TatBlog.Services.Blogs
         Task<Subscriber>  GetSubscriberByIdAsync(
           int id,
       CancellationToken cancellationToken = default);
-        Task<IList<Subscriber>> GetSubscriberByEmailAsync(
+        Task<Subscriber> GetSubscriberByEmailAsync(
       string email,
         CancellationToken cancellationToken = default);
     }

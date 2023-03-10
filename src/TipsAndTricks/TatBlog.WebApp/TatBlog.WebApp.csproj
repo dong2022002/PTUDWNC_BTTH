@@ -16,7 +16,6 @@
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\templates\emails\" />
     <Folder Include="wwwroot\uploads\pictures\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +33,10 @@
     <None Include="wwwroot\images\person_2.jpg" />
     <None Include="wwwroot\images\person_4.jpg" />
     <None Include="wwwroot\js\main.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="5.1.1" />
   </ItemGroup>
 
 </Project>

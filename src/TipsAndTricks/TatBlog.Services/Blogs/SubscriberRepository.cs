@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,11 +31,11 @@ namespace TatBlog.Services.Blogs
                 .ExecuteDeleteAsync(cancellationToken);
         }
 
-        public async Task<IList<Subscriber>> GetSubscriberByEmailAsync(string email, CancellationToken cancellationToken = default)
+        public async Task<Subscriber> GetSubscriberByEmailAsync(string email, CancellationToken cancellationToken = default)
         {
             return await _context.Set<Subscriber>()
                 .Where(s => s.Mail== email)
-                .ToListAsync(cancellationToken);
+                .FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<Subscriber> GetSubscriberByIdAsync(int id, CancellationToken cancellationToken = default)
@@ -44,27 +45,31 @@ namespace TatBlog.Services.Blogs
                 .FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task SubscriberAsync(int postId, string email, CancellationToken cancellationToken = default)
+        public async Task<bool> SubscriberAsync(string email, CancellationToken cancellationToken = default)
         {
+           var newEmail=  await GetSubscriberByEmailAsync (email, cancellationToken);
+            if (!(newEmail==null))
+            {
+                return false;
+            }
             _context.Subscribers.Add(new Subscriber
             {
                 Mail = email,
-                DateRegis = DateTime.Now,
-            });
+                DateRegis= DateTime.Now
+            }) ;
             await _context.SaveChangesAsync(cancellationToken);
+            return true;
         }
 
       
         public async Task UnSubscriberAsync(
-            int postId,
             string email,
             string reason,
             bool isVoluntary,
             CancellationToken cancellationToken = default)
         {
            await _context.Set<Subscriber>()
-                .Include(x => x.Post)
-               .Where(t => t.Mail == email && t.PostId == postId)
+               .Where(t => t.Mail == email)
                .ExecuteUpdateAsync(p =>
                p.SetProperty(p => p.IsUserUnFollow, isVoluntary)
                .SetProperty(p => p.Desc, reason)
