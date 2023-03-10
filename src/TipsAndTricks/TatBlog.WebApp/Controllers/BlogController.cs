@@ -123,7 +123,7 @@ namespace TatBlog.WebApp.Controllers
 				YearPost = year,
 				MonthPost = month
 			};
-			var postList = _blogRepository.GetPagedPostsAsync(postQuery);
+			var postList =await _blogRepository.GetPagedPostsAsync(postQuery);
 
 			ViewBag.PostQuery = postQuery;
 

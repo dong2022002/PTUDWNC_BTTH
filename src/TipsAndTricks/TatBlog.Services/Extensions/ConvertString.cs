@@ -27,5 +27,7 @@ namespace TatBlog.Services.Extensions
 			byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
 			return System.Text.Encoding.ASCII.GetString(bytes);
 		}
+
+		
 	}
 }

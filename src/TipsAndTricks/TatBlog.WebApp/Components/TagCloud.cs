@@ -3,11 +3,11 @@ using TatBlog.Services.Blogs;
 
 namespace TatBlog.WebApp.Components
 {
-	public class TagsWidget : ViewComponent
+	public class TagCloud : ViewComponent
 	{
 		private readonly IBlogRepository _blogRepository;
 
-		public TagsWidget(IBlogRepository blogRepository)
+		public TagCloud(IBlogRepository blogRepository)
 		{
 			_blogRepository = blogRepository;
 		}

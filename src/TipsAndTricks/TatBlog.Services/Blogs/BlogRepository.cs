@@ -289,7 +289,7 @@ namespace TatBlog.Services.Blogs
 
 		#region Count
 		public async Task<IList<DatePost>> CountPostMonthAysnc(
-			int month,
+			int numberMonth,
 			CancellationToken cancellationToken = default)
 		{
 			var now = DateTime.Now;
@@ -309,7 +309,7 @@ namespace TatBlog.Services.Blogs
 				})
 				.OrderByDescending(p => p.Year)
 				.ThenByDescending(p => p.Month)
-				.Take(month)
+				.Take(numberMonth)
 				.ToListAsync(cancellationToken);
 
 
