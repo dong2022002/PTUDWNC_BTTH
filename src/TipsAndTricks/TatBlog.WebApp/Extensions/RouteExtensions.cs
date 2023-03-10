@@ -6,6 +6,12 @@
 		public static IEndpointRouteBuilder UseBlogRoutes(
 			this IEndpointRouteBuilder endpoint)
 		{
+
+			endpoint.MapControllerRoute(
+				name: "submit-email",
+				pattern: "Newsletter/Subscribe/{email}",
+				defaults: new { controller = "Newsletter", action = "Subcribe" });
+
 			endpoint.MapControllerRoute(
 				name: "posts-by-category",
 				pattern: "blog/category/{slug}",

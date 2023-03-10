@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,11 +31,11 @@ namespace TatBlog.Services.Blogs
                 .ExecuteDeleteAsync(cancellationToken);
         }
 
-        public async Task<IList<Subscriber>> GetSubscriberByEmailAsync(string email, CancellationToken cancellationToken = default)
+        public async Task<Subscriber> GetSubscriberByEmailAsync(string email, CancellationToken cancellationToken = default)
         {
             return await _context.Set<Subscriber>()
                 .Where(s => s.Mail== email)
-                .ToListAsync(cancellationToken);
+                .FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<Subscriber> GetSubscriberByIdAsync(int id, CancellationToken cancellationToken = default)
@@ -44,14 +45,20 @@ namespace TatBlog.Services.Blogs
                 .FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task SubscriberAsync(string email, CancellationToken cancellationToken = default)
+        public async Task<bool> SubscriberAsync(string email, CancellationToken cancellationToken = default)
         {
+           var newEmail=  await GetSubscriberByEmailAsync (email, cancellationToken);
+            if (!(newEmail==null))
+            {
+                return false;
+            }
             _context.Subscribers.Add(new Subscriber
             {
                 Mail = email,
-                DateRegis = DateTime.Now,
-            });
+                DateRegis= DateTime.Now
+            }) ;
             await _context.SaveChangesAsync(cancellationToken);
+            return true;
         }
 
       

@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Castle.Core.Smtp;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Net.Mail;
 using TatBlog.Data.Contexts;
 using TatBlog.Data.Seeders;
 using TatBlog.Services.Blogs;
@@ -25,6 +28,7 @@ namespace TatBlog.WebApp.Extensions
 									.GetConnectionString("DefaultConnection")));
 			builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 			builder.Services.AddScoped<IDataSeeder, DataSeeder>();
+			builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
 
 			return builder;
 
