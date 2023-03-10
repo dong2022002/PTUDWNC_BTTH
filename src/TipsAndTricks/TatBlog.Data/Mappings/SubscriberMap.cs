@@ -32,8 +32,6 @@ namespace TatBlog.Data.Mappings
 
             builder.Property(p => p.NoteAdmin)
              .HasMaxLength(5000);
-        
-
 
             builder.Property(p => p.IsUserUnFollow)
                .HasDefaultValue(null);

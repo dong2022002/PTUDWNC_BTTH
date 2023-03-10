@@ -205,12 +205,7 @@ namespace TatBlog.Data.Migrations
                         .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PostId");
 
                     b.ToTable("Subscriber", (string)null);
                 });
@@ -278,18 +273,6 @@ namespace TatBlog.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("TatBlog.Core.Entities.Subscriber", b =>
-                {
-                    b.HasOne("TatBlog.Core.Entities.Post", "Post")
-                        .WithMany("Subscribers")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Posts_Subcriber");
-
-                    b.Navigation("Post");
-                });
-
             modelBuilder.Entity("TatBlog.Core.Entities.Author", b =>
                 {
                     b.Navigation("Posts");
@@ -298,11 +281,6 @@ namespace TatBlog.Data.Migrations
             modelBuilder.Entity("TatBlog.Core.Entities.Category", b =>
                 {
                     b.Navigation("Posts");
-                });
-
-            modelBuilder.Entity("TatBlog.Core.Entities.Post", b =>
-                {
-                    b.Navigation("Subscribers");
                 });
 #pragma warning restore 612, 618
         }

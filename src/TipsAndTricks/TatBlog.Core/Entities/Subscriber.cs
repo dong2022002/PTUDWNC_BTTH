@@ -15,8 +15,5 @@ namespace TatBlog.Core.Entities
         public string Desc { get; set; }
         public bool IsUserUnFollow { get; set; }
         public string NoteAdmin { get; set; }
-        public int PostId { get; set; }
-        public Post Post { get; set; }
-
     }
 }

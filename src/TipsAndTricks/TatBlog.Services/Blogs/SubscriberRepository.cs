@@ -44,7 +44,7 @@ namespace TatBlog.Services.Blogs
                 .FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task SubscriberAsync(int postId, string email, CancellationToken cancellationToken = default)
+        public async Task SubscriberAsync(string email, CancellationToken cancellationToken = default)
         {
             _context.Subscribers.Add(new Subscriber
             {
@@ -56,15 +56,13 @@ namespace TatBlog.Services.Blogs
 
       
         public async Task UnSubscriberAsync(
-            int postId,
             string email,
             string reason,
             bool isVoluntary,
             CancellationToken cancellationToken = default)
         {
            await _context.Set<Subscriber>()
-                .Include(x => x.Post)
-               .Where(t => t.Mail == email && t.PostId == postId)
+               .Where(t => t.Mail == email)
                .ExecuteUpdateAsync(p =>
                p.SetProperty(p => p.IsUserUnFollow, isVoluntary)
                .SetProperty(p => p.Desc, reason)

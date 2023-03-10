@@ -22,11 +22,11 @@ namespace TatBlog.Data.Contexts
 
         }
 
-        //protected override void OnConfiguring(
-        //    DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(@"Server=MSI;Database=TatBlog;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True");
-        //}
+        protected override void OnConfiguring(
+            DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=MSI;Database=TatBlog;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True");
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(
