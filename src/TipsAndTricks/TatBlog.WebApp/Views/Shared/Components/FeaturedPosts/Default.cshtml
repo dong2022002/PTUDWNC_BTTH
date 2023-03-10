@@ -10,7 +10,7 @@
 			var imageUrl = string.IsNullOrWhiteSpace(item.ImageUrl)
 			? "/images/image_1.jpg"
 			: $"/{item.ImageUrl}";
-			<div class="mb-4"> 
+			<div class="mb-1"> 
 				
 					<a class="float-start text-decoration-none"
 						asp-controller="blog"
@@ -19,16 +19,16 @@
 					   asp-route-month="@item.PostedDate.Month"
 					   asp-route-day="@item.PostedDate.Day"
 					   asp-route-slug="@item.UrlSlug">
-					@*<div class="position-relative d-inline-block ">
+					<div class="d-flex align-items-center ">
 						<img class="media-object rounded" 
 							alt="64x64" 
 							style="width: 64px; height: 64px;" 
 							src="@imageUrl" 
 							data-holder-rendered="true">
-						<h6 class="text-decoration-none w-auto">
+						<h6 class="text-decoration-none w-auto m-4 ">
 							@item.Author.FullName
 						</h6>
-					</div>*@
+					</div>
 					
 					<h6 class="position-relative w-auto">
 						@item.Title
@@ -37,8 +37,10 @@
 						@item.ShortDescription
 					</div>
 				</a>
+				
 			</div>
-			<hr />
+			<hr/>
+			
 
 		}
        </div>
