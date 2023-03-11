@@ -1,0 +1,17 @@
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\bin\Debug\net6.0\TatBlog.Services.deps.json
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\bin\Debug\net6.0\TatBlog.Services.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\bin\Debug\net6.0\TatBlog.Services.pdb
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\bin\Debug\net6.0\TatBlog.Core.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\bin\Debug\net6.0\TatBlog.Data.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\bin\Debug\net6.0\TatBlog.Core.pdb
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\bin\Debug\net6.0\TatBlog.Data.pdb
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\obj\Debug\net6.0\TatBlog.Services.csproj.AssemblyReference.cache
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\obj\Debug\net6.0\TatBlog.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\obj\Debug\net6.0\TatBlog.Services.AssemblyInfoInputs.cache
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\obj\Debug\net6.0\TatBlog.Services.AssemblyInfo.cs
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\obj\Debug\net6.0\TatBlog.Services.csproj.CoreCompileInputs.cache
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\obj\Debug\net6.0\TatBlog.Services.csproj.CopyComplete
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\obj\Debug\net6.0\TatBlog.Services.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\obj\Debug\net6.0\refint\TatBlog.Services.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\obj\Debug\net6.0\TatBlog.Services.pdb
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.Services\obj\Debug\net6.0\ref\TatBlog.Services.dll
