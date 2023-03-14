@@ -228,6 +228,22 @@
         "fonts/fontawesome-webfont.woff2",
         "fonts/FontAwesome.otf"
       ]
+    },
+    {
+      "library": "speakingurl@14.0.1",
+      "destination": "wwwroot/lib/speakingurl/"
     }
+  ,
+{
+  "provider": "unpkg",
+  "library": "speakingurl@14.0.1",
+  "destination": "wwwroot/lib/speakingurl/",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "speakingurl.min.js"
   ]
+}
+]
 }

@@ -1,10 +1,12 @@
 ﻿using Castle.Core.Smtp;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Net;
 using System.Net.Mail;
 using TatBlog.Data.Contexts;
 using TatBlog.Data.Seeders;
 using TatBlog.Services.Blogs;
+using TatBlog.Services.Extensions;
 
 namespace TatBlog.WebApp.Extensions
 {
@@ -29,7 +31,7 @@ namespace TatBlog.WebApp.Extensions
 			builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 			builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 			builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
-
+			
 			return builder;
 
 		}
