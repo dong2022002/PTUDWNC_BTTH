@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using TatBlog.Core.DTO;
 using MapsterMapper;
 using TatBlog.Core.Entities;
+using TatBlog.Services.Media;
 
 namespace TatBlog.WebApp.Areas.Admin.Controllers
 {
@@ -12,14 +13,17 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 	{
 		private readonly IBlogRepository _blogRepository;
 		private readonly IMapper _mapper;
+		private readonly IMediaManager _mediaManager;
 
 
 		public PostsController(
+			IMediaManager mediaManager,
 			IBlogRepository blogRepository,
 			IMapper mapper)
         {
 			_blogRepository = blogRepository;
 			_mapper = mapper;
+			_mediaManager = mediaManager;
         }
   //      public async Task<IActionResult> Index(
 		//	PostFilterModel model)
@@ -79,7 +83,6 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 
 			var post = model.Id > 0
 				? await _blogRepository.GetPostByIdAsync(model.Id,false)
-			
 				: null;
 			
 			if (post == null)
@@ -95,6 +98,22 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 				post.Category = null;
 				post.ModifiedDate = DateTime.Now;
 			}
+			
+			if(model.ImageFile?.Length > 0)
+			{
+				var newImagePath = await _mediaManager.SaveFileAsync(
+					model.ImageFile.OpenReadStream(),
+					model.ImageFile.FileName,
+					model.ImageFile.ContentType);
+
+				if(!string.IsNullOrWhiteSpace(newImagePath))
+				{
+					await _mediaManager.DeleteFileAsync(post.ImageUrl);
+					post.ImageUrl = newImagePath;
+				}
+			}
+
+
 			await _blogRepository.AddUpdatePostAsync(
 				post, model.GetSelectedTags());
 			return RedirectToAction(nameof(Index));
