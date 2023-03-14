@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "cgLHPT4M+d0TsvTF1hloKkX6/oiEqaDxB3+8zP0baXkCdvFFCBsrIfrhw61qmrL3q74srL0TNQGw8EHKECyJFw==",
+  "dgSpecHash": "O/otkKqbW7q2MV41iXeUuz6zzcMwEBgavyX/bqQFzwYtlrNSp1xFF9V4Km/+X/XzjTwFy/228cIzR5NMh808Rw==",
   "success": true,
   "projectFilePath": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\TatBlog.WebApp.csproj",
   "expectedPackageFiles": [
@@ -184,7 +184,9 @@
     "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
+    "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\xunit.extensibility.core\\2.4.2\\xunit.extensibility.core.2.4.2.nupkg.sha512"
   ],
   "logs": []
 }

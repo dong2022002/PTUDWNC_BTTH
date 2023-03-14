@@ -50,24 +50,59 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 
 			return View(model);
 		}
-
-
-		private async Task PopulatePostFilterModelAsync(PostFilterModel model)
+		[HttpGet]
+		public async Task<IActionResult> Edit(int id =0)
 		{
-			var authors = await _blogRepository.GetAuthorsAsync();
+			var post = id >0
+				? await _blogRepository.GetPostByIdAsync(id,true)
+				: null;
+
+			var model = post == null
+				? new PostEditModel() 
+				: _mapper.Map<PostEditModel>(post);
+
+			await PopulatePostFilterModelAsync(model);
+
+			return View(model);
+
+		}
+
+
+		private async Task PopulatePostFilterModelAsync<T>(T model)
+		{
+          
+            var authors = await _blogRepository.GetAuthorsAsync();
 			var categories = await _blogRepository.GetCategoriesAsync();
-
-			model.AuthorList = authors.Select(a => new SelectListItem()
+			if (model is PostFilterModel)
 			{
-				Text = a.FullName,
-				Value = a.Id.ToString()
-			});
+				(model as PostFilterModel)!.AuthorList = authors.Select(a => new SelectListItem()
+				{
+					Text = a.FullName,
+					Value = a.Id.ToString()
+				});
 
-            model.CategoryList = categories.Select(a => new SelectListItem()
+				(model as PostFilterModel)!.CategoryList = categories.Select(a => new SelectListItem()
+				{
+					Text = a.Name,
+					Value = a.Id.ToString()
+				});
+			}
+            else if (model is PostEditModel)
             {
-                Text = a.Name,
-                Value = a.Id.ToString()
-            });
+				(model as PostEditModel)!.AuthorList = authors.Select(a => new SelectListItem()
+				{
+					Text = a.FullName,
+					Value = a.Id.ToString()
+				});
+
+				(model as PostEditModel)!.CategoryList = categories.Select(a => new SelectListItem()
+				{
+					Text = a.Name,
+					Value = a.Id.ToString()
+				});
+			}
+
         }
+		
 	}
 }

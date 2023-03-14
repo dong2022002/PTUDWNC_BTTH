@@ -31,6 +31,9 @@
       <script src="~/js/main.js" asp-append-version="true"></script>
 
       @await RenderSectionAsync("scripst",required: false)
-
+    @if (IsSectionDefined("scripts"))
+    {
+        RenderSection("scripts");
+    }
 </body>
 </html>
