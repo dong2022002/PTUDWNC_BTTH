@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MapsterMapper;
+using Microsoft.AspNetCore.Mvc;
 using TatBlog.Core.Contracts;
 using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
+using TatBlog.WebApp.Areas.Admin.Models;
 using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace TatBlog.WebApp.Controllers
@@ -11,9 +13,12 @@ namespace TatBlog.WebApp.Controllers
     {
         private readonly IBlogRepository _blogRepository;
 
-        public BlogController(IBlogRepository blogRepository)
+        public BlogController(
+			IBlogRepository blogRepository
+		)
         {
             _blogRepository = blogRepository;
+			
         }
 
 		[HttpGet]
@@ -38,7 +43,10 @@ namespace TatBlog.WebApp.Controllers
 
             return View(postsList);
         }
-        public async Task<IActionResult> Category(
+		
+	
+
+		public async Task<IActionResult> Category(
 			string slug,
 			[FromQuery(Name = "p")] int pageNumber = 1,
 			[FromQuery(Name = "ps")] int pageSize = 5

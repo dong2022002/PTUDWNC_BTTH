@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "goZd0XDb2nknB3GpPB+Hjn6Ug0kCVBqCeJDehArrS/QS8U4JOS+tNoz8PuKswQtpf3jPsWLIQoFe6wicD5OyFw==",
+  "dgSpecHash": "cgLHPT4M+d0TsvTF1hloKkX6/oiEqaDxB3+8zP0baXkCdvFFCBsrIfrhw61qmrL3q74srL0TNQGw8EHKECyJFw==",
   "success": true,
   "projectFilePath": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\TatBlog.WebApp.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,9 @@
     "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\mapster\\7.3.0\\mapster.7.3.0.nupkg.sha512",
+    "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\mapster.core\\1.2.0\\mapster.core.1.2.0.nupkg.sha512",
+    "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\mapster.dependencyinjection\\1.0.0\\mapster.dependencyinjection.1.0.0.nupkg.sha512",
     "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.11\\microsoft.aspnetcore.razor.language.6.0.11.nupkg.sha512",
     "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\TRAN DIEU DONG\\.nuget\\packages\\microsoft.build\\17.3.2\\microsoft.build.17.3.2.nupkg.sha512",
