@@ -11,13 +11,17 @@ namespace TatBlog.WebApp.Controllers
 {
     public class BlogController :Controller
     {
+        private readonly ILogger<BlogController> _logger;
         private readonly IBlogRepository _blogRepository;
 
         public BlogController(
-			IBlogRepository blogRepository
-		)
+			IBlogRepository blogRepository,
+            ILogger<BlogController> logger
+        )
         {
             _blogRepository = blogRepository;
+			_logger = logger;
+			_logger.LogDebug(1, "NLog injected into Blogcontroller");
 			
         }
 
@@ -28,6 +32,7 @@ namespace TatBlog.WebApp.Controllers
             [FromQuery(Name ="p")] int pageNumber =1,
             [FromQuery(Name ="ps")] int pageSize =5)
         {
+            _logger.LogInformation("Hello, this is the index!");
             var postQuery = new PostQuery()
             {
                 PublishedOnly = true,
@@ -114,8 +119,10 @@ namespace TatBlog.WebApp.Controllers
 				int month,
 				int day)
 		{
-			
-			var post = await _blogRepository
+            _logger.LogInformation("Hello, this is the Post!");
+
+
+            var post = await _blogRepository
 				.GetPostAsync(year, month, slug);
 			await _blogRepository.IncreaseViewCountAsync(post.Id);
 

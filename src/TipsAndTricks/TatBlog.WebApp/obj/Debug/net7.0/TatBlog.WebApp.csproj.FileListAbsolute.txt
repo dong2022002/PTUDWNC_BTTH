@@ -285,3 +285,7 @@ D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebA
 D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
 D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
 D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\obj\Debug\net7.0\TatBlog.WebApp.MvcApplicationPartsAssemblyInfo.cs
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\nlog.config
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\NLog.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\NLog.Extensions.Logging.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\NLog.Web.AspNetCore.dll

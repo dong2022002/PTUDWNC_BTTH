@@ -1,6 +1,7 @@
 ﻿using Castle.Core.Smtp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using NLog.Web;
 using System.Net;
 using System.Net.Mail;
 using TatBlog.Data.Contexts;
@@ -79,6 +80,14 @@ namespace TatBlog.WebApp.Extensions
 			
 			}
 			return app;
+		}
+		public static WebApplicationBuilder ConfigureNLog(
+			this WebApplicationBuilder builder)
+		{
+			builder.Logging.ClearProviders();
+			builder.Host.UseNLog();
+
+			return builder;
 		}
 	}
 }

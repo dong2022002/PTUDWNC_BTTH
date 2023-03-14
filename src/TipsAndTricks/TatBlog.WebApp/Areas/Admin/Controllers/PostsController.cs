@@ -18,14 +18,17 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		private readonly IMapper _mapper;
 		private readonly IMediaManager _mediaManager;
         private readonly IValidator<PostEditModel> _validator;
+		private readonly ILogger<PostsController> _logger;
 
 
         public PostsController(
+			ILogger<PostsController> logger,	
 			IValidator<PostEditModel> validator,
 			IMediaManager mediaManager,
 			IBlogRepository blogRepository,
 			IMapper mapper)
         {
+			_logger = logger;
 			_validator = validator;
 			_blogRepository = blogRepository;
 			_mapper = mapper;
@@ -53,11 +56,17 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		//}
 		public async Task<IActionResult> Index(PostFilterModel model)
 		{
+			_logger.LogInformation("Tạo điều kiện truy vấn");
 			var postQuery = _mapper.Map<PostQuery>(model);
 
-			ViewBag.PostsList = await _blogRepository
+            _logger.LogInformation("Lấy danh sách bài viết từ CSDL");
+
+            ViewBag.PostsList = await _blogRepository
 				.GetPagedPostsAsync(postQuery, 1, 10);
-			await PopulatePostFilterModelAsync(model);
+
+            _logger.LogInformation("Chuẩn bị dữ liệu cho ViewModel");
+
+            await PopulatePostFilterModelAsync(model);
 
 			return View(model);
 		}
