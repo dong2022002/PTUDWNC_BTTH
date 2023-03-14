@@ -861,8 +861,20 @@
       "PackagePath": "staticwebassets\\lib\\speakingurl\\speakingurl.min.js"
     },
     {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\uploads\\pictures\\31e9796b413c4d9ab98fac2468023cb7.png",
+      "PackagePath": "staticwebassets\\uploads\\pictures\\31e9796b413c4d9ab98fac2468023cb7.png"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\uploads\\pictures\\4feb02a8c94143c382b6cc68072b22e1.png",
+      "PackagePath": "staticwebassets\\uploads\\pictures\\4feb02a8c94143c382b6cc68072b22e1.png"
+    },
+    {
       "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\uploads\\pictures\\8a49e857ff8a4a3eb9fb654bf50cc475.png",
       "PackagePath": "staticwebassets\\uploads\\pictures\\8a49e857ff8a4a3eb9fb654bf50cc475.png"
+    },
+    {
+      "Id": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\uploads\\pictures\\a75e125dbe9b463f92eaa8e036c63b93.png",
+      "PackagePath": "staticwebassets\\uploads\\pictures\\a75e125dbe9b463f92eaa8e036c63b93.png"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.TatBlog.WebApp.Microsoft.AspNetCore.StaticWebAssets.props",

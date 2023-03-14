@@ -9,7 +9,7 @@ namespace TatBlog.Core.DTO
 {
     public class PostQuery
     {
-        public string? Keyword { get; set; }
+        public string Keyword { get; set; }
 
         public string TitleSlug { get; set; }
         public string AuthorSlug { get; set; }

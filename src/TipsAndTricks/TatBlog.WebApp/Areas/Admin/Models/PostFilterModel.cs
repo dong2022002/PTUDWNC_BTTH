@@ -5,16 +5,16 @@ namespace TatBlog.WebApp.Areas.Admin.Models
 {
     public class PostFilterModel
     {
-        public string keyword { get; set; }
+        public string? keyword { get; set; }
         public int? AuthorId { get; set; }
         public int? CategoryId { get; set; }
         public int? Year { get; set; }
         public int? Month { get; set; }
 
 
-        public IEnumerable<SelectListItem> AuthorList { get; set; }
+        public IEnumerable<SelectListItem>? AuthorList { get; set; }
 
-        public IEnumerable<SelectListItem> CategoryList { get; set; }
+        public IEnumerable<SelectListItem>? CategoryList { get; set; }
         public IEnumerable<SelectListItem> MonthList { get; set; }
 
         public PostFilterModel()

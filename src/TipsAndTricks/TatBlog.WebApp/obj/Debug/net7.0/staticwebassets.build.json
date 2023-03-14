@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Tep/xbFZsHbaSE4qVEX5ZfsihSTOn/VY6gu12tln1l4=",
+  "Hash": "IzyxUsXKviRSfEoW81yuhMFVntBXlvNMvISHDljDW/E=",
   "Source": "TatBlog.WebApp",
   "BasePath": "_content/TatBlog.WebApp",
   "Mode": "Default",
@@ -3672,6 +3672,40 @@
       "OriginalItemSpec": "wwwroot\\lib\\speakingurl\\speakingurl.min.js"
     },
     {
+      "Identity": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\uploads\\pictures\\31e9796b413c4d9ab98fac2468023cb7.png",
+      "SourceId": "TatBlog.WebApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\",
+      "BasePath": "_content/TatBlog.WebApp",
+      "RelativePath": "uploads/pictures/31e9796b413c4d9ab98fac2468023cb7.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\pictures\\31e9796b413c4d9ab98fac2468023cb7.png"
+    },
+    {
+      "Identity": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\uploads\\pictures\\4feb02a8c94143c382b6cc68072b22e1.png",
+      "SourceId": "TatBlog.WebApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\",
+      "BasePath": "_content/TatBlog.WebApp",
+      "RelativePath": "uploads/pictures/4feb02a8c94143c382b6cc68072b22e1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\pictures\\4feb02a8c94143c382b6cc68072b22e1.png"
+    },
+    {
       "Identity": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\uploads\\pictures\\8a49e857ff8a4a3eb9fb654bf50cc475.png",
       "SourceId": "TatBlog.WebApp",
       "SourceType": "Discovered",
@@ -3687,6 +3721,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\pictures\\8a49e857ff8a4a3eb9fb654bf50cc475.png"
+    },
+    {
+      "Identity": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\uploads\\pictures\\a75e125dbe9b463f92eaa8e036c63b93.png",
+      "SourceId": "TatBlog.WebApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\",
+      "BasePath": "_content/TatBlog.WebApp",
+      "RelativePath": "uploads/pictures/a75e125dbe9b463f92eaa8e036c63b93.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\pictures\\a75e125dbe9b463f92eaa8e036c63b93.png"
     }
   ]
 }

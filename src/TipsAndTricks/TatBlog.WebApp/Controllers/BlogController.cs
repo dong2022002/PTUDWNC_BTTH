@@ -24,7 +24,7 @@ namespace TatBlog.WebApp.Controllers
 		[HttpGet]
         public async Task<IActionResult> Index(
 			string input,
-            [FromQuery(Name ="k")] string keyword =null,
+            [FromQuery(Name ="k")] string keyword =null!,
             [FromQuery(Name ="p")] int pageNumber =1,
             [FromQuery(Name ="ps")] int pageSize =5)
         {

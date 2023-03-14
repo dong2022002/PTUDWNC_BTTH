@@ -281,3 +281,7 @@ D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebA
 D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\Mapster.DependencyInjection.dll
 D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\xunit.abstractions.dll
 D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\xunit.core.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\FluentValidation.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApp\obj\Debug\net7.0\TatBlog.WebApp.MvcApplicationPartsAssemblyInfo.cs
