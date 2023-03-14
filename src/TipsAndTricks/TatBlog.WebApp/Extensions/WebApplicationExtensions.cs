@@ -9,6 +9,7 @@ using TatBlog.Data.Seeders;
 using TatBlog.Services.Blogs;
 using TatBlog.Services.Extensions;
 using TatBlog.Services.Media;
+using TatBlog.WebApp.Middlewares;
 
 namespace TatBlog.WebApp.Extensions
 {
@@ -44,6 +45,7 @@ namespace TatBlog.WebApp.Extensions
 			if (app.Environment.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				
 			}
 			else
 			{
@@ -55,8 +57,10 @@ namespace TatBlog.WebApp.Extensions
 			app.UseHttpsRedirection();
 
 			app.UseStaticFiles();
+            app.UseRouting();
+            app.UseMiddleware<UserActivityMiddleware>();
 
-			app.UseRouting();
+            app.UseRouting();
 			return app;
 		}
 
