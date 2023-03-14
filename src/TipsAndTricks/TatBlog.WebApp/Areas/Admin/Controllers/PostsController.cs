@@ -4,6 +4,7 @@ using TatBlog.WebApp.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TatBlog.Core.DTO;
 using MapsterMapper;
+using TatBlog.Core.Entities;
 
 namespace TatBlog.WebApp.Areas.Admin.Controllers
 {
@@ -53,7 +54,8 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id =0)
 		{
-			var post = id >0
+            
+            var post = id >0
 				? await _blogRepository.GetPostByIdAsync(id,true)
 				: null;
 
@@ -66,9 +68,51 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			return View(model);
 
 		}
+		[HttpPost]
+		public async Task<IActionResult> Edit(PostEditModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				await PopulatePostFilterModelAsync(model);
+				return View(model);
+			}
 
+			var post = model.Id > 0
+				? await _blogRepository.GetPostByIdAsync(model.Id,false)
+			
+				: null;
+			
+			if (post == null)
+			{
+				post = _mapper.Map<Post>(model);
 
-		private async Task PopulatePostFilterModelAsync<T>(T model)
+				post.Id = 0;
+				post.PostedDate = DateTime.Now;
+			}
+			else
+			{
+				_mapper.Map(model, post);
+				post.Category = null;
+				post.ModifiedDate = DateTime.Now;
+			}
+			await _blogRepository.AddUpdatePostAsync(
+				post, model.GetSelectedTags());
+			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> VerifyPostSlug(
+			int id,string slug)
+		{ 
+			var slugExisted = await _blogRepository
+				.IsPostSlugExitedAsync(id, slug);
+
+			return slugExisted
+				? Json($"Slug '{slug}' đã được sử dụng")
+				: Json(true);
+		}
+
+            private async Task PopulatePostFilterModelAsync<T>(T model)
 		{
           
             var authors = await _blogRepository.GetAuthorsAsync();

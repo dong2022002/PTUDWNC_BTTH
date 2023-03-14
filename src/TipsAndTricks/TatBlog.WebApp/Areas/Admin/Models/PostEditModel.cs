@@ -40,17 +40,17 @@ namespace TatBlog.WebApp.Areas.Admin.Models
 		public string UrlSlug { get; set; }
 
 		[DisplayName("Chọn hình ảnh")]
-		public IFormFile ImageFile { get; set; }
+		public IFormFile? ImageFile { get; set; }
 
 		[DisplayName("Hình hiện tại")]
-		public string ImageUrl { get; set; }
+		public string? ImageUrl{ get; set; }
 
         public bool Puslished { get; set; }
         public int CategoryId { get; set; }
         public int AuthorId { get; set; }
-        public string SelectedTags { get; set; }
-        public IEnumerable<SelectListItem> AuthorList { get; set; }
-        public IEnumerable<SelectListItem> CategoryList { get; set; }
+        public string? SelectedTags { get; set; }
+        public IEnumerable<SelectListItem>? AuthorList { get; set; }
+        public IEnumerable<SelectListItem>? CategoryList { get; set; }
 
 		public List<string> GetSelectedTags()
 		{
