@@ -88,7 +88,6 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		}
 		[HttpPost]
 		public async Task<IActionResult> Edit(
-			//IValidator<PostEditModel> validator,
 			PostEditModel model)
 		{
 
