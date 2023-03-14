@@ -6,6 +6,9 @@ using TatBlog.Core.DTO;
 using MapsterMapper;
 using TatBlog.Core.Entities;
 using TatBlog.Services.Media;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using System;
 
 namespace TatBlog.WebApp.Areas.Admin.Controllers
 {
@@ -14,13 +17,16 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		private readonly IBlogRepository _blogRepository;
 		private readonly IMapper _mapper;
 		private readonly IMediaManager _mediaManager;
+        private readonly IValidator<PostEditModel> _validator;
 
 
-		public PostsController(
+        public PostsController(
+			IValidator<PostEditModel> validator,
 			IMediaManager mediaManager,
 			IBlogRepository blogRepository,
 			IMapper mapper)
         {
+			_validator = validator;
 			_blogRepository = blogRepository;
 			_mapper = mapper;
 			_mediaManager = mediaManager;
@@ -58,7 +64,6 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id =0)
 		{
-            
             var post = id >0
 				? await _blogRepository.GetPostByIdAsync(id,true)
 				: null;
@@ -73,8 +78,17 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 
 		}
 		[HttpPost]
-		public async Task<IActionResult> Edit(PostEditModel model)
+		public async Task<IActionResult> Edit(
+			//IValidator<PostEditModel> validator,
+			PostEditModel model)
 		{
+
+			var validationResult = await _validator.ValidateAsync(model);
+			if (!validationResult.IsValid)
+			{
+				validationResult.AddToModelState(ModelState);
+			}
+
 			if (!ModelState.IsValid)
 			{
 				await PopulatePostFilterModelAsync(model);
@@ -114,8 +128,8 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			}
 
 
-			await _blogRepository.AddUpdatePostAsync(
-				post, model.GetSelectedTags());
+			//await _blogRepository.AddUpdatePostAsync(
+			//	post, model.GetSelectedTags());
 			return RedirectToAction(nameof(Index));
 		}
 
