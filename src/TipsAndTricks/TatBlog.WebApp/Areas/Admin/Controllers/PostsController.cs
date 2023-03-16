@@ -34,14 +34,20 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			_mapper = mapper;
 			_mediaManager = mediaManager;
 		}
-
+	
 		public async Task<IActionResult> Index(
 			PostFilterModel model,
 			[FromQuery(Name = "p")] int pageNumber = 1,
-			[FromQuery(Name = "ps")] int pageSize = 5
-			)
+			[FromQuery(Name = "ps")] int pageSize = 5,
+			[FromRoute(Name = "id")]int postId = -1,
+			[FromRoute(Name = "isSetPublised")] bool isSetPublised = false,
+			[FromRoute(Name = "isDeletePost")] bool isDeletePost = false)
 		{
-			_logger.LogInformation("Tạo điều kiện truy vấn");
+            if (isSetPublised)
+            {
+				 await _blogRepository.SetPublishedPostAsync(postId);
+            }
+            _logger.LogInformation("Tạo điều kiện truy vấn");
 			var postQuery = _mapper.Map<PostQuery>(model);
 
 			_logger.LogInformation("Lấy danh sách bài viết từ CSDL");
@@ -75,7 +81,6 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		public async Task<IActionResult> Edit(
 			PostEditModel model)
 		{
-
 			var validationResult = await _validator.ValidateAsync(model);
 			if (!validationResult.IsValid)
 			{

@@ -8,28 +8,28 @@
 <h1>
 	Danh sách bài viết
 </h1>
-<partial name="_PostFilterPane" model ="Model" />
-@if	(postsList != null && postsList.Count > 0)
+<partial name="_PostFilterPane" model="Model" />
+@if (postsList != null && postsList.Count > 0)
 {
 	<table class="table table-responsive table-striped">
 		<thead>
-		<tr>
-			<th>Tiêu đề</th>
-			<th>Tác giả</th>
-			<th>Chủ đề</th>
-			<th>Xuất bản</th>
-		</tr>
+			<tr>
+				<th>Tiêu đề</th>
+				<th>Tác giả</th>
+				<th>Chủ đề</th>
+				<th>Xuất bản</th>
+			</tr>
 		</thead>
 		<tbody>
 			@foreach (var post in postsList)
 			{
 				<tr>
 					<td>
-						<a asp-erea = "Admin"
-						   asp-controller ="Posts"
-							asp-action="Edit"
-							asp-route-id="@post.Id"
-							class="text-body">
+						<a asp-area="Admin"
+				   asp-controller="Posts"
+				   asp-action="Edit"
+				   asp-route-id="@post.Id"
+			   class="text-body">
 							@post.Title
 						</a>
 
@@ -44,15 +44,37 @@
 						@post.Category.Name
 					</td>
 					<td>
-						@(post.Published ? "Có" : "Không")
+						<a asp-area="Admin"
+				   asp-controller="Posts"
+				   asp-action="Index"
+				   asp-route-id="@post.Id"
+				   asp-route-isSetPublised="true"
+			   class=@(post.Published ? "btn btn-primary" : "btn btn-secondary")>
+							@(post.Published ? "Có" : "Không")
+						</a>
+					</td>
+					<td>
+						<a asp-area="Admin"
+				   asp-controller="Posts"
+				   asp-action="Index"
+				   asp-route-id="@post.Id"
+				   asp-route-isDeletePost="true"
+				   class="btn btn-danger">
+					<i class="fa fa-trash-o">
+						
+					</i>
+					
+						</a>
 					</td>
 				</tr>
 			}
 		</tbody>
 	</table>
 	<partial name="_Page" model="postsList" />
-}else{
-	 <h1 class="text-danger">
-		 Không tìm thấy bài viết nào
-	 </h1>
+}
+else
+{
+	<h1 class="text-danger">
+		Không tìm thấy bài viết nào
+	</h1>
 }

@@ -394,7 +394,7 @@ namespace TatBlog.Services.Blogs
 		}
 
 		public async Task<bool> SetPublishedPostAsync(
-		 bool postId,
+		 int postId,
 		 CancellationToken cancellationToken = default)
 		{
 			var post = await _context.Set<Post>().FindAsync(postId);

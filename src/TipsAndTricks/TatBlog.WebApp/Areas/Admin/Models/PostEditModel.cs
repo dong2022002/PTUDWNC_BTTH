@@ -38,7 +38,6 @@ namespace TatBlog.WebApp.Areas.Admin.Models
 
 		[DisplayName("Hình hiện tại")]
 		public string? ImageUrl{ get; set; }
-
         public bool Published { get; set; }
         public int? CategoryId { get; set; }
         public int? AuthorId { get; set; }
