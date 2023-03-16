@@ -17,68 +17,53 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		private readonly IBlogRepository _blogRepository;
 		private readonly IMapper _mapper;
 		private readonly IMediaManager _mediaManager;
-        private readonly IValidator<PostEditModel> _validator;
+		private readonly IValidator<PostEditModel> _validator;
 		private readonly ILogger<PostsController> _logger;
 
 
-        public PostsController(
-			ILogger<PostsController> logger,	
+		public PostsController(
+			ILogger<PostsController> logger,
 			IValidator<PostEditModel> validator,
 			IMediaManager mediaManager,
 			IBlogRepository blogRepository,
 			IMapper mapper)
-        {
+		{
 			_logger = logger;
 			_validator = validator;
 			_blogRepository = blogRepository;
 			_mapper = mapper;
 			_mediaManager = mediaManager;
-        }
-  //      public async Task<IActionResult> Index(
-		//	PostFilterModel model)
-		//{
-		//	var postQuery = new PostQuery()
-		//	{
-		//		Keyword = model.keyword,
-		//		CategoryId = model.CategoryId,
-		//		AuthorId = model.AuthorId,
-		//		YearPost = model.Year,
-		//		MonthPost = model.Month
+		}
 
-		//	};
-
-		//	ViewBag.PostsList = await _blogRepository
-		//		.GetPagedPostsAsync(postQuery,1,10);
-
-		//	await PopulatePostFilterModelAsync(model);
-
-		//	return View(model);
-		//}
-		public async Task<IActionResult> Index(PostFilterModel model)
+		public async Task<IActionResult> Index(
+			PostFilterModel model,
+			[FromQuery(Name = "p")] int pageNumber = 1,
+			[FromQuery(Name = "ps")] int pageSize = 5
+			)
 		{
 			_logger.LogInformation("Tạo điều kiện truy vấn");
 			var postQuery = _mapper.Map<PostQuery>(model);
 
-            _logger.LogInformation("Lấy danh sách bài viết từ CSDL");
+			_logger.LogInformation("Lấy danh sách bài viết từ CSDL");
 
-            ViewBag.PostsList = await _blogRepository
-				.GetPagedPostsAsync(postQuery, 1, 10);
+			ViewBag.PostsList = await _blogRepository
+				.GetPagedPostsAsync(postQuery, pageNumber, pageSize);
 
-            _logger.LogInformation("Chuẩn bị dữ liệu cho ViewModel");
+			_logger.LogInformation("Chuẩn bị dữ liệu cho ViewModel");
 
-            await PopulatePostFilterModelAsync(model);
+			await PopulatePostFilterModelAsync(model);
 
 			return View(model);
 		}
 		[HttpGet]
-		public async Task<IActionResult> Edit(int id =0)
+		public async Task<IActionResult> Edit(int id = 0)
 		{
-            var post = id >0
-				? await _blogRepository.GetPostByIdAsync(id,true)
+			var post = id > 0
+				? await _blogRepository.GetPostByIdAsync(id, true)
 				: null;
 
 			var model = post == null
-				? new PostEditModel() 
+				? new PostEditModel()
 				: _mapper.Map<PostEditModel>(post);
 
 			await PopulatePostFilterModelAsync(model);
@@ -104,9 +89,9 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			}
 
 			var post = model.Id > 0
-				? await _blogRepository.GetPostByIdAsync(model.Id,false)
+				? await _blogRepository.GetPostByIdAsync(model.Id, false)
 				: null;
-			
+
 			if (post == null)
 			{
 				post = _mapper.Map<Post>(model);
@@ -120,22 +105,20 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 				post.Category = null;
 				post.ModifiedDate = DateTime.Now;
 			}
-			
-			if(model.ImageFile?.Length > 0)
+
+			if (model.ImageFile?.Length > 0)
 			{
 				var newImagePath = await _mediaManager.SaveFileAsync(
 					model.ImageFile.OpenReadStream(),
 					model.ImageFile.FileName,
 					model.ImageFile.ContentType);
 
-				if(!string.IsNullOrWhiteSpace(newImagePath))
+				if (!string.IsNullOrWhiteSpace(newImagePath))
 				{
 					await _mediaManager.DeleteFileAsync(post.ImageUrl);
 					post.ImageUrl = newImagePath;
 				}
 			}
-
-
 			await _blogRepository.AddUpdatePostAsync(
 				post, model.GetSelectedTags());
 			return RedirectToAction(nameof(Index));
@@ -143,8 +126,8 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 
 		[HttpPost]
 		public async Task<IActionResult> VerifyPostSlug(
-			int id,string slug)
-		{ 
+			int id, string slug)
+		{
 			var slugExisted = await _blogRepository
 				.IsPostSlugExitedAsync(id, slug);
 
@@ -153,10 +136,10 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 				: Json(true);
 		}
 
-            private async Task PopulatePostFilterModelAsync<T>(T model)
+		private async Task PopulatePostFilterModelAsync<T>(T model)
 		{
-          
-            var authors = await _blogRepository.GetAuthorsAsync();
+
+			var authors = await _blogRepository.GetAuthorsAsync();
 			var categories = await _blogRepository.GetCategoriesAsync();
 			if (model is PostFilterModel)
 			{
@@ -172,8 +155,8 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 					Value = a.Id.ToString()
 				});
 			}
-            else if (model is PostEditModel)
-            {
+			else if (model is PostEditModel)
+			{
 				(model as PostEditModel)!.AuthorList = authors.Select(a => new SelectListItem()
 				{
 					Text = a.FullName,
@@ -187,7 +170,7 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 				});
 			}
 
-        }
-		
+		}
+
 	}
 }
