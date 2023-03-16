@@ -337,9 +337,9 @@ namespace TatBlog.Services.Blogs
 			}
 
 			return await _context.Set<Post>()
+				.Include(x => x.Tags)
 				.Include(x => x.Category)
 				.Include(x => x.Author)
-				.Include(x => x.Tags)
 				.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 		}
 
