@@ -136,8 +136,8 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			}
 
 
-			//await _blogRepository.AddUpdatePostAsync(
-			//	post, model.GetSelectedTags());
+			await _blogRepository.AddUpdatePostAsync(
+				post, model.GetSelectedTags());
 			return RedirectToAction(nameof(Index));
 		}
 
