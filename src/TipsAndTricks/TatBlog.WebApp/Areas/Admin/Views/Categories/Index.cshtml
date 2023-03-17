@@ -1,70 +1,72 @@
 ﻿@model CategoryFilterModel
 @{
-	ViewData["PageTitle"] = "Danh sách bài viết";
+	ViewData["PageTitle"] = "Danh sách chủ đề";
 
-	var postsList = ViewBag.PostsList as IPagedList<Post>;
+	var catList = ViewBag.CatList as IPagedList<CategoryItem>;
+
 	;
 }
 
 <h1>
-	Danh sách bài viết
+	Danh sách chủ đề
 </h1>
-<partial name="_PostFilterPane" model="Model" />
-@if (postsList != null && postsList.Count > 0)
+<partial name="_CategoriesFilterPane" model="Model" />
+@if (catList != null && catList.Count > 0)
 {
 	<table class="table table-responsive table-striped">
 		<thead>
 			<tr>
-				<th>Tiêu đề</th>
-				<th>Tác giả</th>
-				<th>Chủ đề</th>
-				<th>Xuất bản</th>
+				<th>Tên tác giả</th>
+				<th>Mô tả</th>
+				<th>Hiển thị trên menu</th>
+				<th>Sô bài viết</th>
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var post in postsList)
+			@foreach (var cat in catList)
 			{
 				<tr>
 					<td>
 						<a asp-area="Admin"
-				   asp-controller="Posts"
+				   asp-controller="Categories"
 				   asp-action="Edit"
-				   asp-route-id="@post.Id"
-			   class="text-body">
-							@post.Title
+				   asp-route-id="@cat.Id"
+					 class="text-body">
+							@cat.Name
 						</a>
+					</td>
+					<td>
+						@cat.Description
+					</td>
+					<td>
+						<input class="form-check-input"
+					   type="checkbox"
+					   asp-for="@cat.ShowOnMenu" />
+						@*onchange="this.form.submit()" *@
+						
+					</td>
 
-						<p class="text-muted">
-							@post.ShortDescription
-						</p>
-					</td>
 					<td>
-						@post.Author.FullName
-					</td>
-					<td>
-						@post.Category.Name
-					</td>
-
-					<td>
-						<Form asp-area="Admin"
+						@*<Form asp-area="Admin"
 					  asp-controller="Posts"
 					  asp-action="setPublished"
-					  asp-route-id="@post.Id"
+					  asp-route-id="@cat.Id"
 			   enctype="multipart/form-data"
 			   method="post">
 							<div class="form-check">
 								<input class="form-check-input"
 							   type="checkbox"
-							   asp-for="@post.Published"
+							   asp-for="@cat.Published"
 				  onchange="this.form.submit()" />
 							</div>
-						</Form>
+						</Form>*@
+						<label>@cat.PostCount</label>
 					</td>
 
 					<td>
 						<a asp-area="Admin"
-				   asp-controller="Posts">
-							@Html.ActionLink("Delete", "DeletePost", new { id = post.Id },
+				   asp-controller="Categories">
+							@Html.ActionLink("Delete", "DeletePost", new { id = cat.Id },
 					new {onclick = "return confirm('Are sure wants to delete?');"})
 							<i class="fa fa-trash-o"></i>
 						</a>
@@ -74,7 +76,7 @@
 			}
 		</tbody>
 	</table>
-	<partial name="_Page" model="postsList" />
+	<partial name="_Page" model="catList" />
 }
 else
 {
