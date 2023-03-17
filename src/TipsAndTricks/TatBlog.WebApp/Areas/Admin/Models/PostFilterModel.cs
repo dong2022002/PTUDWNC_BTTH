@@ -10,8 +10,7 @@ namespace TatBlog.WebApp.Areas.Admin.Models
         public int? CategoryId { get; set; }
         public int? Year { get; set; }
         public int? Month { get; set; }
-
-
+        public bool NotPublished { get; set; } =false;
         public IEnumerable<SelectListItem>? AuthorList { get; set; }
 
         public IEnumerable<SelectListItem>? CategoryList { get; set; }

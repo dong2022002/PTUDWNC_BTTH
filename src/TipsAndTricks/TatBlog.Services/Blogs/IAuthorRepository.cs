@@ -20,15 +20,21 @@ namespace TatBlog.Services.Blogs
            CancellationToken cancellationToken = default);
 
         Task<IPagedList<AuthorItem>> GetPagedAuthorsAsync(
-            IPagingParams pagingParams,
-            CancellationToken cancellationToken = default);
+			AuthorQuery condition,
+			 int pageNumber = 1,
+			 int pageSize = 2,
+			 CancellationToken cancellationToken = default);
 
-        Task<int> AddUpdateAuthorAsync(
+        Task<Author> AddUpdateAuthorAsync(
                 Author author,
                 CancellationToken cancellationToken = default);
 
         Task<IList<AuthorItem>> GetNumberAuthorItemsAsync(
             int number,
             CancellationToken cancellation = default);
-    }
+       Task<Author> DeleteAuthorAsync(
+            int id,
+            CancellationToken cancellationToken = default);
+
+	}
 }

@@ -231,19 +231,14 @@
     },
     {
       "library": "speakingurl@14.0.1",
-      "destination": "wwwroot/lib/speakingurl/"
+      "destination": "wwwroot/lib/speakingurl/",
+      "files": [
+        "LICENSE",
+        "README.md",
+        "package.json",
+        "speakingurl.min.js"
+      ]
     }
-  ,
-{
-  "provider": "unpkg",
-  "library": "speakingurl@14.0.1",
-  "destination": "wwwroot/lib/speakingurl/",
-  "files": [
-    "LICENSE",
-    "README.md",
-    "package.json",
-    "speakingurl.min.js"
+   
   ]
-}
-]
 }

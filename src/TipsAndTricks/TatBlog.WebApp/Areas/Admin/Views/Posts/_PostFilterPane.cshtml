@@ -52,6 +52,15 @@
 		</select>
 	</div>	
 	<div class="col-auto">
+		<label class="visually-hidden" asp-for="NotPublished"></label>
+		<input type="checkbox"
+				title="Chưa xuất bản"
+				asp-for="NotPublished"
+				/>
+		<label class="text-secondary">Chưa xuất bản</label>
+		
+	</div>
+	<div class="col-auto">
 		<button type="submit" class="btn btn-primary">Tìm/Lọc</button>
 		<a	asp-area="Admin"
 			asp-controller="Posts"
@@ -59,7 +68,14 @@
 			class="btn btn-success">
 			Thêm mới
 		</a>
+		<a asp-area="Admin"
+		   asp-controller="Posts"
+		   asp-action="DefaultFilter"
+	 class="btn btn-success">
+			Bỏ lọc
+		</a>
 	</div>
+	
 
 
 </form>

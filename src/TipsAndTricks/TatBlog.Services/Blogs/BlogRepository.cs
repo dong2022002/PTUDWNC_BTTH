@@ -13,6 +13,7 @@ using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
 using TatBlog.Services.Extensions;
+using TatBlog.Services.Media;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TatBlog.Services.Blogs
@@ -20,10 +21,13 @@ namespace TatBlog.Services.Blogs
 	public class BlogRepository : IBlogRepository
 	{
 		private readonly BlogDbContext _context;
+		private readonly IMediaManager _mediaManager;
 
-		public BlogRepository(BlogDbContext context)
+
+		public BlogRepository(BlogDbContext context, IMediaManager mediaManager)
 		{
 			_context = context;
+			_mediaManager = mediaManager;	
 		}
 
 
@@ -207,6 +211,19 @@ namespace TatBlog.Services.Blogs
 			return true;
 		}
 
+
+		public async Task<Post> DeletePostAsync(
+			int id,
+			CancellationToken cancellationToken = default)
+		{
+			var post = _context.Set<Post>()
+			  .Where(t => t.Id == id);
+			if (post == null) return null;
+			var postData = await post.FirstOrDefaultAsync(cancellationToken);
+			await post.ExecuteDeleteAsync(cancellationToken);
+
+			return postData;
+		}
 		public async Task<bool> IsCatSlugExitedAsync(
 			int catId,
 			string slug,
@@ -263,6 +280,20 @@ namespace TatBlog.Services.Blogs
 				cancellationToken);
 
 		}
+		public async Task<IPagedList<CategoryItem>> GetPagedCategoriesAsync(
+			 CategoryQuery condition,
+			 int pageNumber = 1,
+			 int pageSize = 2,
+			 CancellationToken cancellationToken = default)
+		{
+			return await FilterCategories(condition).ToPagedListAsync(
+				pageNumber, pageSize,
+				nameof(CategoryItem.Name), "ASC",
+				cancellationToken);
+
+		}
+
+	
 
 		public async Task<IPagedList<Post>> GetPagedListPostFromPostQueryAsync(
 			   IPagingParams pagingParams,
@@ -394,7 +425,7 @@ namespace TatBlog.Services.Blogs
 		}
 
 		public async Task<bool> SetPublishedPostAsync(
-		 bool postId,
+		 int postId,
 		 CancellationToken cancellationToken = default)
 		{
 			var post = await _context.Set<Post>().FindAsync(postId);
@@ -406,6 +437,20 @@ namespace TatBlog.Services.Blogs
 			await _context.SaveChangesAsync(cancellationToken);
 
 			return post.Published;
+		}
+		public async Task<bool> SetShowOnMenuCategoryAsync(
+		 int catId,
+		 CancellationToken cancellationToken = default)
+		{
+			var cat = await _context.Set<Category>().FindAsync(catId);
+
+			if (cat is null) return false;
+
+			cat.ShowOnMenu = !cat.ShowOnMenu;
+
+			await _context.SaveChangesAsync(cancellationToken);
+
+			return cat.ShowOnMenu;
 		}
 
 		public async Task<IList<Post>> GetPostsRandomAsync(
@@ -525,6 +570,39 @@ namespace TatBlog.Services.Blogs
 
 			return posts;
 
+		}
+
+		private IQueryable<CategoryItem> FilterCategories(CategoryQuery condition)
+		{
+			IQueryable<CategoryItem> cats = _context.Set<Category>()
+				.Select(x => new CategoryItem()
+				{
+					Id = x.Id,
+					Name = x.Name,
+					UrlSlug = x.UrlSlug,
+					Description = x.Description,
+					ShowOnMenu = x.ShowOnMenu,
+					PostCount = x.Posts.Count(p => p.Published)
+				});
+
+			if (!condition.keyword.IsNullOrEmpty())
+			{
+				cats = cats.Where(x => x.Name.Contains(condition.keyword) ||
+										 x.Description.Contains(condition.keyword) );
+			}
+			if (condition.Name != null)
+			{
+				cats = cats.Where(x => x.Name == condition.Name);
+			}
+			if (condition.UrlSlug != null)
+			{
+				cats = cats.Where(x => x.UrlSlug == condition.UrlSlug);
+			}
+			if (condition.isShowOnMenu)
+			{
+				cats = cats.Where(x => x.ShowOnMenu);
+			}
+			return cats;
 		}
 
 		public async Task<Author> GetAuthorFromSlugAsync(

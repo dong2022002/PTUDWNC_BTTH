@@ -1,4 +1,7 @@
-﻿namespace TatBlog.WebApp.Extensions
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+
+namespace TatBlog.WebApp.Extensions
 {
 	public static class RouteExtensions
 	{
@@ -31,16 +34,37 @@
 				name: "single-post",
 				pattern: "blog/post/{year:int}/{month:int}/{day:int}/{slug}",
 				defaults: new { controller = "blog", action = "post" });
-			
-            endpoint.MapControllerRoute(
-                name: "admin-area",
-                pattern: "admin/{controller=Dashboard}/{action=Index}/{id?}",
-                defaults: new { area = "Admin" });
 
-            endpoint.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Blog}/{action=Index}/{id?}");
-            return endpoint;
+			//endpoint.MapAreaControllerRoute(
+			//		   name: "Admin",
+			//		   areaName: "Admin",
+			//		   pattern: "Admin/{controller=Dasboard}/{action=Index}/{id?}" );
+
+			//endpoint.MapControllerRoute(
+			//   name: "admin-area",
+			//   pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+			//endpoint.MapControllerRoute(
+			//	name: "default",
+			//	pattern: "{controller=Blog}/{action=Index}/{id?}");
+			endpoint.MapAreaControllerRoute(
+							   name: "admin",
+							   areaName: "admin",
+							   pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}");
+
+			endpoint.MapControllerRoute(
+							name: "admin-area",
+							pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+
+			endpoint.MapControllerRoute(
+				name: "default",
+				pattern: "{controller=Blog}/{action=Index}/{id?}");
+
+
+
+
+
+			return endpoint;
+
 		}
 
 	}

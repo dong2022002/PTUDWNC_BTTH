@@ -1,5 +1,74 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model AuthorFilterModel
 @{
+	ViewData["PageTitle"] = "Danh sách tác giả";
+
+	var authorsList = ViewBag.AuthorsList as IPagedList<AuthorItem>;
+}
+
+<h1>
+	Danh sách Tác giả
+</h1>
+<partial name="_AuthorsFilterPane" model="Model" />
+@if (authorsList != null && authorsList.Count > 0)
+{
+	<table class="table table-responsive table-striped">
+		<thead>
+			<tr>
+				<th>Tên tác giả</th>
+				<th>Email</th>
+				<th>Thời gian tham gia</th>
+				<th>Số bài viết</th>
+				<th>Ghi chú</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var author in authorsList)
+			{
+				<tr>
+					<td>
+						<a asp-area="Admin"
+				   asp-controller="Authors"
+				   asp-action="Edit"
+				   asp-route-id="@author.Id"
+			   class="text-body">
+							@author.FullName
+						</a>
+					</td>
+					<td>
+						@author.Email
+					</td>
+					<td>
+						@author.JoinedDate.ToShortDateString()
+					</td>
+
+					<td>
+
+						<label>@author.PostCount</label>
+					</td>
+					<td>
+						@author.Notes
+					</td>
+
+					<td>
+						<a asp-area="Admin"
+				   asp-controller="Authors">
+							@Html.ActionLink("Xóa", "DeleteCat", new { id = author.Id },
+					new {onclick = "return confirm('Are sure wants to delete?');"})
+							<i class="fa fa-trash-o"></i>
+						
+						</a>
+					</td>
+					
+
+				</tr>
+			}
+		</tbody>
+	</table>
+	<partial name="_Page" model="authorsList" />
+}
+else
+{
+	<h1 class="text-danger">
+		Không tìm thấy tác giả nào
+	</h1>
 }

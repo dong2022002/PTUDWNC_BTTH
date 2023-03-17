@@ -1,5 +1,81 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CategoryFilterModel
 @{
+	ViewData["PageTitle"] = "Danh sách chủ đề";
+
+	var catList = ViewBag.CatsList as IPagedList<CategoryItem>;
+}
+
+<h1>
+	Danh sách chủ đề
+</h1>
+<partial name="_CategoriesFilterPane" model="Model" />
+@if (catList != null && catList.Count > 0)
+{
+	<table class="table table-responsive table-striped">
+		<thead>
+			<tr>
+				<th>Tên chủ đề</th>
+				<th>Mô tả</th>
+				<th>Hiển thị trên menu</th>
+				<th>Số bài viết</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var cat in catList)
+			{
+				<tr>
+					<td>
+						<a asp-area="Admin"
+				   asp-controller="Categories"
+				   asp-action="Edit"
+				   asp-route-id="@cat.Id"
+			   class="text-body">
+							@cat.Name
+						</a>
+					</td>
+					<td>
+						@cat.Description
+					</td>
+					<td>
+						<Form asp-area="Admin"
+					  asp-controller="Categories"
+					  asp-action="setPublished"
+					  asp-route-id="@cat.Id"
+					  asp-route-model=@Model
+			   enctype="multipart/form-data"
+			   method="post">
+							<div class="form-check">
+								<input class="form-check-input"
+							   type="checkbox"
+							   asp-for="@cat.ShowOnMenu"
+				  onchange="this.form.submit()" />
+							</div>
+						</Form>
+					</td>
+
+					<td>
+						
+						<label>@cat.PostCount</label>
+					</td>
+
+					<td>
+						<a asp-area="Admin"
+				   asp-controller="Categories">
+							@Html.ActionLink("Delete", "DeleteCat", new { id = cat.Id },
+					new {onclick = "return confirm('Are sure wants to delete?');"})
+							<i class="fa fa-trash-o"></i>
+						</a>
+					</td>
+
+				</tr>
+			}
+		</tbody>
+	</table>
+	<partial name="_Page" model="catList" />
+}
+else
+{
+	<h1 class="text-danger">
+		Không tìm thấy bài viết nào
+	</h1>
 }

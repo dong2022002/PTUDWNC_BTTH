@@ -79,7 +79,9 @@ namespace TatBlog.Services.Blogs
 
         Task<int> CountPostsAsync(
         PostQuery condition, CancellationToken cancellationToken = default);
-
+     Task<bool> SetShowOnMenuCategoryAsync(
+     int catId,
+     CancellationToken cancellationToken = default);
 
 
 		Task<IPagedList<Post>> GetPagedPostsAsync(
@@ -87,6 +89,12 @@ namespace TatBlog.Services.Blogs
            int pageNumber = 1,
            int pageSize = 10,
            CancellationToken cancellationToken = default);
+
+        Task<IPagedList<CategoryItem>> GetPagedCategoriesAsync(
+             CategoryQuery condition,
+             int pageNumber = 1,
+             int pageSize = 2,
+             CancellationToken cancellationToken = default);
 
 
 		Task<IPagedList<T>> GetPagedListPostFromQueryableAsync<T>(
@@ -108,7 +116,7 @@ namespace TatBlog.Services.Blogs
 			CancellationToken cancellationToken = default);
 
         Task<bool> SetPublishedPostAsync(
-            bool isPuslished,
+            int isPuslished,
             CancellationToken cancellationToken = default);
 
         Task<IList<Post>> GetPostsRandomAsync(
@@ -128,10 +136,15 @@ namespace TatBlog.Services.Blogs
                    IPagingParams pagingParams,
                    PostQuery query,
                    CancellationToken cancellationToken = default);
-      
-            
+
+
         #endregion
-    }
+
+       Task<Post> DeletePostAsync(
+        int id,
+        CancellationToken cancellationToken = default);
+
+	}
    
 
 }
