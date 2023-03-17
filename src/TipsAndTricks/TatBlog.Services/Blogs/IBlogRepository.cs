@@ -79,7 +79,9 @@ namespace TatBlog.Services.Blogs
 
         Task<int> CountPostsAsync(
         PostQuery condition, CancellationToken cancellationToken = default);
-
+     Task<bool> SetShowOnMenuCategoryAsync(
+     int catId,
+     CancellationToken cancellationToken = default);
 
 
 		Task<IPagedList<Post>> GetPagedPostsAsync(

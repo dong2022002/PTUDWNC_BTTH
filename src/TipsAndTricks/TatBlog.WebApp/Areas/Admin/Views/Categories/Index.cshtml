@@ -3,8 +3,6 @@
 	ViewData["PageTitle"] = "Danh sách chủ đề";
 
 	var catList = ViewBag.CatsList as IPagedList<CategoryItem>;
-
-	;
 }
 
 <h1>
@@ -31,7 +29,7 @@
 				   asp-controller="Categories"
 				   asp-action="Edit"
 				   asp-route-id="@cat.Id"
-					 class="text-body">
+			   class="text-body">
 							@cat.Name
 						</a>
 					</td>
@@ -39,34 +37,31 @@
 						@cat.Description
 					</td>
 					<td>
-						<input class="form-check-input"
-					   type="checkbox"
-					   asp-for="@cat.ShowOnMenu" />
-						@*onchange="this.form.submit()" *@
-						
-					</td>
-
-					<td>
-						@*<Form asp-area="Admin"
-					  asp-controller="Posts"
+						<Form asp-area="Admin"
+					  asp-controller="Categories"
 					  asp-action="setPublished"
 					  asp-route-id="@cat.Id"
+					  asp-route-model=@Model
 			   enctype="multipart/form-data"
 			   method="post">
 							<div class="form-check">
 								<input class="form-check-input"
 							   type="checkbox"
-							   asp-for="@cat.Published"
+							   asp-for="@cat.ShowOnMenu"
 				  onchange="this.form.submit()" />
 							</div>
-						</Form>*@
+						</Form>
+					</td>
+
+					<td>
+						
 						<label>@cat.PostCount</label>
 					</td>
 
 					<td>
 						<a asp-area="Admin"
 				   asp-controller="Categories">
-							@Html.ActionLink("Delete", "DeletePost", new { id = cat.Id },
+							@Html.ActionLink("Delete", "DeleteCat", new { id = cat.Id },
 					new {onclick = "return confirm('Are sure wants to delete?');"})
 							<i class="fa fa-trash-o"></i>
 						</a>

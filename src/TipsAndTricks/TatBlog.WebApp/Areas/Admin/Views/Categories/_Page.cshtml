@@ -3,9 +3,8 @@
 @{
 	var controller = "Categories";
 	var actionName = "Index";
-	var slug = "";
-
-
+	var slug = "";;
+	var filter = (ViewBag.filter as CategoryQuery) ?? new CategoryQuery();
 }
 @if (Model.PagedCount > 1)
 {
@@ -15,6 +14,7 @@
 			<a asp-controller="@controller"
 	   asp-action="@actionName"
 	   asp-route-slug="@slug"
+	
 	   asp-route-p="@(Model.PageNumber -1)"
 	   asp-route-ps="@Model.PageSize"
 			class="btn btn-info">
@@ -36,7 +36,8 @@
 		{
 			<a asp-controller="@controller"
 	   asp-action="@actionName"
-	   asp-route-slug="@slug"
+	   asp-route-filterIsShowOnMenu="@filter.isShowOnMenu"
+	   asp-route-isFilter="true"
 	   asp-route-p="@(Model.PageNumber + 1)"
 	   asp-route-ps="@Model.PageSize"
 			class="btn btn-info">

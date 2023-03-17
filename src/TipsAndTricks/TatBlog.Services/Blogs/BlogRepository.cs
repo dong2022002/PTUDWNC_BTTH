@@ -438,6 +438,20 @@ namespace TatBlog.Services.Blogs
 
 			return post.Published;
 		}
+		public async Task<bool> SetShowOnMenuCategoryAsync(
+		 int catId,
+		 CancellationToken cancellationToken = default)
+		{
+			var cat = await _context.Set<Category>().FindAsync(catId);
+
+			if (cat is null) return false;
+
+			cat.ShowOnMenu = !cat.ShowOnMenu;
+
+			await _context.SaveChangesAsync(cancellationToken);
+
+			return cat.ShowOnMenu;
+		}
 
 		public async Task<IList<Post>> GetPostsRandomAsync(
 		  int number,
