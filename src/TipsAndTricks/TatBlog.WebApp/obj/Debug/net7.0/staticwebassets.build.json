@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uEnTGCGZpP+760//zT0QbRjKsXUYI1z2dKLrEn5j/6Q=",
+  "Hash": "7SFzvipUSPjSO26iKy/zIT8OPYkOxDguFVezPcmD26k=",
   "Source": "TatBlog.WebApp",
   "BasePath": "_content/TatBlog.WebApp",
   "Mode": "Default",
@@ -3706,6 +3706,23 @@
       "OriginalItemSpec": "wwwroot\\uploads\\pictures\\337782ccd65740f7bf4e703dbd9b28c2.png"
     },
     {
+      "Identity": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\uploads\\pictures\\4155a5cd8a544cb3a1b79c03e22a9dff.jpg",
+      "SourceId": "TatBlog.WebApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\",
+      "BasePath": "_content/TatBlog.WebApp",
+      "RelativePath": "uploads/pictures/4155a5cd8a544cb3a1b79c03e22a9dff.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\pictures\\4155a5cd8a544cb3a1b79c03e22a9dff.jpg"
+    },
+    {
       "Identity": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\uploads\\pictures\\4feb02a8c94143c382b6cc68072b22e1.png",
       "SourceId": "TatBlog.WebApp",
       "SourceType": "Discovered",
@@ -3721,23 +3738,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\pictures\\4feb02a8c94143c382b6cc68072b22e1.png"
-    },
-    {
-      "Identity": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\uploads\\pictures\\a75e125dbe9b463f92eaa8e036c63b93.png",
-      "SourceId": "TatBlog.WebApp",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApp\\wwwroot\\",
-      "BasePath": "_content/TatBlog.WebApp",
-      "RelativePath": "uploads/pictures/a75e125dbe9b463f92eaa8e036c63b93.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\pictures\\a75e125dbe9b463f92eaa8e036c63b93.png"
     }
   ]
 }

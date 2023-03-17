@@ -13,6 +13,7 @@ using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
 using TatBlog.Services.Extensions;
+using TatBlog.Services.Media;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TatBlog.Services.Blogs
@@ -20,10 +21,13 @@ namespace TatBlog.Services.Blogs
 	public class BlogRepository : IBlogRepository
 	{
 		private readonly BlogDbContext _context;
+		private readonly IMediaManager _mediaManager;
 
-		public BlogRepository(BlogDbContext context)
+
+		public BlogRepository(BlogDbContext context, IMediaManager mediaManager)
 		{
 			_context = context;
+			_mediaManager = mediaManager;	
 		}
 
 
@@ -207,6 +211,19 @@ namespace TatBlog.Services.Blogs
 			return true;
 		}
 
+
+		public async Task<Post> DeletePostAsync(
+			int id,
+			CancellationToken cancellationToken = default)
+		{
+			var post = _context.Set<Post>()
+			  .Where(t => t.Id == id);
+			if (post == null) return null;
+			var postData = await post.FirstOrDefaultAsync(cancellationToken);
+			await post.ExecuteDeleteAsync(cancellationToken);
+
+			return postData;
+		}
 		public async Task<bool> IsCatSlugExitedAsync(
 			int catId,
 			string slug,

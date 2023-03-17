@@ -128,10 +128,15 @@ namespace TatBlog.Services.Blogs
                    IPagingParams pagingParams,
                    PostQuery query,
                    CancellationToken cancellationToken = default);
-      
-            
+
+
         #endregion
-    }
+
+       Task<Post> DeletePostAsync(
+        int id,
+        CancellationToken cancellationToken = default);
+
+	}
    
 
 }
