@@ -37,10 +37,10 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 
 		[HttpPost]
 		public async Task<IActionResult> setPublished(
-			int id =-1
+			int id = -1
 			)
 		{
-			if (id>0)
+			if (id > 0)
 			{
 				await _blogRepository.SetPublishedPostAsync(id);
 			}
@@ -48,21 +48,29 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 
 
 		}
-		
+
 
 
 		public async Task<IActionResult> DeletePost(
-			int id = -1
-			)
+			int id = -1)
 		{
-            if (id>0)
-            {
-              var post =  await _blogRepository.DeletePostAsync(id);
-			 await	_mediaManager.DeleteFileAsync(post.ImageUrl);
-				
-            }
+			if (id > 0)
+			{
+				var post = await _blogRepository.DeletePostAsync(id);
+				await _mediaManager.DeleteFileAsync(post.ImageUrl);
+
+			}
 			return RedirectToAction(nameof(Index));
-			
+
+
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> DefaultFilter(
+			PostFilterModel model)
+		{
+			model = new PostFilterModel();
+			return RedirectToAction(nameof(Index));
 
 		}
 
@@ -70,10 +78,9 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			PostFilterModel model,
 			[FromQuery(Name = "p")] int pageNumber = 1,
 			[FromQuery(Name = "ps")] int pageSize = 5)
-		
 		{
-       
-            _logger.LogInformation("Tạo điều kiện truy vấn");
+
+			_logger.LogInformation("Tạo điều kiện truy vấn");
 			var postQuery = _mapper.Map<PostQuery>(model);
 
 			_logger.LogInformation("Lấy danh sách bài viết từ CSDL");
