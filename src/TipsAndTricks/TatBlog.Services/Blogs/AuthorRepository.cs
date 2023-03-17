@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,11 @@ using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Data.Contexts;
 using TatBlog.Services.Extensions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TatBlog.Services.Blogs
 {
-    public class AuthorRepository : IAuthorRepository
+    public class AuthorRepository : IAuthorRepository  
     {
         private readonly BlogDbContext _context;
 
@@ -43,50 +45,73 @@ namespace TatBlog.Services.Blogs
         }
 
         public async Task<IPagedList<AuthorItem>> GetPagedAuthorsAsync(
-            IPagingParams pagingParams, 
-            CancellationToken cancellationToken = default)
+		   AuthorQuery condition,
+			 int pageNumber = 1,
+			 int pageSize = 2,
+			 CancellationToken cancellationToken = default)
         {
-            var authorQuery = _context.Set<Author>()
-               .Select(x => new AuthorItem()
-               {
-                   Id = x.Id,
-                   FullName = x.FullName,
-                   UrlSlug = x.UrlSlug,
-                   ImageUrl = x.ImageUrl,
-                   JoinedDate = x.JoinedDate,
-                   Email = x.Email,
-                   Notes = x.Notes,
-                   PostCount = x.Posts.Count(p => p.Published)
-               });
-            return await authorQuery
-                .ToPagedListAsync(pagingParams, cancellationToken);
-        }
-        public async Task<int> AddUpdateAuthorAsync(
+          
+			return await FilterAuthors(condition).ToPagedListAsync(
+			 pageNumber, pageSize,
+			 nameof(AuthorItem.FullName), "ASC",
+			 cancellationToken);
+		}
+
+		private IQueryable<AuthorItem> FilterAuthors(AuthorQuery condition)
+		{
+			var authors = _context.Set<Author>()
+			 .Select(x => new AuthorItem()
+			 {
+				 Id = x.Id,
+				 FullName = x.FullName,
+				 UrlSlug = x.UrlSlug,
+				 ImageUrl = x.ImageUrl,
+				 JoinedDate = x.JoinedDate,
+				 Email = x.Email,
+				 Notes = x.Notes,
+				 PostCount = x.Posts.Count(p => p.Published)
+			 });
+			if (condition.FullName != null)
+			{
+				authors = authors.Where(x => x.FullName == condition.FullName);
+			}
+		
+			if (!condition.keyword.IsNullOrEmpty())
+			{
+                authors = authors.Where(x => x.FullName.Contains(condition.keyword) ||
+                                         x.Email.Contains(condition.keyword) ||
+                                         x.Notes.Contains(condition.keyword));
+				
+			}
+			if (condition.Year > 0)
+			{
+				authors = authors.Where(x => x.JoinedDate.Year == condition.Year);
+			}
+
+			if (condition.Month > 0)
+			{
+				authors = authors.Where(x => x.JoinedDate.Month == condition.Month);
+			}
+            return authors;
+		}
+
+		public async Task<Author> AddUpdateAuthorAsync(
             Author author,
             CancellationToken cancellationToken = default)
         {
-            if (author.Id <= 0)
-            {
-                _context.Authors.Add(author);
-                await _context.SaveChangesAsync(cancellationToken);
-                return 1;
-            }
-            else
-            {
+			if (author.Id <= 0)
+			{
+				_context.Authors.Add(author);
 
-                await _context.Set<Author>()
-                           .Where(x => x.Id == author.Id)
-                           .ExecuteUpdateAsync(t =>
-                               t.SetProperty(x => x.FullName, author.FullName)
-                               .SetProperty(x => x.UrlSlug, author.UrlSlug)
-                               .SetProperty(x => x.ImageUrl, author.UrlSlug)
-                               .SetProperty(x => x.JoinedDate, author.JoinedDate)
-                               .SetProperty(x => x.Email, author.Email)
-                               .SetProperty(x => x.Notes, author.Notes),
-                               cancellationToken);
-                return 2;
-            }
-        }
+			}
+			else
+			{
+				_context.Set<Author>().Update(author);
+
+			}
+			await _context.SaveChangesAsync(cancellationToken);
+			return author;
+		}
 
         public async Task<IList<AuthorItem>> GetNumberAuthorItemsAsync(
             int number,
@@ -109,5 +134,16 @@ namespace TatBlog.Services.Blogs
              .ToListAsync(cancellation);
 
         }
-    }
+		public async Task<Author> DeleteAuthorAsync(
+			int id,
+			CancellationToken cancellationToken = default)
+		{
+			var author = _context.Set<Author>()
+			  .Where(t => t.Id == id);
+			if (author == null) return null;
+			var authorData = await author.FirstOrDefaultAsync(cancellationToken);
+			await author.ExecuteDeleteAsync(cancellationToken);
+			return authorData;
+		}
+	}
 }

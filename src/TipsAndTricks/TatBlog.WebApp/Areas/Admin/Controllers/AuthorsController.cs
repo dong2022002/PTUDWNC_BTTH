@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
+using FluentValidation.AspNetCore;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
@@ -11,82 +13,55 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 {
 	public class AuthorsController : Controller
 	{
-		private readonly IBlogRepository _blogRepository;
+		private readonly IAuthorRepository _authorRepository;
 		private readonly IMapper _mapper;
 		private readonly IMediaManager _mediaManager;
-		private readonly IValidator<CategoryEditModel> _validator;
+		private readonly IValidator<AuthorEditModel> _validator;
 
 
 
 		public AuthorsController(
-			IValidator<CategoryEditModel> validator,
+			IValidator<AuthorEditModel> validator,
 			IMediaManager mediaManager,
-			IBlogRepository blogRepository,
+			IAuthorRepository authorRepository,
 			IMapper mapper)
 		{
 
 			_validator = validator;
-			_blogRepository = blogRepository;
+			_authorRepository = authorRepository;
 			_mapper = mapper;
 			_mediaManager = mediaManager;
 		}
 		[HttpGet]
 		public async Task<IActionResult> Index(
-		CategoryFilterModel model,
+		AuthorFilterModel model,
 		[FromQuery(Name = "p")] int pageNumber = 1,
-		[FromRoute(Name = "filterIsShowOnMenu")] bool isShowOn = false,
-		[FromQuery(Name = "isFilter")] bool isFilter = false,
 		[FromQuery(Name = "ps")] int pageSize = 5)
 		{
+			var authorQuery = _mapper.Map<AuthorQuery>(model);
 
-
-			var catsQuery = _mapper.Map<CategoryQuery>(model);
-
-			if (isFilter)
-			{
-				catsQuery.isShowOnMenu = isShowOn;
-			}
-
-
-			ViewBag.CatsList = await _blogRepository
-				.GetPagedCategoriesAsync(catsQuery, pageNumber, pageSize);
-
-			ViewBag.filter = catsQuery;
+			ViewBag.AuthorsList = await _authorRepository
+				.GetPagedAuthorsAsync(authorQuery, pageNumber, pageSize);
 			return View(model);
-		}
-
-
-		[HttpPost]
-		public async Task<IActionResult> setPublished(
-			CategoryFilterModel model,
-			int id = -1)
-		{
-			if (id > 0)
-			{
-				await _blogRepository.SetShowOnMenuCategoryAsync(id);
-			}
-			return RedirectToAction(nameof(Index), model);
-
-
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id = 0)
 		{
-			var cat = id > 0
-				? await _blogRepository.GetCategoryFromIDAsync(id)
+			var author = id > 0
+				? await _authorRepository.GetAuthorFromIDAsync(id)
 				: null;
 
-			var model = cat == null
-				? new CategoryEditModel()
-				: _mapper.Map<CategoryEditModel>(cat);
+			var model = author == null
+				? new AuthorEditModel()
+				: _mapper.Map<AuthorEditModel>(author);
 
 			return View(model);
 
 		}
 		[HttpPost]
 		public async Task<IActionResult> Edit(
-			CategoryEditModel model)
+			AuthorEditModel model)
 		{
 			var validationResult = await _validator.ValidateAsync(model);
 			if (!validationResult.IsValid)
@@ -99,20 +74,34 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 				return View(model);
 			}
 
-			var cat = model.Id > 0
-				? await _blogRepository.GetCategoryFromIDAsync(model.Id)
+			var author = model.Id > 0
+				? await _authorRepository.GetAuthorFromIDAsync(model.Id)
 				: null;
 
-			if (cat == null)
+			if (author == null)
 			{
-				cat = _mapper.Map<Category>(model);
-				cat.Id = 0;
+				author = _mapper.Map<Author>(model);
+				author.Id = 0;
+				author.JoinedDate = DateTime.Now;
 			}
 			else
 			{
-				_mapper.Map(model, cat);
+				_mapper.Map(model, author);
 			}
-			await _blogRepository.AddUpdateCategoryAsync(cat);
+			if (model.ImageFile?.Length > 0)
+			{
+				var newImagePath = await _mediaManager.SaveFileAsync(
+					model.ImageFile.OpenReadStream(),
+					model.ImageFile.FileName,
+					model.ImageFile.ContentType);
+
+				if (!string.IsNullOrWhiteSpace(newImagePath))
+				{
+					await _mediaManager.DeleteFileAsync(author.ImageUrl);
+					author.ImageUrl = newImagePath;
+				}
+			}
+			await _authorRepository.AddUpdateAuthorAsync(author);
 			return RedirectToAction(nameof(Index));
 		}
 		public async Task<IActionResult> DeleteCat(
@@ -120,7 +109,7 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		{
 			if (id > 0)
 			{
-				await _blogRepository.DeleteCategoryAsync(id);
+			 var author =	await _authorRepository.DeleteAuthorAsync(id);
 
 			}
 			return RedirectToAction(nameof(Index));

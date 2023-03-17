@@ -18,6 +18,10 @@ namespace TatBlog.WebApp.Mapsters
 
 			config.NewConfig<CategoryFilterModel, CategoryQuery>();
 
+			config.NewConfig<AuthorEditModel, AuthorQuery>();
+
+			config.NewConfig<AuthorFilterModel, AuthorQuery>();
+
 			config.NewConfig<PostEditModel, Post>()
 				.Ignore(dest => dest.Id)
 				.Ignore(dest => dest.ImageUrl);
@@ -32,6 +36,9 @@ namespace TatBlog.WebApp.Mapsters
 
 			config.NewConfig<Category, CategoryEditModel>()
 				.Ignore(dest => dest.PostCount);
+			config.NewConfig<Author, AuthorEditModel>()
+				.Ignore(dest => dest.PostCount)
+				.Ignore(dest => dest.ImageFile!);
 
 		}
 	}
