@@ -66,7 +66,7 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> DefaultFilter(
+		public IActionResult DefaultFilter(
 			PostFilterModel model)
 		{
 			model = new PostFilterModel();

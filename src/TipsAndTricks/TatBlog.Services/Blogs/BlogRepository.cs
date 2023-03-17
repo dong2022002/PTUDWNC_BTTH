@@ -280,6 +280,20 @@ namespace TatBlog.Services.Blogs
 				cancellationToken);
 
 		}
+		public async Task<IPagedList<CategoryItem>> GetPagedCategoriesAsync(
+			 CategoryQuery condition,
+			 int pageNumber = 1,
+			 int pageSize = 2,
+			 CancellationToken cancellationToken = default)
+		{
+			return await FilterCategories(condition).ToPagedListAsync(
+				pageNumber, pageSize,
+				nameof(CategoryItem.Name), "ASC",
+				cancellationToken);
+
+		}
+
+	
 
 		public async Task<IPagedList<Post>> GetPagedListPostFromPostQueryAsync(
 			   IPagingParams pagingParams,
@@ -542,6 +556,39 @@ namespace TatBlog.Services.Blogs
 
 			return posts;
 
+		}
+
+		private IQueryable<CategoryItem> FilterCategories(CategoryQuery condition)
+		{
+			IQueryable<CategoryItem> cats = _context.Set<Category>()
+				.Select(x => new CategoryItem()
+				{
+					Id = x.Id,
+					Name = x.Name,
+					UrlSlug = x.UrlSlug,
+					Description = x.Description,
+					ShowOnMenu = x.ShowOnMenu,
+					PostCount = x.Posts.Count(p => p.Published)
+				});
+
+			if (!condition.keyword.IsNullOrEmpty())
+			{
+				cats = cats.Where(x => x.Name.Contains(condition.keyword) ||
+										 x.Description.Contains(condition.keyword) );
+			}
+			if (condition.Name != null)
+			{
+				cats = cats.Where(x => x.Name == condition.Name);
+			}
+			if (condition.UrlSlug != null)
+			{
+				cats = cats.Where(x => x.UrlSlug == condition.UrlSlug);
+			}
+			if (condition.isShowOnMenu)
+			{
+				cats = cats.Where(x => x.ShowOnMenu);
+			}
+			return cats;
 		}
 
 		public async Task<Author> GetAuthorFromSlugAsync(

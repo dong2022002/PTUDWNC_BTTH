@@ -28,6 +28,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xfQ2F0ZWdvcmllc0ZpbHRlclBhbmUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Hoc_tap/Nam3_ky2/PTUDWNC/2014446_TipsAndTricks/src/TipsAndTricks/TatBlog.WebApp/Areas/Admin/Views/Categories/_Page.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xfUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Hoc_tap/Nam3_ky2/PTUDWNC/2014446_TipsAndTricks/src/TipsAndTricks/TatBlog.WebApp/Areas/Admin/Views/Comments/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29tbWVudHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -44,6 +48,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUG9zdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Hoc_tap/Nam3_ky2/PTUDWNC/2014446_TipsAndTricks/src/TipsAndTricks/TatBlog.WebApp/Areas/Admin/Views/Posts/_Page.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUG9zdHNcX1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Hoc_tap/Nam3_ky2/PTUDWNC/2014446_TipsAndTricks/src/TipsAndTricks/TatBlog.WebApp/Areas/Admin/Views/Posts/_PostFilterPane.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUG9zdHNcX1Bvc3RGaWx0ZXJQYW5lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,10 +66,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Hoc_tap/Nam3_ky2/PTUDWNC/2014446_TipsAndTricks/src/TipsAndTricks/TatBlog.WebApp/Areas/Admin/Views/Shared/_NavBar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9OYXZCYXIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Hoc_tap/Nam3_ky2/PTUDWNC/2014446_TipsAndTricks/src/TipsAndTricks/TatBlog.WebApp/Areas/Admin/Views/Shared/_Page.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9QYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Hoc_tap/Nam3_ky2/PTUDWNC/2014446_TipsAndTricks/src/TipsAndTricks/TatBlog.WebApp/Areas/Admin/Views/Subscriber/Index.cshtml]

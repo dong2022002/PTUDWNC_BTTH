@@ -1,7 +1,7 @@
 ﻿@model CategoryFilterModel
 
 <form asp-area="Admin"
-	  asp-controller="Posts"
+	  asp-controller="Categories"
 	  asp-action="Index"
    method="get"
    class="row gy-2 gx-3 align-items-center">
@@ -25,13 +25,13 @@
 	<div class="col-auto">
 		<button type="submit" class="btn btn-primary">Tìm/Lọc</button>
 		<a	asp-area="Admin"
-			asp-controller="Posts"
+			asp-controller="Categories"
 			asp-action="Edit"
 			class="btn btn-success">
 			Thêm mới
 		</a>
 		<a asp-area="Admin"
-		   asp-controller="Posts"
+		   asp-controller="Categories"
 		   asp-action="DefaultFilter"
 	 class="btn btn-success">
 			Bỏ lọc

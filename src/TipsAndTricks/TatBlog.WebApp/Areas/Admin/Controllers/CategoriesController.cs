@@ -35,20 +35,17 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		[FromQuery(Name = "p")] int pageNumber = 1,
 		[FromQuery(Name = "ps")] int pageSize = 5)
 		{
-
 			_logger.LogInformation("Tạo điều kiện truy vấn");
-			var postQuery = _mapper.Map<PostQuery>(model);
+			var catsQuery = _mapper.Map<CategoryQuery>(model);
 
-			_logger.LogInformation("Lấy danh sách bài viết từ CSDL");
+			_logger.LogInformation("Lấy danh sách chủ đề từ CSDL");
 
-			ViewBag.PostsList = await _blogRepository
-				.GetPagedPostsAsync(postQuery, pageNumber, pageSize);
-
-			_logger.LogInformation("Chuẩn bị dữ liệu cho ViewModel");
-
-			//await PopulatePostFilterModelAsync(model);
+			ViewBag.CatsList = await _blogRepository
+				.GetPagedCategoriesAsync(catsQuery, pageNumber, pageSize);
 
 			return View(model);
 		}
+
+	
 	}
 }

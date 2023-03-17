@@ -88,6 +88,12 @@ namespace TatBlog.Services.Blogs
            int pageSize = 10,
            CancellationToken cancellationToken = default);
 
+        Task<IPagedList<CategoryItem>> GetPagedCategoriesAsync(
+             CategoryQuery condition,
+             int pageNumber = 1,
+             int pageSize = 2,
+             CancellationToken cancellationToken = default);
+
 
 		Task<IPagedList<T>> GetPagedListPostFromQueryableAsync<T>(
               IPagingParams pagingParams,

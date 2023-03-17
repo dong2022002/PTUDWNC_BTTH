@@ -2,7 +2,7 @@
 @{
 	ViewData["PageTitle"] = "Danh sách chủ đề";
 
-	var catList = ViewBag.CatList as IPagedList<CategoryItem>;
+	var catList = ViewBag.CatsList as IPagedList<CategoryItem>;
 
 	;
 }
@@ -19,7 +19,7 @@
 				<th>Tên tác giả</th>
 				<th>Mô tả</th>
 				<th>Hiển thị trên menu</th>
-				<th>Sô bài viết</th>
+				<th>Số bài viết</th>
 			</tr>
 		</thead>
 		<tbody>
