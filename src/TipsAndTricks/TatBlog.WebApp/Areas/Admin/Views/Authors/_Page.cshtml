@@ -1,0 +1,58 @@
+﻿@model IPagedList<CategoryItem>
+
+@{
+	var controller = "Categories";
+	var actionName = "Index";
+	var slug = "";;
+	var filter = (ViewBag.filter as CategoryQuery) ?? new CategoryQuery();
+}
+@if (Model.PagedCount > 1)
+{
+	<div class="text-center my-4">
+		@if (Model.HasPreviousPage)
+		{
+			<a asp-controller="@controller"
+	   asp-action="@actionName"
+	   asp-route-slug="@slug"
+	
+	   asp-route-p="@(Model.PageNumber -1)"
+	   asp-route-ps="@Model.PageSize"
+			class="btn btn-info">
+				<i class="fa fa-arrow-left"></i>
+				Trang trước
+			</a>
+		}
+		else
+		{
+			<button type="button"
+					class="btn btn-outline-secondary"
+					disabled>
+				<i class="fa fa-arrow-left"></i>
+				Trang trước
+			</button>
+		}
+
+		@if (Model.HasNextPage)
+		{
+			<a asp-controller="@controller"
+	   asp-action="@actionName"
+	   asp-route-filterIsShowOnMenu="@filter.isShowOnMenu"
+	   asp-route-isFilter="true"
+	   asp-route-p="@(Model.PageNumber + 1)"
+	   asp-route-ps="@Model.PageSize"
+			class="btn btn-info">
+				Trang sau
+				<i class="fa fa-arrow-right"></i>
+			</a>
+		}
+		else
+		{
+			<button type="button"
+					class="btn btn-outline-secondary"
+					disabled>
+				<i class="fa fa-arrow-right"></i>
+				Trang sau
+			</button>
+		}
+	</div>
+}
