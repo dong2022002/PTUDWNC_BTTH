@@ -53,7 +53,7 @@ namespace TatBlog.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Mail = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DateRegis = table.Column<DateTime>(type: "datetime", nullable: false),
-                    DateUnFollow = table.Column<DateTime>(type: "datetime", nullable: false),
+                    DateUnFollow = table.Column<DateTime>(type: "datetime", nullable: true),
                     Desc = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
                     IsUserUnFollow = table.Column<bool>(type: "bit", nullable: false),
                     NoteAdmin = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true)
@@ -115,6 +115,29 @@ namespace TatBlog.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Published = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    DateComment = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: false),
+                    PostId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Post",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PostTags",
                 columns: table => new
                 {
@@ -139,6 +162,11 @@ namespace TatBlog.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_PostId",
+                table: "Comments",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_AuthorId",
                 table: "Posts",
                 column: "AuthorId");
@@ -157,6 +185,9 @@ namespace TatBlog.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Comments");
+
             migrationBuilder.DropTable(
                 name: "PostTags");
 
