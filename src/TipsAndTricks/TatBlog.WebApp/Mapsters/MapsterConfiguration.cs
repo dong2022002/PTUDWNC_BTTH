@@ -16,6 +16,10 @@ namespace TatBlog.WebApp.Mapsters
 			config.NewConfig<Comment, CommentItem>()
 				.Map(dest => dest.PostName, src => src.Post.Title);
 
+			config.NewConfig<CommentItem, Comment>()
+				.Ignore(dest => dest.Id)
+				.Map(dest => dest.PostId, src => src.PostId);
+
 			config.NewConfig<PostFilterModel, PostQuery>()
 				.Map(dest => dest.PublishedOnly, src => false);
 

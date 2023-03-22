@@ -15,7 +15,7 @@ namespace TatBlog.Services.Blogs
 		 int idPost,
 		 int number,
 		 CancellationToken cancellationToken = default);
-		Task<Comment> GetCommentsPostIDAsync(int id, CancellationToken cancellationToken = default);
+		Task<Comment> GetCommentsByIDAsync(int id, CancellationToken cancellationToken = default);
 		Task<Comment> AddUpdateCommentAsync(
 				Comment comment,
 				CancellationToken cancellationToken = default);

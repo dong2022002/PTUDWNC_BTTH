@@ -36,6 +36,7 @@ namespace TatBlog.WebApp.Extensions
 			builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 			builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
 			builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
+			builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 			return builder;
 
 		}

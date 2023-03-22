@@ -13,15 +13,20 @@ namespace TatBlog.WebApp.Controllers
     {
         private readonly ILogger<BlogController> _logger;
         private readonly IBlogRepository _blogRepository;
+		private readonly ICommentRepository _commentRepository;
+		private readonly IMapper _mapper;
 
-        public BlogController(
+		public BlogController(
 			IBlogRepository blogRepository,
-            ILogger<BlogController> logger
-        )
+            ILogger<BlogController> logger,
+			ICommentRepository commentRepository, IMapper mapper
+		)
         {
             _blogRepository = blogRepository;
 			_logger = logger;
 			_logger.LogDebug(1, "NLog injected into Blogcontroller");
+			_mapper = mapper;
+			_commentRepository = commentRepository;
 			
         }
 
@@ -145,8 +150,23 @@ namespace TatBlog.WebApp.Controllers
 
 			return View(postList);
 		}
-
-
+		[HttpPost]
+		public async Task<IActionResult> Comments(
+			int id,
+			string name, string comment)
+		{
+			var newComment = new CommentItem()
+			{
+				Name = name,
+				Description = comment,
+				Published = false,
+				DateComment = DateTime.Now,
+				PostId = id
+			};
+			Comment data = _mapper.Map<Comment>(newComment);
+			await _commentRepository.AddUpdateCommentAsync(data);
+			return RedirectToAction(nameof(Post));
+		}
 		public IActionResult About() 
 		{ 
 			return View();                    

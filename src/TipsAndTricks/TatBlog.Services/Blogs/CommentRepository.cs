@@ -62,6 +62,7 @@ namespace TatBlog.Services.Blogs
 											DateComment = c.DateComment,
 											Description = c.Description,
 											PostName = c.Post.Title,
+											PostId = c.Post.Id,
 										});
 			if (number < 0)
 			{
@@ -77,7 +78,6 @@ namespace TatBlog.Services.Blogs
 
 		public async Task<Comment> GetCommentsByIDAsync(int id, CancellationToken cancellationToken = default)
 		{
-
 			return await _context.Set<Comment>()
 		   .Where(c => c.Id == id)
 		   .FirstOrDefaultAsync(cancellationToken);
@@ -103,6 +103,7 @@ namespace TatBlog.Services.Blogs
 				DateComment = c.DateComment,
 				Description = c.Description,
 				PostName = c.Post.Title,
+				PostId = c.Post.Id
 			});
 			if (condition.Name != null)
 			{
