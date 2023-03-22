@@ -13,6 +13,9 @@ namespace TatBlog.WebApp.Mapsters
 				.Map(dest => dest.CategoryName, src => src.Category.Name)
 				.Map(dest => dest.Tags, src => src.Tags.Select(x => x.Name));
 
+			config.NewConfig<Comment, CommentItem>()
+				.Map(dest => dest.PostName, src => src.Post.Title);
+
 			config.NewConfig<PostFilterModel, PostQuery>()
 				.Map(dest => dest.PublishedOnly, src => false);
 
