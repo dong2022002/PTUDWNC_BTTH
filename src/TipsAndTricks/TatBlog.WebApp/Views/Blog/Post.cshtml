@@ -3,7 +3,7 @@
 	var imageUrl = string.IsNullOrWhiteSpace(Model.ImageUrl)
 				? "/images/image_1.jpg"
 				: $"/{Model.ImageUrl}";
-
+	var ListComment = (ViewBag.Comments as IPagedList<CommentItem>);
 }
 @if (Model.Published)
 {
@@ -83,6 +83,16 @@
 		<button type="submit" class="btn btn-primary">Submit</button>
 
 	</form>
+	@if (ListComment != null)
+	{
+		@foreach (var comment in ListComment)
+		{
+			<div class="p-2 border">
+				<h4>@comment.Name</h4>
+				<p>@comment.Description</p>
+			</div>
+		}
+	}
 
 }
 else

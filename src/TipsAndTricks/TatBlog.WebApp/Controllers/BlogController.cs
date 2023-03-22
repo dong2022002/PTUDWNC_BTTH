@@ -125,14 +125,20 @@ namespace TatBlog.WebApp.Controllers
 				int day)
 		{
             _logger.LogInformation("Hello, this is the Post!");
-
-
+			
             var post = await _blogRepository
 				.GetPostAsync(year, month, slug);
 			await _blogRepository.IncreaseViewCountAsync(post.Id);
-
+			var conditionComment = new CommentQuery()
+			{
+				PostId = post.Id,
+				PublishedOnly = true,
+			};
+			var comments = await _commentRepository.GetPagedCommentsAsync(conditionComment);
+			ViewBag.Comments = comments;
 			return View(post);
 		}
+
 
 		public async Task<IActionResult> Archives(
 				int year,
