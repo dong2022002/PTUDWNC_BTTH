@@ -25,6 +25,8 @@ namespace TatBlog.WebApp.Mapsters
 
 			config.NewConfig<CategoryFilterModel, CategoryQuery>();
 
+			config.NewConfig<CommentFilterModel, CommentQuery>();
+
 			config.NewConfig<AuthorEditModel, AuthorQuery>();
 
 			config.NewConfig<AuthorFilterModel, AuthorQuery>();
