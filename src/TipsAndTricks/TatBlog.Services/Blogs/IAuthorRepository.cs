@@ -46,4 +46,9 @@ public interface IAuthorRepository
 	Task<bool> SetImageUrlAsync(
 		int authorId, string imageUrl,
 		CancellationToken cancellationToken = default);
+	Task<IPagedList<AuthorItem>> GetPagedAuthorsAsync(
+		  AuthorQuery condition,
+			int pageNumber = 1,
+			int pageSize = 2,
+			CancellationToken cancellationToken = default);
 }

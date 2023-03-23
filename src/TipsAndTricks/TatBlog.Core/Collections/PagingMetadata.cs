@@ -60,5 +60,5 @@ public class PagingMetadata : IPagedList
 
 	public bool IsLastPage => (PageIndex >= (PageCount - 1));
 
-	public int PagedCount => throw new NotImplementedException();
+	public int PagedCount => PageCount;
 }
