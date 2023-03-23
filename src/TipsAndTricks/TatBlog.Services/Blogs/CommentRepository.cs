@@ -39,7 +39,7 @@ namespace TatBlog.Services.Blogs
 			return comment;
 		}
 
-		public async Task<Comment> DeleteAuthorAsync(int id, CancellationToken cancellationToken = default)
+		public async Task<Comment> DeleteCommentAsync(int id, CancellationToken cancellationToken = default)
 		{
 			var comment = _context.Set<Comment>()
 			  .Where(t => t.Id == id);
@@ -105,9 +105,9 @@ namespace TatBlog.Services.Blogs
 				PostName = c.Post.Title,
 				PostId = c.Post.Id
 			});
-			if (condition.Name != null)
+			if (condition.PostId != null)
 			{
-				comments = comments.Where(x => x.Name == condition.Name);
+				comments = comments.Where(x => x.PostId == condition.PostId);
 			}
 
 			if (!condition.Keyword.IsNullOrEmpty())

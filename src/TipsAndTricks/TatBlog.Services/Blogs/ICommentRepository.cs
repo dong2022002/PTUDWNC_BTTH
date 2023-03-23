@@ -28,7 +28,7 @@ namespace TatBlog.Services.Blogs
 				int idComment,
 				CancellationToken cancellationToken = default);
 
-		Task<Comment> DeleteAuthorAsync(
+		Task<Comment> DeleteCommentAsync(
 			 int id,
 			 CancellationToken cancellationToken = default);
 	}

@@ -55,5 +55,23 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 				Value = p.Id.ToString()
 			});
 		}
+		public async Task<IActionResult> DeleteComment(
+			int id = -1)
+		{
+			if (id > 0)
+			{
+				await _commentRepository.DeleteCommentAsync(id);
+			}
+			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpGet]
+		public IActionResult DefaultFilter(
+			PostFilterModel model)
+		{
+			model = new PostFilterModel();
+			return RedirectToAction(nameof(Index));
+
+		}
 	}
 }

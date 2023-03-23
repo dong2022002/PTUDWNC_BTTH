@@ -61,7 +61,7 @@
 					<td>
 						<a asp-area="Admin"
 				   asp-controller="Comment">
-							@Html.ActionLink("Delete", "DeleteCat", new { id = comment.Id },
+							@Html.ActionLink("Delete", "DeleteComment", new { id = comment.Id },
 					new {onclick = "return confirm('Are sure wants to delete?');"})
 							<i class="fa fa-trash-o"></i>
 						</a>
