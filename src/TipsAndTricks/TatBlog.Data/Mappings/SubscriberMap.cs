@@ -35,6 +35,8 @@ namespace TatBlog.Data.Mappings
 
             builder.Property(p => p.IsUserUnFollow)
                .HasDefaultValue(null);
+            builder.Property(p => p.StatusFollow)
+               .HasDefaultValue(null);
         }
     }
 }

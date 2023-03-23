@@ -1,5 +1,93 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model SubcriberFilterModel
 @{
+	ViewData["PageTitle"] = "Danh sách người theo dõi";
+
+	var subcriberList = ViewBag.SubscriberList as IPagedList<Subscriber>; ;
 }
+
+<h1>
+	Danh sách người theo dõi
+</h1>
+<partial name="_SubcriberFilterPane" model="Model" />
+@if (subcriberList != null && subcriberList.Count > 0)
+{
+	<table class="table table-responsive table-striped">
+		<thead>
+			<tr>
+				<th>Email</th>
+				<th>Ngày đăng ký</th>
+				<th>Trạng thái</th>
+				<th>Lý do Hủy</th>
+				<th>Ngày hủy</th>
+				<th>Ghi chú </th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var subcriber in subcriberList)
+			{
+				<tr>
+					<td>
+						@subcriber.Mail
+					</td>
+					<td>
+						@subcriber.DateRegis.ToShortDateString()
+					</td>
+					<td>
+						@if (subcriber.StatusFollow)
+						{
+							<div class="text-primary"> Đang theo dõi</div>
+						}
+						else if (subcriber.IsUserUnFollow)
+						{
+							<div class="text-danger"> Đã hủy</div>
+						}
+						else
+						{
+							<div class="text-danger">Admin Block</div>
+						}
+					</td>
+					<td>
+						<div class="text-body">@subcriber.Desc</div>
+					</td>
+					<td>
+						@subcriber.DateUnFollow.ToString()
+					</td>
+					<td>
+						<div class="text-body">@subcriber.NoteAdmin</div>
+					</td>
+					
+					<td>
+						<a asp-area="Admin"
+				   asp-controller="Subscriber"
+				   asp-action="Edit"
+				   asp-route-id="@subcriber.Id">
+							<div class="text-danger">
+								<i class="fa fa-edit"></i>
+							</div>
+						</a>
+					</td>
+					<td>
+						<a asp-area="Admin"
+				   asp-controller="Subscriber">
+							@Html.ActionLink("Delete", "DeletePost", new { id = subcriber.Id },
+					new {onclick = "return confirm('Are sure wants to delete?');"})
+							<i class="fa fa-trash-o"></i>
+						</a>
+					</td>
+
+				</tr>
+			}
+		</tbody>
+	</table>
+	<partial name="_Page" model="subcriberList" />
+}
+else
+{
+	<h1 class="text-danger">
+		Không tìm thấy Người theo dõi nào
+	</h1>
+}
+
+@section scripts
+	{
+	}

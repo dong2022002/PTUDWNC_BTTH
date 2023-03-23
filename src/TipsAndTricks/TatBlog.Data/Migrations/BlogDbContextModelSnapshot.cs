@@ -241,6 +241,9 @@ namespace TatBlog.Data.Migrations
                         .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("StatusFollow")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.ToTable("Subscriber", (string)null);

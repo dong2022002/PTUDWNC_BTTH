@@ -12,7 +12,7 @@ using TatBlog.Data.Contexts;
 namespace TatBlog.Data.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20230322070523_InitialCreate.")]
+    [Migration("20230323020916_InitialCreate.")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -243,6 +243,9 @@ namespace TatBlog.Data.Migrations
                     b.Property<string>("NoteAdmin")
                         .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("StatusFollow")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

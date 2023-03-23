@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TatBlog.Core.Contracts;
+using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 
 namespace TatBlog.Services.Blogs
@@ -33,5 +35,11 @@ namespace TatBlog.Services.Blogs
         Task<Subscriber> GetSubscriberByEmailAsync(
       string email,
         CancellationToken cancellationToken = default);
-    }
+
+		Task<IPagedList<Subscriber>> GetPagedSubcriberAsync(
+		 SubcriberQuery condition,
+		  int pageNumber = 1,
+		  int pageSize = 5,
+		  CancellationToken cancellationToken = default);
+	}
 }

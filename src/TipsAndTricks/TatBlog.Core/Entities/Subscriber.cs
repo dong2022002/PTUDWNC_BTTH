@@ -13,6 +13,7 @@ namespace TatBlog.Core.Entities
         public DateTime DateRegis { get; set; }
         public DateTime? DateUnFollow { get; set; }
         public string Desc { get; set; }
+        public bool StatusFollow { get; set; }    
         public bool IsUserUnFollow { get; set; }
         public string NoteAdmin { get; set; }
     }

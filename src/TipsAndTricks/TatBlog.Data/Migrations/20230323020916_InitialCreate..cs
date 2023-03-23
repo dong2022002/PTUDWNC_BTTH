@@ -55,6 +55,7 @@ namespace TatBlog.Data.Migrations
                     DateRegis = table.Column<DateTime>(type: "datetime", nullable: false),
                     DateUnFollow = table.Column<DateTime>(type: "datetime", nullable: true),
                     Desc = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    StatusFollow = table.Column<bool>(type: "bit", nullable: false),
                     IsUserUnFollow = table.Column<bool>(type: "bit", nullable: false),
                     NoteAdmin = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true)
                 },

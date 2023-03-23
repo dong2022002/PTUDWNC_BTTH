@@ -31,6 +31,11 @@ namespace TatBlog.WebApp.Mapsters
 
 			config.NewConfig<AuthorFilterModel, AuthorQuery>();
 
+			config.NewConfig<SubcriberFilterModel, SubcriberQuery>()
+				.Map(dest => dest.StatusFollowOnLy, scr => scr.Status == 1)
+				.Map(dest => dest.NotStatusFollow, scr => scr.Status == 2)
+				.Map(dest => dest.IsAdminBlock, scr => scr.Status == 3);
+
 			config.NewConfig<PostEditModel, Post>()
 				.Ignore(dest => dest.Id)
 				.Ignore(dest => dest.ImageUrl);
