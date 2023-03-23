@@ -478,13 +478,68 @@ namespace TatBlog.Services.Blogs
 			return await data.ToListAsync(cancellationToken);
 		}
 
+        public async Task<IList<Statistical>> GetStatistical(CancellationToken cancellationToken = default)
+		{
+
+			var post = await FilterPosts(new PostQuery()
+			{
+				PublishedOnly = false,
+			}).CountAsync(cancellationToken);
+            var NotPublishedPost = await FilterPosts(new PostQuery()
+            {
+                NotPublished = true,
+            }).CountAsync(cancellationToken);
+
+			var cat = await _context.Set<Category>().CountAsync(cancellationToken);
+			var author = await _context.Set<Author>().CountAsync(cancellationToken);
+			var comment = await _context.Set<Comment>()
+					.Where(c => !c.Published)
+					.CountAsync(cancellationToken);
+			var subscriber = await _context.Set<Subscriber>().CountAsync(cancellationToken);
+
+
+            IList<Statistical> list = new List<Statistical>()
+            {
+                new Statistical()
+                {
+                    Title = "Tổng số bài viết",
+                    Count = post,
+                },
+                 new Statistical()
+                {
+                    Title = "Số bài viết chưa xuất bản",
+                    Count = NotPublishedPost,
+                },
+                 new Statistical()
+                {
+                    Title = "Tổng số chủ đề",
+                    Count = cat,
+                },
+                   new Statistical()
+                {
+                    Title = "Tổng số tác giả",
+                    Count = author,
+                },
+                      new Statistical()
+                {
+                    Title = "Tổng số Bình luận chờ duyệt",
+                    Count = comment,
+                },
+                           new Statistical()
+                {
+                    Title = "Tổng số người theo dõi",
+                    Count = subscriber,
+                },
+            };
+			return list;
+		}
 
 
 
-		#endregion
+        #endregion
 
-		#region Author
-		public async Task<IList<AuthorItem>> GetAuthorsAsync(CancellationToken cancellationToken = default)
+        #region Author
+        public async Task<IList<AuthorItem>> GetAuthorsAsync(CancellationToken cancellationToken = default)
 		{
 			return await _context.Set<Author>()
 				.OrderBy(a => a.FullName)

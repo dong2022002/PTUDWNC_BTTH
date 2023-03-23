@@ -31,5 +31,7 @@ namespace TatBlog.Services.Blogs
 		Task<Comment> DeleteCommentAsync(
 			 int id,
 			 CancellationToken cancellationToken = default);
-	}
+        Task<IList<CommentItem>> GetCommentsFromPostQuery(
+          CommentQuery query, CancellationToken cancellationToken = default);
+    }
 }

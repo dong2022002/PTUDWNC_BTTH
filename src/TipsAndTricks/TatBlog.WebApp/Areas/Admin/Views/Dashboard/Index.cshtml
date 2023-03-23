@@ -1,7 +1,11 @@
-﻿@{
+﻿@model IList<Statistical>
+@{
 	ViewData["PageTitle"] = "Bảng điều khiển";
 }
+<div class="">
+	@foreach (var item in @Model)
+	{
+		<partial name="_Card" model="item" />
+	}
+</div>
 
-<h1>
-	Đây là khu vực dành cho người quản trị
-</h1>

@@ -9,10 +9,7 @@ namespace TatBlog.WebApp.Areas.Admin.Models
 {
 	public class PostEditModel
 	{
-        public PostEditModel()
-        {
-            
-        }
+    
 
         public int Id { get; set; }
 
