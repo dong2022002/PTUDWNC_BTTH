@@ -13,13 +13,16 @@ namespace TatBlog.WebApp.Controllers
     {
         private readonly ILogger<BlogController> _logger;
         private readonly IBlogRepository _blogRepository;
+        private readonly IAuthorRepository _authorRepository;
 		private readonly ICommentRepository _commentRepository;
 		private readonly IMapper _mapper;
 
 		public BlogController(
 			IBlogRepository blogRepository,
             ILogger<BlogController> logger,
-			ICommentRepository commentRepository, IMapper mapper
+			ICommentRepository commentRepository, IMapper mapper,
+			IAuthorRepository authorRepository
+
 		)
         {
             _blogRepository = blogRepository;
@@ -27,6 +30,7 @@ namespace TatBlog.WebApp.Controllers
 			_logger.LogDebug(1, "NLog injected into Blogcontroller");
 			_mapper = mapper;
 			_commentRepository = commentRepository;
+			_authorRepository = authorRepository;
 			
         }
 
@@ -90,8 +94,8 @@ namespace TatBlog.WebApp.Controllers
 			var postsList = await _blogRepository
 				.GetPagedPostsAsync(postQuery, pageNumber, pageSize);
 			ViewBag.PostQuery = postQuery;
-			var author = await _blogRepository
-				.GetAuthorFromSlugAsync(slug);
+			var author = await _authorRepository
+				.GetAuthorBySlugAsync(slug);
 
 			ViewBag.NameAuthor = author.FullName;
 			return View(postsList);

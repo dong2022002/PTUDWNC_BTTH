@@ -40,8 +40,8 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		{
 			var authorQuery = _mapper.Map<AuthorQuery>(model);
 
-			ViewBag.AuthorsList = await _authorRepository
-				.GetPagedAuthorsAsync(authorQuery, pageNumber, pageSize);
+			//ViewBag.AuthorsList = await _authorRepository
+			//	.GetPagedAuthorsAsync(authorQuery, pageNumber, pageSize);
 			return View(model);
 		}
 
@@ -49,7 +49,7 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 		public async Task<IActionResult> Edit(int id = 0)
 		{
 			var author = id > 0
-				? await _authorRepository.GetAuthorFromIDAsync(id)
+				? await _authorRepository.GetAuthorByIdAsync(id)
 				: null;
 
 			var model = author == null
@@ -75,7 +75,7 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			}
 
 			var author = model.Id > 0
-				? await _authorRepository.GetAuthorFromIDAsync(model.Id)
+				? await _authorRepository.GetAuthorByIdAsync(model.Id)
 				: null;
 
 			if (author == null)
@@ -101,7 +101,7 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 					author.ImageUrl = newImagePath;
 				}
 			}
-			await _authorRepository.AddUpdateAuthorAsync(author);
+			await _authorRepository.AddOrUpdateAsync(author);
 			return RedirectToAction(nameof(Index));
 		}
 		public async Task<IActionResult> DeleteCat(
