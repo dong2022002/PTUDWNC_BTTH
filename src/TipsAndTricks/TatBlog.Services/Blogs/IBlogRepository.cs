@@ -38,12 +38,12 @@ namespace TatBlog.Services.Blogs
         Task<Tag> GetTagFromSlugAsync(
             string slug,
             CancellationToken cancellationToken = default);
-		Task<Author> GetAuthorFromSlugAsync(
-			string slug,
-			CancellationToken cancellationToken = default);
-         Task<IList<AuthorItem>> GetAuthorsAsync(CancellationToken cancellationToken = default);
+        Task<Author> GetAuthorFromSlugAsync(
+            string slug,
+            CancellationToken cancellationToken = default);
+        Task<IList<AuthorItem>> GetAuthorsAsync(CancellationToken cancellationToken = default);
 
-		Task<Category> GetCategoryFromSlugAsync(
+        Task<Category> GetCategoryFromSlugAsync(
          string slug,
          CancellationToken cancellationToken = default);
 
@@ -65,26 +65,26 @@ namespace TatBlog.Services.Blogs
             string name,
             CancellationToken cancellationToken = default);
 
-        Task<bool > DeleteCategoryAsync(
+        Task<bool> DeleteCategoryAsync(
             int id,
             CancellationToken cancellationToken = default);
 
-         Task<IPagedList<CategoryItem>> GetPagedCategoriesAsync(
-               IPagingParams pagingParams,
-               CancellationToken cancellationToken = default);
+        Task<IPagedList<CategoryItem>> GetPagedCategoriesAsync(
+              IPagingParams pagingParams,
+              CancellationToken cancellationToken = default);
 
         Task<IList<DatePost>> CountPostMonthAysnc(
             int month,
-            CancellationToken cancellationToken= default);
+            CancellationToken cancellationToken = default);
 
         Task<int> CountPostsAsync(
         PostQuery condition, CancellationToken cancellationToken = default);
-     Task<bool> SetShowOnMenuCategoryAsync(
-     int catId,
-     CancellationToken cancellationToken = default);
+        Task<bool> SetShowOnMenuCategoryAsync(
+        int catId,
+        CancellationToken cancellationToken = default);
 
 
-		Task<IPagedList<Post>> GetPagedPostsAsync(
+        Task<IPagedList<Post>> GetPagedPostsAsync(
            PostQuery condition,
            int pageNumber = 1,
            int pageSize = 10,
@@ -97,9 +97,9 @@ namespace TatBlog.Services.Blogs
              CancellationToken cancellationToken = default);
 
 
-		Task<IPagedList<T>> GetPagedListPostFromQueryableAsync<T>(
+        Task<IPagedList<T>> GetPagedListPostFromQueryableAsync<T>(
               IPagingParams pagingParams,
-              Func<IQueryable<Post>,IQueryable<T>> mapper,
+              Func<IQueryable<Post>, IQueryable<T>> mapper,
               PostQuery query,
               CancellationToken cancellationToken = default);
 
@@ -107,13 +107,13 @@ namespace TatBlog.Services.Blogs
 
         Task<Post> GetPostByIdAsync(
            int id,
-			bool includeDetails,
-		   CancellationToken cancellationToken = default);
+            bool includeDetails,
+           CancellationToken cancellationToken = default);
 
-         Task<Post> AddUpdatePostAsync(
-            Post post,
-			 IEnumerable<string> tags,
-			CancellationToken cancellationToken = default);
+        Task<Post> AddUpdatePostAsync(
+           Post post,
+            IEnumerable<string> tags,
+           CancellationToken cancellationToken = default);
 
         Task<bool> SetPublishedPostAsync(
             int isPuslished,
@@ -140,10 +140,10 @@ namespace TatBlog.Services.Blogs
 
         #endregion
 
-       Task<Post> DeletePostAsync(
-        int id,
-        CancellationToken cancellationToken = default);
-
+        Task<Post> DeletePostAsync(
+         int id,
+         CancellationToken cancellationToken = default);
+        Task<IList<Statistical>> GetStatistical(CancellationToken cancellationToken = default);
 	}
    
 

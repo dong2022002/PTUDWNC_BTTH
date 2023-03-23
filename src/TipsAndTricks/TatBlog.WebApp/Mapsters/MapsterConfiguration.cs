@@ -54,6 +54,10 @@ namespace TatBlog.WebApp.Mapsters
 				.Ignore(dest => dest.PostCount)
 				.Ignore(dest => dest.ImageFile!);
 
+			config.NewConfig<Subscriber, SubscriberEditModel>();
+
+			config.NewConfig<StatisticalModel, Statistical>();
+
 		}
 	}
 }

@@ -1,0 +1,59 @@
+﻿@model SubscriberEditModel
+
+@{
+	ViewData["PageTitle"] = "Chặn người theo dõi";
+	var name = (ViewBag.Name as String) ?? "";
+}
+
+
+<h1>Chặn người theo dõi</h1>
+
+<form asp-area="Admin"
+	  asp-controller="Subscriber"
+	  asp-action="Block"
+   enctype="multipart/form-data"
+   method="post">
+	<div asp-validation-summary="ModelOnly"></div>
+	<input type="hidden" asp-for="Id" />
+
+	<div class="row mb-3">
+	 
+		<div class="col-sm-10">
+			<h4 class="text-center">@name</h4>
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label asp-for="Desc"
+	  class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<textarea class="form-control"
+					  asp-for="Desc" rows="10"></textarea>
+			<span asp-validation-for="Desc"
+	  class="text-danger"></span>
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<label asp-for="NoteAdmin"
+	  class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<input type="Text" class="form-control" asp-for="NoteAdmin" />
+			<span asp-validation-for="NoteAdmin"
+	  class="text-danger"></span>
+		</div>
+	</div>
+
+	<div class="text-center">
+		<button type="submit" class="btn btn-primary">
+			Lưu các thay đổi
+		</button>
+		<a asp-area="Admin"
+		   asp-controller="Subscriber"
+		   asp-action="Index"
+	 class="btn btn-danger">
+			Hủy & Quay lại
+		</a>
+	</div>
+
+</form>

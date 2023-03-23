@@ -59,17 +59,17 @@
 					<td>
 						<a asp-area="Admin"
 				   asp-controller="Subscriber"
-				   asp-action="Edit"
+				   asp-action="Block"
 				   asp-route-id="@subcriber.Id">
 							<div class="text-danger">
-								<i class="fa fa-edit"></i>
+								Block<i class="fa fa-close"></i>
 							</div>
 						</a>
 					</td>
 					<td>
 						<a asp-area="Admin"
 				   asp-controller="Subscriber">
-							@Html.ActionLink("Delete", "DeletePost", new { id = subcriber.Id },
+							@Html.ActionLink("Delete", "DeleteSubscriber", new { id = subcriber.Id },
 					new {onclick = "return confirm('Are sure wants to delete?');"})
 							<i class="fa fa-trash-o"></i>
 						</a>
