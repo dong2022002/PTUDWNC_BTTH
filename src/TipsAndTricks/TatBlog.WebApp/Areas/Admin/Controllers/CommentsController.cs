@@ -73,5 +73,19 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			return RedirectToAction(nameof(Index));
 
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> setPublished(
+			int id = -1
+			)
+		{
+			if (id > 0)
+			{
+				await _commentRepository.SetPublishedComment(id);
+			}
+			return RedirectToAction(nameof(Index));
+
+
+		}
 	}
 }
