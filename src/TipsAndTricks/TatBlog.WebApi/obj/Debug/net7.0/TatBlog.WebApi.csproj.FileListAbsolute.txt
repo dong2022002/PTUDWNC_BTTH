@@ -1,0 +1,10 @@
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApi\obj\Debug\net7.0\TatBlog.WebApi.csproj.AssemblyReference.cache
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApi\obj\Debug\net7.0\TatBlog.WebApi.GeneratedMSBuildEditorConfig.editorconfig
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApi\obj\Debug\net7.0\TatBlog.WebApi.AssemblyInfoInputs.cache
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApi\obj\Debug\net7.0\TatBlog.WebApi.AssemblyInfo.cs
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApi\obj\Debug\net7.0\TatBlog.WebApi.csproj.CoreCompileInputs.cache
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApi\obj\Debug\net7.0\TatBlog.WebApi.MvcApplicationPartsAssemblyInfo.cs
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApi\obj\Debug\net7.0\TatBlog.WebApi.MvcApplicationPartsAssemblyInfo.cache
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApi\obj\Debug\net7.0\TatBlog.WebApi.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApi\obj\Debug\net7.0\refint\TatBlog.WebApi.dll
+D:\Hoc_tap\Nam3_ky2\PTUDWNC\2014446_TipsAndTricks\src\TipsAndTricks\TatBlog.WebApi\obj\Debug\net7.0\TatBlog.WebApi.pdb
