@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using MapsterMapper;
+using TatBlog.WebApi.Mapsters;
 
 namespace TatBlog.WebApp.Mapsters
 {
