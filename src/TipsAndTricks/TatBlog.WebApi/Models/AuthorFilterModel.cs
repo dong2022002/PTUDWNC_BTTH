@@ -2,6 +2,6 @@
 {
 	public class AuthorFilterModel : PangingModel
 	{
-        public string Name { get; set; }
+		public string Name { get; set; } = null;
     }
 }
