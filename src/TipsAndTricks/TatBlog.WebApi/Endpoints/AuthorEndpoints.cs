@@ -15,7 +15,7 @@ namespace TatBlog.WebApi.Endpoints
 {
 	public static class AuthorEndpoints
 	{
-
+		
 		public static WebApplication MapAuthorEndpoints(
 			this WebApplication app)
 		{
@@ -77,13 +77,17 @@ namespace TatBlog.WebApi.Endpoints
 
 		private static async Task<IResult> GetAuthors(
 			[AsParameters] AuthorFilterModel model,
-			IAuthorRepository authorRepository)
+			IAuthorRepository authorRepository,
+			ILogger<AuthorRepository> logger
+			)
 		{
+			logger.LogInformation("Lấy tác giả từ database");
 			var authorsList = await authorRepository
 				.GetPagedAuthorsAsync(model, model.Name);
 
 			var paginationResult =
 				new PaginationResult<AuthorItem>(authorsList);
+			logger.LogInformation("Trả về kết quả trên APi");
 
 			return Results.Ok(paginationResult);
 		}
