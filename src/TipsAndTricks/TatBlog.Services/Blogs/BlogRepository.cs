@@ -234,7 +234,7 @@ namespace TatBlog.Services.Blogs
 		{
 			var cat = _context.Set<Category>()
 			  .Where(t => t.Id == id);
-			if (cat == null) return false;
+			if (cat.IsNullOrEmpty()) return false;
 			await cat.ExecuteDeleteAsync(cancellationToken);
 			return true;
 		}

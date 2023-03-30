@@ -66,13 +66,13 @@ namespace TatBlog.WebApi.Endpoints
 				.Produces(401)
 				.Produces<ApiResponse<string>>();
 
-			//routerGroupBuilder.MapDelete(
-			//	"/{id:int}",
-			//	DeleteAuthor)
-			//	.WithName("DeleteAuthor")
-			//	//.RequireAuthorization()
-			//	.Produces(401)
-			//	.Produces<ApiResponse<string>>();
+			routerGroupBuilder.MapDelete(
+				"/{id:int}",
+				DeleteCategory)
+				.WithName("DeleteCategory")
+				//.RequireAuthorization()
+				.Produces(401)
+				.Produces<ApiResponse<string>>();
 
 			return app;
 		}
@@ -214,13 +214,13 @@ namespace TatBlog.WebApi.Endpoints
 
 		}
 
-		//private static async Task<IResult> DeleteAuthor(
-		//	int id,
-		//	IAuthorRepository authorRepository)
-		//{
-		//	return await authorRepository.DeleteAuthorAsync(id)
-		//		? Results.Ok(ApiResponse.Success("Author is Deleted", HttpStatusCode.NoContent))
-		//		: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find author"));
-		//}
+		private static async Task<IResult> DeleteCategory(
+			int id,
+			IBlogRepository blogRepository)
+		{
+			return await blogRepository.DeleteCategoryAsync(id)
+				? Results.Ok(ApiResponse.Success("Category is Deleted", HttpStatusCode.NoContent))
+				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find category"));
+		}
 	}
 }
