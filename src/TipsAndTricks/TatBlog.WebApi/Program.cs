@@ -20,7 +20,6 @@ var app = builder.Build();
 	app.SetupRequestPipeline();
 
 	app.MapAuthorEndpoints();
-
 	app.MapCategoryEndpoints();
 
 	app.Run();

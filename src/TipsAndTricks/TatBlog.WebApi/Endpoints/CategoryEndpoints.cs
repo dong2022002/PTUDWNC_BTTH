@@ -31,9 +31,9 @@ namespace TatBlog.WebApi.Endpoints
 			//	.Produces<ApiResponse<IList<AuthorItem>>>();
 
 
-			//routerGroupBuilder.MapGet("/{id:int}", GetAuthorsDetails)
-			//	.WithName("GetAuthorById")
-			//	.Produces<ApiResponse<AuthorItem>>();
+			routerGroupBuilder.MapGet("/{id:int}", GetCategoryDetails)
+				.WithName("GetCategoryById")
+				.Produces<ApiResponse<CategoryItem>>();
 
 			//routerGroupBuilder.MapPost(
 			//	"/",
@@ -91,24 +91,24 @@ namespace TatBlog.WebApi.Endpoints
 			return Results.Ok(ApiResponse.Success(paginationResult));
 		}
 
-		//private static async Task<IResult> GetAuthorsDetails(
-		//	int id,
-		//	IMapper mapper,
-		//	IAuthorRepository authorRepository)
-		//{
-		//	var author = await authorRepository
-		//		.GetCachedAuthorByIdAsync(id);
-		//	return author == null
-		//		? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,$"Không tìm thấy tác giã có mã số {id}"))
-		//		: Results.Ok(ApiResponse.Success(mapper.Map<AuthorItem>(author)));
-		//}
+		private static async Task<IResult> GetCategoryDetails(
+			int id,
+			IMapper mapper,
+			IBlogRepository blogRepository)
+		{
+			var category = await blogRepository
+				.GetCategoryFromIDAsync(id);
+			return category == null
+				? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy tác giã có mã số {id}"))
+				: Results.Ok(ApiResponse.Success(mapper.Map<CategoryItem>(category)));
+		}
 		//private static async Task<IResult> GetBestAuthor(
 		//	int limit,
 		//	IMapper mapper,
 		//	IAuthorRepository authorRepository)
 		//{
 		//	var authors = await authorRepository
-		//		.GetBestAuthorsAsync(limit);       
+		//		.GetBestAuthorsAsync(limit);
 		//	return Results.Ok(ApiResponse.Success(authors));
 
 		//}

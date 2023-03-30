@@ -13,7 +13,7 @@ public interface IAuthorRepository
 	Task<Author> GetCachedAuthorBySlugAsync(
 		string slug, CancellationToken cancellationToken = default);
 
-	Task<Author> GetAuthorByIdAsync(int authorId);
+	Task<Author> GetAuthorByIdAsync(int authorId, CancellationToken cancellationToken = default);
 
 	Task<Author> GetCachedAuthorByIdAsync(int authorId);
 

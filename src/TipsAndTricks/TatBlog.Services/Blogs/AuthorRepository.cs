@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
+using System.Threading;
 using TatBlog.Core.Contracts;
 using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
@@ -39,9 +40,13 @@ public class AuthorRepository : IAuthorRepository
 			});
 	}
 
-	public async Task<Author> GetAuthorByIdAsync(int authorId)
+	public async Task<Author> GetAuthorByIdAsync(int authorId, CancellationToken cancellationToken = default)
 	{
-		return await _context.Set<Author>().FindAsync(authorId);
+		return await _context.Set<Author>()
+			.Include(p => p.Posts)
+			.Where(c => c.Id == authorId)
+			.FirstOrDefaultAsync(cancellationToken);
+
 	}
 
 	public async Task<Author> GetCachedAuthorByIdAsync(int authorId)

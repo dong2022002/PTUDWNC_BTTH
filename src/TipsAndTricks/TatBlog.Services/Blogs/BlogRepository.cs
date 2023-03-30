@@ -172,8 +172,10 @@ namespace TatBlog.Services.Blogs
 			CancellationToken cancellationToken = default)
 		{
 			return await _context.Set<Category>()
-			  .Where(c => c.Id == id)
-			  .FirstOrDefaultAsync(cancellationToken);
+			.Include(p => p.Posts)
+			.Where(c => c.Id == id)
+			.FirstOrDefaultAsync(cancellationToken);
+
 		}
 
 		public async Task<Category> AddUpdateCategoryAsync(Category newCat, CancellationToken cancellationToken = default)
