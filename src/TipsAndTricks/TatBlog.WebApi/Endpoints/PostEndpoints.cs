@@ -25,9 +25,9 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetPosts")
 				.Produces<ApiResponse<PaginationResult<PostDto>>>();
 
-			//routerGroupBuilder.MapGet("/best/{limit:int}", GetBestAuthor)
-			//	.WithName("GetBestAuthors")
-			//	.Produces<ApiResponse<IList<AuthorItem>>>();
+			routerGroupBuilder.MapGet("/featured/{limit:int}", GetFeaturedPosts)
+				.WithName("GetFeaturedPosts")
+				.Produces<ApiResponse<IList<Post>>>();
 
 
 			//routerGroupBuilder.MapGet("/{id:int}", GetAuthorsDetails)
@@ -106,16 +106,15 @@ namespace TatBlog.WebApi.Endpoints
 		//		? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy tác giã có mã số {id}"))
 		//		: Results.Ok(ApiResponse.Success(mapper.Map<AuthorItem>(author)));
 		//}
-		//private static async Task<IResult> GetBestAuthor(
-		//	int limit,
-		//	IMapper mapper,
-		//	IAuthorRepository authorRepository)
-		//{
-		//	var authors = await authorRepository
-		//		.GetBestAuthorsAsync(limit);
-		//	return Results.Ok(ApiResponse.Success(authors));
+		private static async Task<IResult> GetFeaturedPosts(
+			int limit,
+			IBlogRepository blogRepository)
+		{
+			var posts = await blogRepository
+				.GetFeaturePostMapperAysnc(limit, posts => posts.ProjectToType<PostDto>());
+			return Results.Ok(ApiResponse.Success(posts));
 
-		//}
+		}
 
 		//private static async Task<IResult> GetPostsByAuthorId(
 		//	int id,

@@ -23,7 +23,6 @@ namespace TatBlog.Services.Blogs
 		private readonly BlogDbContext _context;
 		private readonly IMediaManager _mediaManager;
 
-
 		public BlogRepository(BlogDbContext context, IMediaManager mediaManager)
 		{
 			_context = context;
@@ -701,19 +700,29 @@ namespace TatBlog.Services.Blogs
 		}
 
 
-		public async Task<IList<Post>> GetFeaturePostAysnc(
+		public async Task<IList<T>> GetFeaturePostMapperAysnc<T>(
 		  int numberPost,
-		  CancellationToken cancellationToken = default)
+		  Func<IQueryable<Post>, IQueryable<T>> mapper,
+		  CancellationToken cancellationToken = default
+			)
 		{
 
-			return await _context.Set<Post>()
+			var posts = _context.Set<Post>()
 				.Include(x => x.Category)
 				.Include(x => x.Author)
 				.Include(x => x.Tags)
 				.OrderByDescending(x => x.ViewCount)
-				.Take(numberPost)
-				.ToListAsync(cancellationToken);
+				.Take(numberPost);
+			return await mapper(posts).ToListAsync(cancellationToken);
+				
 		}
+		public async Task<IList<Post>> GetFeaturePostAysnc(int numberPost, CancellationToken cancellationToken = default)
+		{
+			return await _context.Set<Post>().OrderByDescending(x => x.ViewCount)
+				.Take(numberPost).ToListAsync(cancellationToken);
+		}
+
+
 
 	}
 }

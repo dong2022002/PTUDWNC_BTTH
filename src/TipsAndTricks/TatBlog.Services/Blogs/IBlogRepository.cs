@@ -148,6 +148,12 @@ namespace TatBlog.Services.Blogs
            CancellationToken cancellationToken = default);
 
         Task<bool> AddOrUpdateCategoryAsync(Category newCat, CancellationToken cancellationToken = default);
+
+        Task<IList<T>> GetFeaturePostMapperAysnc<T>(
+          int numberPost,
+          Func<IQueryable<Post>, IQueryable<T>> mapper,
+          CancellationToken cancellationToken = default
+            );
 	}
    
 
