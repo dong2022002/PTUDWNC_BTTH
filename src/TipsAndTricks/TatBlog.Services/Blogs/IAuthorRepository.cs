@@ -51,4 +51,8 @@ public interface IAuthorRepository
 			int pageNumber = 1,
 			int pageSize = 2,
 			CancellationToken cancellationToken = default);
+
+	Task<IList<AuthorItem>> GetBestAuthorsAsync(
+		int limit,
+		CancellationToken cancellationToken = default);
 }

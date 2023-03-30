@@ -25,6 +25,10 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetAuthors")
 				.Produces<PaginationResult<AuthorItem>>();
 
+			routerGroupBuilder.MapGet("/best/{limit:int}", GetBestAuthor)
+				.WithName("GetBestAuthors")
+				.Produces<IList<AuthorItem>>();
+
 
 			routerGroupBuilder.MapGet("/{id:int}", GetAuthorsDetails)
 				.WithName("GetAuthorById")
@@ -94,6 +98,16 @@ namespace TatBlog.WebApi.Endpoints
 			return author == null
 				? Results.NotFound($"Không tìm thấy tác giã có mã số {id}")
 				: Results.Ok(mapper.Map<AuthorItem>(author));
+		}
+		private static async Task<IResult> GetBestAuthor(
+			int limit,
+			IMapper mapper,
+			IAuthorRepository authorRepository)
+		{
+			var authors = await authorRepository
+				.GetBestAuthorsAsync(limit);       
+			return Results.Ok(authors);
+
 		}
 
 		private static async Task<IResult> GetPostsByAuthorId(

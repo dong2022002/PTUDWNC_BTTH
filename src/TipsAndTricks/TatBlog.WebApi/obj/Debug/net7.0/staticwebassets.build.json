@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "gw/CqeuiqlJLYG9eIKBIMROwkuJu8G1BYNrpAkuYGrI=",
+  "Source": "TatBlog.WebApi",
+  "BasePath": "_content/TatBlog.WebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "TatBlog.WebApi\\wwwroot",
+      "Source": "TatBlog.WebApi",
+      "ContentRoot": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApi\\wwwroot\\",
+      "BasePath": "_content/TatBlog.WebApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
