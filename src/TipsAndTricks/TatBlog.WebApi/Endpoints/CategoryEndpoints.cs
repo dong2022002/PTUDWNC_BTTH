@@ -26,9 +26,7 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetCategories")
 				.Produces<ApiResponse<PaginationResult<CategoryItem>>>();
 
-			//routerGroupBuilder.MapGet("/best/{limit:int}", GetBestAuthor)
-			//	.WithName("GetBestAuthors")
-			//	.Produces<ApiResponse<IList<AuthorItem>>>();
+
 
 
 			routerGroupBuilder.MapGet("/{id:int}", GetCategoryDetails)
@@ -50,12 +48,6 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetPostsByCategoriesSlug")
 				.Produces<ApiResponse<PaginationResult<PostDto>>>();
 
-			//routerGroupBuilder.MapPost("/{id:int}/avatar", SetAuthorPicture)
-			//	.WithName("SetAuthorPicture")
-			//	//.RequireAuthorization()
-			//	.Accepts<IFormFile>("multipart/form-data")
-			//	.Produces(401)
-			//	.Produces<ApiResponse<string>>();
 
 			routerGroupBuilder.MapPut(
 				"/{id:int}",
@@ -102,37 +94,9 @@ namespace TatBlog.WebApi.Endpoints
 				? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy tác giã có mã số {id}"))
 				: Results.Ok(ApiResponse.Success(mapper.Map<CategoryItem>(category)));
 		}
-		//private static async Task<IResult> GetBestAuthor(
-		//	int limit,
-		//	IMapper mapper,
-		//	IAuthorRepository authorRepository)
-		//{
-		//	var authors = await authorRepository
-		//		.GetBestAuthorsAsync(limit);
-		//	return Results.Ok(ApiResponse.Success(authors));
+		
 
-		//}
 
-		//private static async Task<IResult> GetPostsByAuthorId(
-		//	int id,
-		//	[AsParameters] PagingModel pagingModel,
-		//	IBlogRepository blogRepository)
-		//{
-		//	var postQuery = new PostQuery()
-		//	{
-		//		AuthorId = id,
-		//		PublishedOnly = true,
-		//	};
-
-		//	var postsList = await blogRepository.GetPagedListPostFromQueryableAsync(
-		//		pagingModel,
-		//		posts => posts.ProjectToType<PostDto>(),
-		//		 postQuery);
-
-		//	var pagingationResult = new PaginationResult<PostDto>(postsList);
-
-		//	return Results.Ok(ApiResponse.Success(pagingationResult));
-		//}
 
 		private static async Task<IResult> GetPostsByCategoriesSlug(
 			[FromRoute] string slug,
@@ -145,7 +109,7 @@ namespace TatBlog.WebApi.Endpoints
 				PublishedOnly = true,
 			};
 
-			var postsList = await blogRepository.GetPagedListPostFromQueryableAsync(
+			var postsList = await blogRepository.GetPagedPostAsync(
 				pagingModel,
 				posts => posts.ProjectToType<PostDto>(),
 				postQuery);
@@ -172,24 +136,7 @@ namespace TatBlog.WebApi.Endpoints
 				mapper.Map<CategoryItem>(category), HttpStatusCode.Created));
 		}
 
-		//private static async Task<IResult> SetAuthorPicture(
-		//	int id, IFormFile imageFile,
-		//	IAuthorRepository authorRepository,
-		//	IMediaManager mediaManager)
-		//{
-		//	var imageUrl = await mediaManager.SaveFileAsync(
-		//		imageFile.OpenReadStream(),
-		//		imageFile.FileName, imageFile.ContentType);
-		//	if(string.IsNullOrWhiteSpace(imageUrl))
-		//	{
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, "Không lưu được tập tin"));
-		//	}
-
-		//	await authorRepository.SetImageUrlAsync(id,imageUrl);
-
-		//	return Results.Ok(ApiResponse.Success(imageUrl));
-		//}
-
+		
 		private static async Task<IResult> UpdateCategory(
 			int id, CategoryEditModel model,
 			IBlogRepository blogRepository,

@@ -2,6 +2,7 @@
 using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.WebApi.Models;
+using TatBlog.WebApi.Models.PostsModel;
 
 namespace TatBlog.WebApi.Mapsters
 {
@@ -24,6 +25,7 @@ namespace TatBlog.WebApi.Mapsters
 			config.NewConfig<Post, PostDto>();
 			config.NewConfig<Post, PostDetail>();
 
+			config.NewConfig<PostFilterModel, PostQuery>();
 		}
 	}
 }

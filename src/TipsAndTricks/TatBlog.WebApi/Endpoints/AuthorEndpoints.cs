@@ -127,7 +127,7 @@ namespace TatBlog.WebApi.Endpoints
 				PublishedOnly = true,
 			};
 
-			var postsList = await blogRepository.GetPagedListPostFromQueryableAsync(
+			var postsList = await blogRepository.GetPagedPostAsync(
 				pagingModel,
 				posts => posts.ProjectToType<PostDto>(),
 				 postQuery);
@@ -148,7 +148,7 @@ namespace TatBlog.WebApi.Endpoints
 				PublishedOnly = true,
 			};
 
-			var postsList = await blogRepository.GetPagedListPostFromQueryableAsync(
+			var postsList = await blogRepository.GetPagedPostAsync(
 				pagingModel,
 				posts => posts.ProjectToType<PostDto>(),
 				 postQuery);

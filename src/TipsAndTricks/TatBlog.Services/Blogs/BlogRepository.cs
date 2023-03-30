@@ -326,7 +326,7 @@ namespace TatBlog.Services.Blogs
 
 	
 
-		public async Task<IPagedList<Post>> GetPagedListPostFromPostQueryAsync(
+		public async Task<IPagedList<Post>> GetPagedPostAsync(
 			   IPagingParams pagingParams,
 			   PostQuery query,
 			   CancellationToken cancellationToken = default)
@@ -336,7 +336,7 @@ namespace TatBlog.Services.Blogs
 				.ToPagedListAsync(pagingParams, cancellationToken);
 		}
 
-		public async Task<IPagedList<T>> GetPagedListPostFromQueryableAsync<T>(
+		public async Task<IPagedList<T>> GetPagedPostAsync<T>(
 			 IPagingParams pagingParams,
 			 Func<IQueryable<Post>, IQueryable<T>> mapper,
 			 PostQuery query,
