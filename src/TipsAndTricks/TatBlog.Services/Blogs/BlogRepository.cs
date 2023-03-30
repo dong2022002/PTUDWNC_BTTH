@@ -254,9 +254,12 @@ namespace TatBlog.Services.Blogs
 		}
 		public async Task<IPagedList<CategoryItem>> GetPagedCategoriesAsync(
 		 IPagingParams pagingParams,
+		 string name = null,
 		 CancellationToken cancellationToken = default)
 		{
 			var catQuery = _context.Set<Category>()
+				.WhereIf(!string.IsNullOrWhiteSpace(name),
+				x => x.Name.Contains(name))
 				.Select(x => new CategoryItem()
 				{
 					Id = x.Id,

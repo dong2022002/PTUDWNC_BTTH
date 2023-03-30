@@ -67,6 +67,7 @@ namespace TatBlog.Services.Blogs
 
         Task<IPagedList<CategoryItem>> GetPagedCategoriesAsync(
               IPagingParams pagingParams,
+              string name =null,
               CancellationToken cancellationToken = default);
 
         Task<IList<DatePost>> CountPostMonthAysnc(

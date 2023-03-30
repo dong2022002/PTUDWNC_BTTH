@@ -16,7 +16,7 @@ namespace TatBlog.WebApi.Models
 			Errors = new List<string>();
 		}
 
-		public static ApiResponse<T> Succes<T>(
+		public static ApiResponse<T> Success<T>(
 			T result,
 			HttpStatusCode statusCode = HttpStatusCode.OK)
 		{

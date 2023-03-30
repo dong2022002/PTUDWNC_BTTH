@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NLog.Web;
 using System.Net;
@@ -25,7 +26,9 @@ namespace TatBlog.WebApp.Extensions
 						   .AllowAnyOrigin()
 						   .AllowAnyHeader()
 						   .AllowAnyMethod());
+			
 			});
+	
 
 			return builder;
 		}
