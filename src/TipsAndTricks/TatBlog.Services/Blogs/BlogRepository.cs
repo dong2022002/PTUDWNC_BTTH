@@ -202,6 +202,15 @@ namespace TatBlog.Services.Blogs
 				.AnyAsync(x => x.Name == name, cancellationToken);
 		}
 
+		public async Task<bool> IsCategorySlugExistedAsync(
+			string slug,
+			CancellationToken cancellationToken = default)
+		{
+			return await _context.Set<Category>()
+				.AnyAsync(x => x.UrlSlug == slug, cancellationToken);
+		}
+
+
 		public async Task<bool> DeleteCategoryAsync(
 			int id,
 			CancellationToken cancellationToken = default)

@@ -141,6 +141,10 @@ namespace TatBlog.Services.Blogs
          int id,
          CancellationToken cancellationToken = default);
         Task<IList<Statistical>> GetStatistical(CancellationToken cancellationToken = default);
+
+        Task<bool> IsCategorySlugExistedAsync(
+           string slug,
+           CancellationToken cancellationToken = default);
 	}
    
 

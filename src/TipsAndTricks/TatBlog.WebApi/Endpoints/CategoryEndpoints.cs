@@ -35,14 +35,14 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetCategoryById")
 				.Produces<ApiResponse<CategoryItem>>();
 
-			//routerGroupBuilder.MapPost(
-			//	"/",
-			//	AddAuthor)
-			//	.AddEndpointFilter<ValidatorFilter<AuthorEditModel>>()
-			//	.WithName("AddNewAuthor")
-			//	//.RequireAuthorization()
-			//	.Produces(401)
-			//	.Produces<ApiResponse<AuthorItem>>();
+			routerGroupBuilder.MapPost(
+				"/",
+				AddCategory)
+				.AddEndpointFilter<ValidatorFilter<CategoryEditModel>>()
+				.WithName("AddCategory")
+				//.RequireAuthorization()
+				.Produces(401)
+				.Produces<ApiResponse<CategoryItem>>();
 
 			routerGroupBuilder.MapGet(
 				"/{slug:regex(^[a-z0-9_-]+$)}/posts",
@@ -154,23 +154,23 @@ namespace TatBlog.WebApi.Endpoints
 
 			return Results.Ok(ApiResponse.Success(pagingationResult));
 		}
-		//private static async Task<IResult> AddAuthor(
-		//	AuthorEditModel model,
-		//	IAuthorRepository authorRepository,
-		//	IMapper mapper)
-		//{
-		//          if (await authorRepository
-		//		.IsAuthorSlugExistedAsync(0,model.UrlSlug))
-		//          {
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
-		//          }
+		private static async Task<IResult> AddCategory(
+			CategoryEditModel model,
+			IBlogRepository blogRepository,
+			IMapper mapper)
+		{
+			if (await blogRepository
+		  .IsCategorySlugExistedAsync(model.UrlSlug))
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
+			}
 
-		//	var author = mapper.Map<Author>(model);
-		//	await authorRepository.AddOrUpdateAsync(author);
+			var category = mapper.Map<Category>(model);
+			await blogRepository.AddUpdateCategoryAsync(category);
 
-		//	return Results.Ok(ApiResponse.Success(
-		//		mapper.Map<AuthorItem>(author),HttpStatusCode.Created));
-		//      }
+			return Results.Ok(ApiResponse.Success(
+				mapper.Map<CategoryItem>(category), HttpStatusCode.Created));
+		}
 
 		//private static async Task<IResult> SetAuthorPicture(
 		//	int id, IFormFile imageFile,
