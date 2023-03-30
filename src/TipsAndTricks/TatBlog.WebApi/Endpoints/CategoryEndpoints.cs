@@ -44,11 +44,11 @@ namespace TatBlog.WebApi.Endpoints
 			//	.Produces(401)
 			//	.Produces<ApiResponse<AuthorItem>>();
 
-			//routerGroupBuilder.MapGet(
-			//	"/{slug:regex(^[a-z0-9_-]+$)}/posts",
-			//	GetPostsByAuthorSlug)
-			//	.WithName("GetPostsByAuthorSlug")
-			//	.Produces<ApiResponse<PaginationResult<PostDto>>>();
+			routerGroupBuilder.MapGet(
+				"/{slug:regex(^[a-z0-9_-]+$)}/posts",
+				GetPostsByCategoriesSlug)
+				.WithName("GetPostsByCategoriesSlug")
+				.Produces<ApiResponse<PaginationResult<PostDto>>>();
 
 			//routerGroupBuilder.MapPost("/{id:int}/avatar", SetAuthorPicture)
 			//	.WithName("SetAuthorPicture")
@@ -134,26 +134,26 @@ namespace TatBlog.WebApi.Endpoints
 		//	return Results.Ok(ApiResponse.Success(pagingationResult));
 		//}
 
-		//private static async Task<IResult> GetPostsByAuthorSlug(
-		//	[FromRoute] string slug,
-		//	[AsParameters] PagingModel pagingModel,
-		//	IBlogRepository blogRepository)
-		//{
-		//	var postQuery = new PostQuery()
-		//	{
-		//		AuthorSlug = slug,
-		//		PublishedOnly = true,
-		//	};
+		private static async Task<IResult> GetPostsByCategoriesSlug(
+			[FromRoute] string slug,
+			[AsParameters] PagingModel pagingModel,
+			IBlogRepository blogRepository)
+		{
+			var postQuery = new PostQuery()
+			{
+				CategorySlug = slug,
+				PublishedOnly = true,
+			};
 
-		//	var postsList = await blogRepository.GetPagedListPostFromQueryableAsync(
-		//		pagingModel,
-		//		posts => posts.ProjectToType<PostDto>(),
-		//		 postQuery);
+			var postsList = await blogRepository.GetPagedListPostFromQueryableAsync(
+				pagingModel,
+				posts => posts.ProjectToType<PostDto>(),
+				postQuery);
 
-		//	var pagingationResult = new PaginationResult<PostDto>(postsList);
+			var pagingationResult = new PaginationResult<PostDto>(postsList);
 
-		//	return Results.Ok(ApiResponse.Success(pagingationResult));
-		//}
+			return Results.Ok(ApiResponse.Success(pagingationResult));
+		}
 		//private static async Task<IResult> AddAuthor(
 		//	AuthorEditModel model,
 		//	IAuthorRepository authorRepository,
