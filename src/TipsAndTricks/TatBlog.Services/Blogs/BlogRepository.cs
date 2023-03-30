@@ -421,14 +421,17 @@ namespace TatBlog.Services.Blogs
 				.FirstOrDefaultAsync(x => x.UrlSlug == slug, cancellationToken);
 		}
 
-		public async Task<Post> AddUpdatePostAsync(
+		public async Task<bool> AddUpdatePostAsync(
 			Post post,
 			IEnumerable<string> tags,
 			CancellationToken cancellationToken = default)
 		{
 			if (post.Id > 0)
 			{
-				await _context.Entry(post).Collection(x => x.Tags).LoadAsync(cancellationToken);
+				await _context
+					.Entry(post)
+					.Collection(x => x.Tags)
+					.LoadAsync(cancellationToken);
 			}
 			else
 			{
@@ -465,10 +468,8 @@ namespace TatBlog.Services.Blogs
 				_context.Update(post);
 			else
 				_context.Add(post);
+			return await _context.SaveChangesAsync(cancellationToken) > 0;
 
-			await _context.SaveChangesAsync(cancellationToken);
-
-			return post;
 		}
 
 		public async Task<bool> SetPublishedPostAsync(

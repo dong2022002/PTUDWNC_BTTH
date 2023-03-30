@@ -107,7 +107,7 @@ namespace TatBlog.Services.Blogs
             bool includeDetails,
            CancellationToken cancellationToken = default);
 
-        Task<Post> AddUpdatePostAsync(
+        Task<bool> AddUpdatePostAsync(
            Post post,
             IEnumerable<string> tags,
            CancellationToken cancellationToken = default);
