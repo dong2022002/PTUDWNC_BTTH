@@ -16,7 +16,7 @@ namespace TatBlog.WebApp.Components
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
 			int monthNumber = 12;
-			var datePost =await _blogRepository.CountPostMonthAysnc(monthNumber);
+			var datePost =await _blogRepository.GetPostCountByMonthArchives(monthNumber);
 			return View(datePost);
 		}
 	}

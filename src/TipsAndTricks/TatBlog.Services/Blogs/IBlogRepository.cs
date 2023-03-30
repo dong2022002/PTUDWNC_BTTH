@@ -70,7 +70,7 @@ namespace TatBlog.Services.Blogs
               string name =null,
               CancellationToken cancellationToken = default);
 
-        Task<IList<DatePost>> CountPostMonthAysnc(
+        Task<IList<DatePost>> GetPostCountByMonthArchives(
             int month,
             CancellationToken cancellationToken = default);
 
@@ -154,6 +154,11 @@ namespace TatBlog.Services.Blogs
           Func<IQueryable<Post>, IQueryable<T>> mapper,
           CancellationToken cancellationToken = default
             );
+
+        Task<Post> GetPostBySlugAsync(
+            string slug,
+             bool includeDetails = false,
+            CancellationToken cancellationToken = default);
 	}
    
 

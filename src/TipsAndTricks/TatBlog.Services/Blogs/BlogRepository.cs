@@ -349,7 +349,7 @@ namespace TatBlog.Services.Blogs
 		#endregion
 
 		#region Count
-		public async Task<IList<DatePost>> CountPostMonthAysnc(
+		public async Task<IList<DatePost>> GetPostCountByMonthArchives(
 			int numberMonth,
 			CancellationToken cancellationToken = default)
 		{
@@ -402,6 +402,23 @@ namespace TatBlog.Services.Blogs
 				.Include(x => x.Category)
 				.Include(x => x.Author)
 				.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+		}
+
+		public async Task<Post> GetPostBySlugAsync(
+			string slug,
+			 bool includeDetails = false,
+			CancellationToken cancellationToken = default)
+		{
+			if (!includeDetails)
+			{
+				return await _context.Set<Post>().FindAsync(slug);
+			}
+
+			return await _context.Set<Post>()
+				.Include(x => x.Tags)
+				.Include(x => x.Category)
+				.Include(x => x.Author)
+				.FirstOrDefaultAsync(x => x.UrlSlug == slug, cancellationToken);
 		}
 
 		public async Task<Post> AddUpdatePostAsync(

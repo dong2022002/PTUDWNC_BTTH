@@ -33,10 +33,17 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetRandomPosts")
 				.Produces<ApiResponse<IList<Post>>>();
 
+			routerGroupBuilder.MapGet("/archives/{limit:int}", GetArchivesPosts)
+				.WithName("GetArchivesPosts")
+				.Produces<ApiResponse<IList<DatePost>>>();
 
-			//routerGroupBuilder.MapGet("/{id:int}", GetAuthorsDetails)
-			//	.WithName("GetAuthorById")
-			//	.Produces<ApiResponse<AuthorItem>>();
+			routerGroupBuilder.MapGet("/{id:int}", GetPostsDetails)
+				.WithName("GetPostById")
+				.Produces<ApiResponse<PostDto>>();
+
+			routerGroupBuilder.MapGet("/byslug/{slug}", GetPostsDetailsBySlug)
+				.WithName("GetPostsDetailsBySlug")
+				.Produces<ApiResponse<PostDto>>();
 
 			//routerGroupBuilder.MapPost(
 			//	"/",
@@ -99,17 +106,29 @@ namespace TatBlog.WebApi.Endpoints
 			return Results.Ok(ApiResponse.Success(paginationResult));
 		}
 
-		//private static async Task<IResult> GetAuthorsDetails(
-		//	int id,
-		//	IMapper mapper,
-		//	IAuthorRepository authorRepository)
-		//{
-		//	var author = await authorRepository
-		//		.GetCachedAuthorByIdAsync(id);
-		//	return author == null
-		//		? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy tác giã có mã số {id}"))
-		//		: Results.Ok(ApiResponse.Success(mapper.Map<AuthorItem>(author)));
-		//}
+		private static async Task<IResult> GetPostsDetails(
+			int id,
+			IMapper mapper,
+			IBlogRepository blogRepository)
+		{
+			var post = await blogRepository
+				.GetPostByIdAsync(id,true);
+			return post == null
+				? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy bài viết có mã số {id}"))
+				: Results.Ok(ApiResponse.Success(mapper.Map<PostDto>(post)));
+		}
+
+		private static async Task<IResult> GetPostsDetailsBySlug(
+			string slug,
+			IMapper mapper,
+			IBlogRepository blogRepository)
+		{
+			var post = await blogRepository
+				.GetPostBySlugAsync(slug, true);
+			return post == null
+				? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy bài viết có định danh {slug}"))
+				: Results.Ok(ApiResponse.Success(mapper.Map<PostDto>(post)));
+		}
 		private static async Task<IResult> GetFeaturedPosts(
 			int limit,
 			IBlogRepository blogRepository)
@@ -121,14 +140,25 @@ namespace TatBlog.WebApi.Endpoints
 		}
 
 		private static async Task<IResult> GetRandomPosts(
-		int limit,
-		IBlogRepository blogRepository)
+			int limit,
+			IBlogRepository blogRepository)
 		{
 			var posts = await blogRepository
 				.GetPostsRandomAsync(limit);
 			return Results.Ok(ApiResponse.Success(posts));
 
 		}
+
+		private static async Task<IResult> GetArchivesPosts(
+			int limit,
+			IBlogRepository blogRepository)
+		{
+			var posts = await blogRepository
+				.GetPostCountByMonthArchives(limit);
+			return Results.Ok(ApiResponse.Success(posts));
+
+		}
+
 
 		//private static async Task<IResult> GetPostsByAuthorId(
 		//	int id,
