@@ -60,12 +60,12 @@ namespace TatBlog.WebApi.Endpoints
 			//	.WithName("GetPostsByAuthorSlug")
 			//	.Produces<ApiResponse<PaginationResult<PostDto>>>();
 
-			//routerGroupBuilder.MapPost("/{id:int}/avatar", SetAuthorPicture)
-			//	.WithName("SetAuthorPicture")
-			//	//.RequireAuthorization()
-			//	.Accepts<IFormFile>("multipart/form-data")
-			//	.Produces(401)
-			//	.Produces<ApiResponse<string>>();
+			routerGroupBuilder.MapPost("/{id:int}/picture", SetPostPicture)
+				.WithName("SetPostPicture")
+				//.RequireAuthorization()
+				.Accepts<IFormFile>("multipart/form-data")
+				.Produces(401)
+				.Produces<ApiResponse<string>>();
 
 			//routerGroupBuilder.MapPut(
 			//	"/{id:int}",
@@ -228,23 +228,24 @@ namespace TatBlog.WebApi.Endpoints
 				mapper.Map<AuthorItem>(post), HttpStatusCode.Created));
 		}
 
-		//private static async Task<IResult> SetAuthorPicture(
-		//	int id, IFormFile imageFile,
-		//	IAuthorRepository authorRepository,
-		//	IMediaManager mediaManager)
-		//{
-		//	var imageUrl = await mediaManager.SaveFileAsync(
-		//		imageFile.OpenReadStream(),
-		//		imageFile.FileName, imageFile.ContentType);
-		//	if (string.IsNullOrWhiteSpace(imageUrl))
-		//	{
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, "Không lưu được tập tin"));
-		//	}
+		private static async Task<IResult> SetPostPicture(
+			int id, IFormFile imageFile,
+			IBlogRepository blogRepository,
+			IMediaManager mediaManager)
+		{
+			var imageUrl = await mediaManager.SaveFileAsync(
+				imageFile.OpenReadStream(),
+				imageFile.FileName,
+				imageFile.ContentType);
+			if (string.IsNullOrWhiteSpace(imageUrl))
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, "Không lưu được tập tin"));
+			}
 
-		//	await authorRepository.SetImageUrlAsync(id, imageUrl);
+			await blogRepository.SetPostImageUrlAsync(id, imageUrl);
 
-		//	return Results.Ok(ApiResponse.Success(imageUrl));
-		//}
+			return Results.Ok(ApiResponse.Success(imageUrl));
+		}
 
 		//private static async Task<IResult> UpdateAuthor(
 		//	int id, AuthorEditModel model,

@@ -736,7 +736,16 @@ namespace TatBlog.Services.Blogs
 				.Take(numberPost).ToListAsync(cancellationToken);
 		}
 
-
+		public async Task<bool> SetPostImageUrlAsync(
+		int id, string imageUrl,
+		CancellationToken cancellationToken = default)
+		{
+			return await _context.Posts
+				.Where(x => x.Id == id)
+				.ExecuteUpdateAsync(x =>
+					x.SetProperty(a => a.ImageUrl, a => imageUrl),
+					cancellationToken) > 0;
+		}
 
 	}
 }

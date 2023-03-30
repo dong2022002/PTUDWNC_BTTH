@@ -159,8 +159,11 @@ namespace TatBlog.Services.Blogs
             string slug,
              bool includeDetails = false,
             CancellationToken cancellationToken = default);
+
+        Task<bool> SetPostImageUrlAsync(
+            int id, string imageUrl,
+            CancellationToken cancellationToken = default);
 	}
-   
 
 }
 
