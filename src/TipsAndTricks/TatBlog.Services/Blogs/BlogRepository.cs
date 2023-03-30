@@ -194,6 +194,22 @@ namespace TatBlog.Services.Blogs
 			return newCat;
 		}
 
+		public async Task<bool> AddOrUpdateCategoryAsync(Category newCat, CancellationToken cancellationToken = default)
+		{
+			if (newCat.Id <= 0)
+			{
+				_context.Categories.Add(newCat);
+
+			}
+			else
+			{
+				_context.Set<Category>().Update(newCat);
+
+			}
+			return (await _context.SaveChangesAsync(cancellationToken)) > 0;
+		
+		}
+
 		public async Task<bool> IsCategoryNameExistedAsync(
 			string name,
 			CancellationToken cancellationToken = default)
@@ -203,11 +219,12 @@ namespace TatBlog.Services.Blogs
 		}
 
 		public async Task<bool> IsCategorySlugExistedAsync(
+			int id ,
 			string slug,
 			CancellationToken cancellationToken = default)
 		{
 			return await _context.Set<Category>()
-				.AnyAsync(x => x.UrlSlug == slug, cancellationToken);
+				.AnyAsync(x => x.Id != id && x.UrlSlug == slug, cancellationToken);
 		}
 
 

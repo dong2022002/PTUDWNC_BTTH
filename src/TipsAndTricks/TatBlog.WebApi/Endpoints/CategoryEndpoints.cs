@@ -57,14 +57,14 @@ namespace TatBlog.WebApi.Endpoints
 			//	.Produces(401)
 			//	.Produces<ApiResponse<string>>();
 
-			//routerGroupBuilder.MapPut(
-			//	"/{id:int}",
-			//	UpdateAuthor)
-			//	.WithName("UpdateAuthor")
-			//	//.RequireAuthorization()
-			//	.AddEndpointFilter<ValidatorFilter<AuthorEditModel>>()
-			//	.Produces(401)
-			//	.Produces<ApiResponse<string>>();
+			routerGroupBuilder.MapPut(
+				"/{id:int}",
+				UpdateCategory)
+				.WithName("UpdateCategory")
+				//.RequireAuthorization()
+				.AddEndpointFilter<ValidatorFilter<CategoryEditModel>>()
+				.Produces(401)
+				.Produces<ApiResponse<string>>();
 
 			//routerGroupBuilder.MapDelete(
 			//	"/{id:int}",
@@ -160,7 +160,7 @@ namespace TatBlog.WebApi.Endpoints
 			IMapper mapper)
 		{
 			if (await blogRepository
-		  .IsCategorySlugExistedAsync(model.UrlSlug))
+		  .IsCategorySlugExistedAsync(0,model.UrlSlug))
 			{
 				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
 			}
@@ -190,29 +190,29 @@ namespace TatBlog.WebApi.Endpoints
 		//	return Results.Ok(ApiResponse.Success(imageUrl));
 		//}
 
-		//private static async Task<IResult> UpdateAuthor(
-		//	int id, AuthorEditModel model,
-		//	IAuthorRepository authorRepository,
-		//	IValidator<AuthorEditModel> validator,
-		//	IMapper mapper)
-		//{
-		//	var validationResult = await validator.ValidateAsync(model);
-		//	if (!validationResult.IsValid)
-		//	{
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, validationResult));
-		//	}
-		//          if (await authorRepository.IsAuthorSlugExistedAsync(id,model.UrlSlug))
-		//          {
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
-		//	}
-		//	var author = mapper.Map<Author>(model);
-		//	author.Id = id;
+		private static async Task<IResult> UpdateCategory(
+			int id, CategoryEditModel model,
+			IBlogRepository blogRepository,
+			IValidator<CategoryEditModel> validator,
+			IMapper mapper)
+		{
+			var validationResult = await validator.ValidateAsync(model);
+			if (!validationResult.IsValid)
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, validationResult));
+			}
+			if (await blogRepository.IsCategorySlugExistedAsync(id, model.UrlSlug))
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
+			}
+			var category = mapper.Map<Category>(model);
+			category.Id = id;
 
-		//	return await authorRepository.AddOrUpdateAsync(author)
-		//		? Results.Ok(ApiResponse.Success("Author is updated", HttpStatusCode.NoContent))
-		//		: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find author"));
+			return await blogRepository.AddOrUpdateCategoryAsync(category)
+				? Results.Ok(ApiResponse.Success("Category is updated", HttpStatusCode.NoContent))
+				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find category"));
 
-		//}
+		}
 
 		//private static async Task<IResult> DeleteAuthor(
 		//	int id,
