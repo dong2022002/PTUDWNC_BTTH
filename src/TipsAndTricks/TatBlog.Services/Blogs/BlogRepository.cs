@@ -488,12 +488,9 @@ namespace TatBlog.Services.Blogs
 		  CancellationToken cancellationToken = default)
 		{
 			return await _context.Set<Post>()
-					.Include(a => a.Author)
-					.Include(a => a.Category)
-					.Include(a => a.Tags)
-					.OrderBy(x => Guid.NewGuid())
-					.Take(number)
-					.ToListAsync(cancellationToken);
+			.OrderBy(x => Guid.NewGuid())
+			.Take(number)
+			.ToListAsync(cancellationToken);
 		}
 		#endregion
 

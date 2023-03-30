@@ -27,6 +27,10 @@ namespace TatBlog.WebApi.Endpoints
 
 			routerGroupBuilder.MapGet("/featured/{limit:int}", GetFeaturedPosts)
 				.WithName("GetFeaturedPosts")
+				.Produces<ApiResponse<IList<PostDto>>>();
+
+			routerGroupBuilder.MapGet("/random/{limit:int}", GetRandomPosts)
+				.WithName("GetRandomPosts")
 				.Produces<ApiResponse<IList<Post>>>();
 
 
@@ -112,6 +116,16 @@ namespace TatBlog.WebApi.Endpoints
 		{
 			var posts = await blogRepository
 				.GetFeaturePostMapperAysnc(limit, posts => posts.ProjectToType<PostDto>());
+			return Results.Ok(ApiResponse.Success(posts));
+
+		}
+
+		private static async Task<IResult> GetRandomPosts(
+		int limit,
+		IBlogRepository blogRepository)
+		{
+			var posts = await blogRepository
+				.GetPostsRandomAsync(limit);
 			return Results.Ok(ApiResponse.Success(posts));
 
 		}
