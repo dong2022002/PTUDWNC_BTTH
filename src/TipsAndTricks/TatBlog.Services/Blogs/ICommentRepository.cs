@@ -15,7 +15,7 @@ namespace TatBlog.Services.Blogs
 		 int idPost,
 		 CancellationToken cancellationToken = default);
 		Task<Comment> GetCommentsByIDAsync(int id, CancellationToken cancellationToken = default);
-		Task<Comment> AddUpdateCommentAsync(
+		Task<bool> AddUpdateCommentAsync(
 				Comment comment,
 				CancellationToken cancellationToken = default);
 		Task<IPagedList<CommentItem>> GetPagedCommentsAsync(
@@ -27,10 +27,15 @@ namespace TatBlog.Services.Blogs
 				int idComment,
 				CancellationToken cancellationToken = default);
 
-		Task<Comment> DeleteCommentAsync(
+		Task<bool> DeleteCommentAsync(
 			 int id,
 			 CancellationToken cancellationToken = default);
         Task<IList<CommentItem>> GetCommentsFromPostQuery(
           CommentQuery query, CancellationToken cancellationToken = default);
-    }
+		Task<IPagedList<CommentItem>> GetPagedCommentsAsync(
+		IPagingParams pagingParams,
+		string name = null,
+		CancellationToken cancellationToken = default);
+
+	}
 }

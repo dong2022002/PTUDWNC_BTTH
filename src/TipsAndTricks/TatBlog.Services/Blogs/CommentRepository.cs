@@ -24,7 +24,7 @@ namespace TatBlog.Services.Blogs
 			_context = context;
 		}
 
-		public async Task<Comment> AddUpdateCommentAsync(Comment comment, CancellationToken cancellationToken = default)
+		public async Task<bool> AddUpdateCommentAsync(Comment comment, CancellationToken cancellationToken = default)
 		{
 			if (comment.Id <= 0)
 			{
@@ -36,18 +36,18 @@ namespace TatBlog.Services.Blogs
 				_context.Set<Comment>().Update(comment);
 
 			}
-			await _context.SaveChangesAsync(cancellationToken);
-			return comment;
+
+			return
+				await _context.SaveChangesAsync(cancellationToken) > 0;
 		}
 
-		public async Task<Comment> DeleteCommentAsync(int id, CancellationToken cancellationToken = default)
+		public async Task<bool> DeleteCommentAsync(int id, CancellationToken cancellationToken = default)
 		{
 			var comment = _context.Set<Comment>()
 			  .Where(t => t.Id == id);
-			if (comment == null) return null;
-			var commentData = await comment.FirstOrDefaultAsync(cancellationToken);
+			if (comment.IsNullOrEmpty()) return false;
 			await comment.ExecuteDeleteAsync(cancellationToken);
-			return commentData;
+			return true;
 		}
 
 		public async Task<IList<CommentItem>> GetCommentsFromPostIDAsync(int idPost, CancellationToken cancellationToken = default)
@@ -139,12 +139,35 @@ namespace TatBlog.Services.Blogs
 
 			await _context.SaveChangesAsync(cancellationToken);
 
-			return comment.Published;
+			return true;
 		}
 
         public Task<IList<CommentItem>> GetCommentsFromPostQuery(CommentQuery query, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
-    }
+
+		public async Task<IPagedList<CommentItem>> GetPagedCommentsAsync(
+		 IPagingParams pagingParams,
+		 string name = null,
+		 CancellationToken cancellationToken = default)
+		{
+			var CommentQuery = _context.Set<Comment>()
+				.WhereIf(!string.IsNullOrWhiteSpace(name),
+				x => x.Name.Contains(name))
+					.Select(c => new CommentItem()
+					{
+						Id = c.Id,
+						Name = c.Name,
+						Published = c.Published,
+						DateComment = c.DateComment,
+						Description = c.Description,
+						PostName = c.Post.Title,
+						PostId = c.Post.Id
+					});
+
+			return await CommentQuery
+				.ToPagedListAsync(pagingParams, cancellationToken);
+		}
+	}
 }

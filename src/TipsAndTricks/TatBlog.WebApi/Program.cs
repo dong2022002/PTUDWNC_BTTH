@@ -24,6 +24,7 @@ var app = builder.Build();
 	app.MapPostEndpoints();
 	app.MapTagEndpoints();
 	app.MapSubscriberEndpoints();
+	app.MapCommentsEndpoints();
 
 	app.Run();
 }

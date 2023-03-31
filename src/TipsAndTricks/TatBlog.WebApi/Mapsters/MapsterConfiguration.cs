@@ -2,6 +2,7 @@
 using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.WebApi.Models;
+using TatBlog.WebApi.Models.CommentsModel;
 using TatBlog.WebApi.Models.PostsModel;
 using TatBlog.WebApi.Models.TagsModel;
 
@@ -23,6 +24,10 @@ namespace TatBlog.WebApi.Mapsters
 				.Map(dest => dest.PostCount,
 					src => src.Posts == null ? 0 : src.Posts.Count);
 
+			config.NewConfig<Comment, CommentItem>();
+			config.NewConfig<CommentAddModel, Comment>();
+			
+
 			config.NewConfig<Post, PostDto>();
 			config.NewConfig<Post, PostDetail>();
 			config.NewConfig<PostEditModel, Post>();
@@ -31,7 +36,9 @@ namespace TatBlog.WebApi.Mapsters
 
 
 
-			config.NewConfig<Tag, TagItem>();
+			config.NewConfig<Tag, TagItem>()
+				.Map(dest => dest.PostCount,
+					src => src.Posts == null ? 0 : src.Posts.Count);
 			config.NewConfig<TagEditModel, Tag>();
 
 
