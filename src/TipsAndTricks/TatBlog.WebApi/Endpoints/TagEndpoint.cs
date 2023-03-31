@@ -24,14 +24,12 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetTags")
 				.Produces<ApiResponse<PaginationResult<TagItem>>>();
 
-			//	routerGroupBuilder.MapGet("/best/{limit:int}", GetBestAuthor)
-			//		.WithName("GetBestAuthors")
-			//		.Produces<ApiResponse<IList<AuthorItem>>>();
 
 
-			//	routerGroupBuilder.MapGet("/{id:int}", GetAuthorsDetails)
-			//		.WithName("GetAuthorById")
-			//		.Produces<ApiResponse<AuthorItem>>();
+
+			routerGroupBuilder.MapGet("/{id:int}", GetTagsDetails)
+				.WithName("GetTagById")
+				.Produces<ApiResponse<TagItem>>();
 
 			//	routerGroupBuilder.MapPost(
 			//		"/",
@@ -89,17 +87,17 @@ namespace TatBlog.WebApi.Endpoints
 			return Results.Ok(ApiResponse.Success(paginationResult));
 		}
 
-		//private static async Task<IResult> GetAuthorsDetails(
-		//	int id,
-		//	IMapper mapper,
-		//	IAuthorRepository authorRepository)
-		//{
-		//	var author = await authorRepository
-		//		.GetCachedAuthorByIdAsync(id);
-		//	return author == null
-		//		? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy tác giã có mã số {id}"))
-		//		: Results.Ok(ApiResponse.Success(mapper.Map<AuthorItem>(author)));
-		//}
+		private static async Task<IResult> GetTagsDetails(
+			int id,
+			IMapper mapper,
+			IBlogRepository blogRepository)
+		{
+			var tag = await blogRepository
+				.GetTagFromIdAsync(id);
+			return tag == null
+				? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy thẻ có mã số {id}"))
+				: Results.Ok(ApiResponse.Success(mapper.Map<TagItem>(tag)));
+		}
 		//private static async Task<IResult> GetBestAuthor(
 		//	int limit,
 		//	IMapper mapper,

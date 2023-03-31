@@ -145,6 +145,16 @@ namespace TatBlog.Services.Blogs
 
 		}
 
+		public async Task<Tag> GetTagFromIdAsync(
+			int id,
+			CancellationToken cancellationToken = default)
+		{
+			return await _context.Set<Tag>()
+			   .Where(t => t.Id == id)
+			   .FirstOrDefaultAsync(cancellationToken);
+
+		}
+
 		public async Task<bool> delTagAsync(int id, CancellationToken cancellationToken = default)
 		{
 			var tag = _context.Set<Tag>()
