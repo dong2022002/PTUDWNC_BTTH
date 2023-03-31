@@ -3,6 +3,7 @@ using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.WebApi.Models;
 using TatBlog.WebApi.Models.PostsModel;
+using TatBlog.WebApi.Models.TagsModel;
 
 namespace TatBlog.WebApi.Mapsters
 {
@@ -31,6 +32,8 @@ namespace TatBlog.WebApi.Mapsters
 
 
 			config.NewConfig<Tag, TagItem>();
+			config.NewConfig<TagEditModel, Tag>();
+
 
 
 		}

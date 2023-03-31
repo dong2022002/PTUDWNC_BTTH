@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -31,20 +32,20 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetTagById")
 				.Produces<ApiResponse<TagItem>>();
 
-			//	routerGroupBuilder.MapPost(
-			//		"/",
-			//		AddAuthor)
-			//		.AddEndpointFilter<ValidatorFilter<AuthorEditModel>>()
-			//		.WithName("AddNewAuthor")
-			//		//.RequireAuthorization()
-			//		.Produces(401)
-			//		.Produces<ApiResponse<AuthorItem>>();
+			routerGroupBuilder.MapPost(
+				"/",
+				AddTag)
+				.AddEndpointFilter<ValidatorFilter<TagEditModel>>()
+				.WithName("AddNewTag")
+				//.RequireAuthorization()
+				.Produces(401)
+				.Produces<ApiResponse<TagItem>>();
 
-			//	routerGroupBuilder.MapGet(
-			//		"/{slug:regex(^[a-z0-9_-]+$)}/posts",
-			//		GetPostsByAuthorSlug)
-			//		.WithName("GetPostsByAuthorSlug")
-			//		.Produces<ApiResponse<PaginationResult<PostDto>>>();
+			routerGroupBuilder.MapGet(
+				"/{slug:regex(^[a-z0-9_-]+$)}/posts",
+				GetPostsByTagSlug)
+				.WithName("GetPostsByTagSlug")
+				.Produces<ApiResponse<PaginationResult<PostDto>>>();
 
 			//	routerGroupBuilder.MapPost("/{id:int}/avatar", SetAuthorPicture)
 			//		.WithName("SetAuthorPicture")
@@ -98,75 +99,66 @@ namespace TatBlog.WebApi.Endpoints
 				? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy thẻ có mã số {id}"))
 				: Results.Ok(ApiResponse.Success(mapper.Map<TagItem>(tag)));
 		}
-		//private static async Task<IResult> GetBestAuthor(
-		//	int limit,
-		//	IMapper mapper,
-		//	IAuthorRepository authorRepository)
-		//{
-		//	var authors = await authorRepository
-		//		.GetBestAuthorsAsync(limit);
-		//	return Results.Ok(ApiResponse.Success(authors));
 
-		//}
 
-		//private static async Task<IResult> GetPostsByAuthorId(
-		//	int id,
-		//	[AsParameters] PagingModel pagingModel,
-		//	IBlogRepository blogRepository)
-		//{
-		//	var postQuery = new PostQuery()
-		//	{
-		//		AuthorId = id,
-		//		PublishedOnly = true,
-		//	};
+		private static async Task<IResult> GetPostsByTagId(
+			int id,
+			[AsParameters] PagingModel pagingModel,
+			IBlogRepository blogRepository)
+		{
+			var postQuery = new PostQuery()
+			{
+				TagId = id,
+				PublishedOnly = true,
+			};
 
-		//	var postsList = await blogRepository.GetPagedPostAsync(
-		//		pagingModel,
-		//		posts => posts.ProjectToType<PostDto>(),
-		//		 postQuery);
+			var postsList = await blogRepository.GetPagedPostAsync(
+				pagingModel,
+				posts => posts.ProjectToType<PostDto>(),
+				 postQuery);
 
-		//	var pagingationResult = new PaginationResult<PostDto>(postsList);
+			var pagingationResult = new PaginationResult<PostDto>(postsList);
 
-		//	return Results.Ok(ApiResponse.Success(pagingationResult));
-		//}
+			return Results.Ok(ApiResponse.Success(pagingationResult));
+		}
 
-		//private static async Task<IResult> GetPostsByAuthorSlug(
-		//	[FromRoute] string slug,
-		//	[AsParameters] PagingModel pagingModel,
-		//	IBlogRepository blogRepository)
-		//{
-		//	var postQuery = new PostQuery()
-		//	{
-		//		AuthorSlug = slug,
-		//		PublishedOnly = true,
-		//	};
+		private static async Task<IResult> GetPostsByTagSlug(
+			[FromRoute] string slug,
+			[AsParameters] PagingModel pagingModel,
+			IBlogRepository blogRepository)
+		{
+			var postQuery = new PostQuery()
+			{
+				TagSlug = slug,
+				PublishedOnly = true,
+			};
 
-		//	var postsList = await blogRepository.GetPagedPostAsync(
-		//		pagingModel,
-		//		posts => posts.ProjectToType<PostDto>(),
-		//		 postQuery);
+			var postsList = await blogRepository.GetPagedPostAsync(
+				pagingModel,
+				posts => posts.ProjectToType<PostDto>(),
+				 postQuery);
 
-		//	var pagingationResult = new PaginationResult<PostDto>(postsList);
+			var pagingationResult = new PaginationResult<PostDto>(postsList);
 
-		//	return Results.Ok(ApiResponse.Success(pagingationResult));
-		//}
-		//private static async Task<IResult> AddAuthor(
-		//	AuthorEditModel model,
-		//	IAuthorRepository authorRepository,
-		//	IMapper mapper)
-		//{
-		//	if (await authorRepository
-		//		.IsAuthorSlugExistedAsync(0, model.UrlSlug))
-		//	{
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
-		//	}
+			return Results.Ok(ApiResponse.Success(pagingationResult));
+		}
+		private static async Task<IResult> AddTag(
+			TagEditModel model,
+			IBlogRepository blogRepository,
+			IMapper mapper)
+		{
+			if (await blogRepository
+				.IsTagSlugExitedAsync(0, model.UrlSlug))
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
+			}
 
-		//	var author = mapper.Map<Author>(model);
-		//	await authorRepository.AddOrUpdateAsync(author);
+			var tag = mapper.Map<Tag>(model);
+			await blogRepository.AddOrUpdateTagAsync(tag);
 
-		//	return Results.Ok(ApiResponse.Success(
-		//		mapper.Map<AuthorItem>(author), HttpStatusCode.Created));
-		//}
+			return Results.Ok(ApiResponse.Success(
+				mapper.Map<TagItem>(tag), HttpStatusCode.Created));
+		}
 
 		//private static async Task<IResult> SetAuthorPicture(
 		//	int id, IFormFile imageFile,

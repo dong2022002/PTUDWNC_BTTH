@@ -119,6 +119,17 @@ namespace TatBlog.Services.Blogs
 				cancellationToken);
 		}
 
+
+		public async Task<bool> IsTagSlugExitedAsync(
+			int id,
+			string slug,
+			CancellationToken cancellationToken = default)
+		{
+			return await _context.Set<Tag>()
+				.AnyAsync(x => x.Id != id && x.UrlSlug == slug,
+				cancellationToken);
+		}
+
 		#region Tag
 		public async Task<IList<TagItem>> GetTagItemListAsync(CancellationToken cancellationToken = default)
 		{
@@ -217,6 +228,22 @@ namespace TatBlog.Services.Blogs
 			}
 			return (await _context.SaveChangesAsync(cancellationToken)) > 0;
 		
+		}
+
+		public async Task<bool> AddOrUpdateTagAsync(Tag newTag, CancellationToken cancellationToken = default)
+		{
+			if (newTag.Id <= 0)
+			{
+				_context.Tags.Add(newTag);
+
+			}
+			else
+			{
+				_context.Set<Tag>().Update(newTag);
+
+			}
+			return (await _context.SaveChangesAsync(cancellationToken)) > 0;
+
 		}
 
 		public async Task<bool> IsCategoryNameExistedAsync(
@@ -364,6 +391,8 @@ namespace TatBlog.Services.Blogs
 			return await mapper(postQuery)
 				 .ToPagedListAsync(pagingParams, cancellationToken);
 		}
+
+		
 		#endregion
 
 		#region Count

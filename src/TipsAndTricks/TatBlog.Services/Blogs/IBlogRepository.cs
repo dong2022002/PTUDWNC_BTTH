@@ -168,6 +168,12 @@ namespace TatBlog.Services.Blogs
         Task<Tag> GetTagFromIdAsync(
            int id,
            CancellationToken cancellationToken = default);
+
+        Task<bool> IsTagSlugExitedAsync(
+            int id,
+            string slug,
+            CancellationToken cancellationToken = default);
+        Task<bool> AddOrUpdateTagAsync(Tag newTag, CancellationToken cancellationToken = default);
 	}
 
 }
