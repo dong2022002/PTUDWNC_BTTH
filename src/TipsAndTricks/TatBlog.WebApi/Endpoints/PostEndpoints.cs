@@ -160,32 +160,11 @@ namespace TatBlog.WebApi.Endpoints
 		}
 
 
-		//private static async Task<IResult> GetPostsByAuthorId(
-		//	int id,
-		//	[AsParameters] PagingModel pagingModel,
-		//	IBlogRepository blogRepository)
-		//{
-		//	var postQuery = new PostQuery()
-		//	{
-		//		AuthorId = id,
-		//		PublishedOnly = true,
-		//	};
-
-		//	var postsList = await blogRepository.GetPagedListPostFromQueryableAsync(
-		//		pagingModel,
-		//		posts => posts.ProjectToType<PostDto>(),
-		//		 postQuery);
-
-		//	var pagingationResult = new PaginationResult<PostDto>(postsList);
-
-		//	return Results.Ok(ApiResponse.Success(pagingationResult));
-		//}
-
 		private static async Task<IResult> GetCommentByPostId(
 			int id,
 			ICommentRepository commentRepository)
 		{
-			var comment = commentRepository.GetCommentsFromPostIDAsync(id);
+			var comment =await commentRepository.GetCommentsFromPostIDAsync(id);
 
 			return Results.Ok(ApiResponse.Success(comment));
 		}

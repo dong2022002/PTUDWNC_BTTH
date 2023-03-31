@@ -569,8 +569,8 @@ namespace TatBlog.Services.Blogs
 			query.Count = await data.CountAsync(cancellationToken);
 			return await data.ToListAsync(cancellationToken);
 		}
-
-        public async Task<IList<Statistical>> GetStatistical(CancellationToken cancellationToken = default)
+		
+		public async Task<IList<Statistical>> GetStatistical(CancellationToken cancellationToken = default)
 		{
 
 			var post = await FilterPosts(new PostQuery()
