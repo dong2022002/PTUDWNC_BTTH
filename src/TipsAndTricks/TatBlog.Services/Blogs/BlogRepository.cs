@@ -239,17 +239,20 @@ namespace TatBlog.Services.Blogs
 		}
 
 
-		public async Task<Post> DeletePostAsync(
+		public async Task<bool> DeletePostAsync(
 			int id,
+
 			CancellationToken cancellationToken = default)
 		{
 			var post = _context.Set<Post>()
 			  .Where(t => t.Id == id);
-			if (post == null) return null;
+			if (post.IsNullOrEmpty()) return false;
+			
 			var postData = await post.FirstOrDefaultAsync(cancellationToken);
+			await _mediaManager.DeleteFileAsync(postData.ImageUrl, cancellationToken);
 			await post.ExecuteDeleteAsync(cancellationToken);
 
-			return postData;
+			return true;
 		}
 		public async Task<bool> IsCatSlugExitedAsync(
 			int catId,

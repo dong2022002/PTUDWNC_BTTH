@@ -76,13 +76,13 @@ namespace TatBlog.WebApi.Endpoints
 				.Produces(401)
 				.Produces<ApiResponse<string>>();
 
-			//routerGroupBuilder.MapDelete(
-			//	"/{id:int}",
-			//	DeleteAuthor)
-			//	.WithName("DeleteAuthor")
-			//	//.RequireAuthorization()
-			//	.Produces(401)
-			//	.Produces<ApiResponse<string>>();
+			routerGroupBuilder.MapDelete(
+				"/{id:int}",
+				DeletePost)
+				.WithName("DeletePost")
+				//.RequireAuthorization()
+				.Produces(401)
+				.Produces<ApiResponse<string>>();
 
 			return app;
 		}
@@ -288,13 +288,13 @@ namespace TatBlog.WebApi.Endpoints
 
 		}
 
-		//private static async Task<IResult> DeleteAuthor(
-		//	int id,
-		//	IAuthorRepository authorRepository)
-		//{
-		//	return await authorRepository.DeleteAuthorAsync(id)
-		//		? Results.Ok(ApiResponse.Success("Author is Deleted", HttpStatusCode.NoContent))
-		//		: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find author"));
-		//}
+		private static async Task<IResult> DeletePost(
+			int id,
+			IBlogRepository blogRepository)
+		{
+			return await blogRepository.DeletePostAsync(id)
+				? Results.Ok(ApiResponse.Success("Post is Deleted", HttpStatusCode.NoContent))
+				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find post"));
+		}
 	}
 }

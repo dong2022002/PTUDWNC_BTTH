@@ -60,8 +60,6 @@ namespace TatBlog.WebApp.Areas.Admin.Controllers
 			if (id > 0)
 			{
 				var post = await _blogRepository.DeletePostAsync(id);
-				await _mediaManager.DeleteFileAsync(post.ImageUrl);
-
 			}
 			return RedirectToAction(nameof(Index));
 

@@ -137,7 +137,7 @@ namespace TatBlog.Services.Blogs
 
         #endregion
 
-        Task<Post> DeletePostAsync(
+        Task<bool> DeletePostAsync(
          int id,
          CancellationToken cancellationToken = default);
         Task<IList<Statistical>> GetStatistical(CancellationToken cancellationToken = default);
