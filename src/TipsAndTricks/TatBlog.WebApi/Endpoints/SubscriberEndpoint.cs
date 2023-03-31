@@ -8,6 +8,7 @@ using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
 using TatBlog.Services.Media;
+using TatBlog.WebApi.Extensions;
 using TatBlog.WebApi.Filters;
 using TatBlog.WebApi.Models;
 using TatBlog.WebApi.Models.SubscribersModel;
@@ -111,7 +112,8 @@ namespace TatBlog.WebApi.Endpoints
 
 		private static async Task<IResult> Subscriber(
 			SubscriberEditModel model,
-			ISubscriberRepository subscriberRepository)
+			ISubscriberRepository subscriberRepository,
+			IWebHostEnvironment env)
 		{
 			Regex rx = new Regex(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
 			if (!rx.IsMatch(model.Email))
@@ -127,8 +129,17 @@ namespace TatBlog.WebApi.Endpoints
 			
 			var subcriber= await subscriberRepository.SubscriberAsync(model.Email);
 
-			return Results.Ok(ApiResponse.Success(
-				subcriber, HttpStatusCode.Created));
+			if (subcriber)
+			{
+				SendMailExtensions.Initialize(env);
+				var body = SendMailExtensions.SetTemplateEmail("templates/email/EmailSubscriber.html");
+				SendMailExtensions.SendEmail(model.Email, "Thông báo đăng ký", body);
+			}
+
+
+			return subcriber
+			? Results.Ok(ApiResponse.Success("Đăng ký thành công"))
+			: Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, "Đăng ký thất bại"));
 		}
 
 

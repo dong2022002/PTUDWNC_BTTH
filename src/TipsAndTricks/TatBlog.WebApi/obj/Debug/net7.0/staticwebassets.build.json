@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4+algLwsFNxX7MZR1lEBDE39zhzY+ybYXYwQaCAKzI8=",
+  "Hash": "LWGi0TovrA+OYHjBoVhXJCosL5YyaCZsRT4VZ+byXH0=",
   "Source": "TatBlog.WebApi",
   "BasePath": "_content/TatBlog.WebApi",
   "Mode": "Default",
@@ -16,6 +16,23 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApi\\wwwroot\\templates\\email\\EmailSubscriber.html",
+      "SourceId": "TatBlog.WebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApi\\wwwroot\\",
+      "BasePath": "_content/TatBlog.WebApi",
+      "RelativePath": "templates/email/EmailSubscriber.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\templates\\email\\EmailSubscriber.html"
+    },
     {
       "Identity": "D:\\Hoc_tap\\Nam3_ky2\\PTUDWNC\\2014446_TipsAndTricks\\src\\TipsAndTricks\\TatBlog.WebApi\\wwwroot\\uploads\\pictures\\3e380252fa7f42d2938354736f2f9eda.jpg",
       "SourceId": "TatBlog.WebApi",
