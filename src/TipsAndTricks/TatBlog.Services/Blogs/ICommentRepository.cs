@@ -13,7 +13,6 @@ namespace TatBlog.Services.Blogs
 	{
 		Task<IList<CommentItem>> GetCommentsFromPostIDAsync(
 		 int idPost,
-		 int number,
 		 CancellationToken cancellationToken = default);
 		Task<Comment> GetCommentsByIDAsync(int id, CancellationToken cancellationToken = default);
 		Task<Comment> AddUpdateCommentAsync(

@@ -50,7 +50,7 @@ namespace TatBlog.Services.Blogs
 			return commentData;
 		}
 
-		public async Task<IList<CommentItem>> GetCommentsFromPostIDAsync(int idPost, int number = -1, CancellationToken cancellationToken = default)
+		public async Task<IList<CommentItem>> GetCommentsFromPostIDAsync(int idPost, CancellationToken cancellationToken = default)
 		{
 			IQueryable<Comment> comments = _context.Set<Comment>()
 												.Include(p => p.Post);
@@ -65,16 +65,8 @@ namespace TatBlog.Services.Blogs
 											PostName = c.Post.Title,
 											PostId = c.Post.Id,
 										});
-			if (number < 0)
-			{
-				return await commentPostId.ToListAsync(cancellationToken);
-			}
-			else
-			{
-				return await commentPostId.Take(number).ToListAsync(cancellationToken);
-			}
-		
 			
+				return await commentPostId.ToListAsync(cancellationToken);
 		}
 
 		public async Task<Comment> GetCommentsByIDAsync(int id, CancellationToken cancellationToken = default)

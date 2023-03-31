@@ -41,6 +41,10 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetPostById")
 				.Produces<ApiResponse<PostDto>>();
 
+			routerGroupBuilder.MapGet("/{id:int}/comments", GetCommentByPostId)
+				.WithName("GetCommentByPostId")
+				.Produces<ApiResponse<IList<CommentItem>>>();
+
 			routerGroupBuilder.MapGet("/byslug/{slug}", GetPostsDetailsBySlug)
 				.WithName("GetPostsDetailsBySlug")
 				.Produces<ApiResponse<PostDto>>();
@@ -54,11 +58,7 @@ namespace TatBlog.WebApi.Endpoints
 				.Produces(401)
 				.Produces<ApiResponse<AuthorItem>>();
 
-			//routerGroupBuilder.MapGet(
-			//	"/{slug:regex(^[a-z0-9_-]+$)}/posts",
-			//	GetPostsByAuthorSlug)
-			//	.WithName("GetPostsByAuthorSlug")
-			//	.Produces<ApiResponse<PaginationResult<PostDto>>>();
+			
 
 			routerGroupBuilder.MapPost("/{id:int}/picture", SetPostPicture)
 				.WithName("SetPostPicture")
@@ -181,26 +181,14 @@ namespace TatBlog.WebApi.Endpoints
 		//	return Results.Ok(ApiResponse.Success(pagingationResult));
 		//}
 
-		//private static async Task<IResult> GetPostsByAuthorSlug(
-		//	[FromRoute] string slug,
-		//	[AsParameters] PagingModel pagingModel,
-		//	IBlogRepository blogRepository)
-		//{
-		//	var postQuery = new PostQuery()
-		//	{
-		//		AuthorSlug = slug,
-		//		PublishedOnly = true,
-		//	};
+		private static async Task<IResult> GetCommentByPostId(
+			int id,
+			ICommentRepository commentRepository)
+		{
+			var comment = commentRepository.GetCommentsFromPostIDAsync(id);
 
-		//	var postsList = await blogRepository.GetPagedListPostFromQueryableAsync(
-		//		pagingModel,
-		//		posts => posts.ProjectToType<PostDto>(),
-		//		 postQuery);
-
-		//	var pagingationResult = new PaginationResult<PostDto>(postsList);
-
-		//	return Results.Ok(ApiResponse.Success(pagingationResult));
-		//}
+			return Results.Ok(ApiResponse.Success(comment));
+		}
 		private static async Task<IResult> AddPost(
 			PostEditModel model,
 			IBlogRepository blogRepository,
