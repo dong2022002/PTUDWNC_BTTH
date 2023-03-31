@@ -44,6 +44,7 @@ namespace TatBlog.WebApp.Extensions
 									.GetConnectionString("DefaultConnection")));
 			builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 			builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+			builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
 			builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 			builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
 			builder.Services.AddScoped<ITimeProvider, LocalTimeProvider>();

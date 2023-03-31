@@ -36,11 +36,17 @@ namespace TatBlog.Services.Blogs
 
 		}
 
-        public async Task DeleteSubscriberAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteSubscriberAsync(int id, CancellationToken cancellationToken = default)
         {
-           await _context.Set<Subscriber>()
-                .Where(s => s.Id == id)
-                .ExecuteDeleteAsync(cancellationToken);
+            var sub = _context.Set<Subscriber>()
+                .Where(s => s.Id == id);
+            if (sub.IsNullOrEmpty())
+            {
+                return false;
+            }
+            await sub.ExecuteDeleteAsync(cancellationToken);
+
+            return true;
         }
 
         public async Task<Subscriber> GetSubscriberByEmailAsync(string email, CancellationToken cancellationToken = default)
@@ -110,6 +116,28 @@ namespace TatBlog.Services.Blogs
 			 pageNumber, pageSize,
 			 nameof(Subscriber.DateRegis), "DESC",
 			 cancellationToken);
+		}
+
+		public async Task<IPagedList<Subscriber>> GetPagedSubcriberAsync(
+		 IPagingParams pagingParams,
+		 string email = null,
+		 CancellationToken cancellationToken = default)
+		{
+            var catQuery = _context.Set<Subscriber>()
+                .WhereIf(!string.IsNullOrWhiteSpace(email),
+                x => x.Mail.Contains(email));
+				
+			return await catQuery
+				.ToPagedListAsync(pagingParams, cancellationToken);
+		}
+		public async Task<bool> IsEmailExitedAsync(
+		    int id,
+		    string email,
+		    CancellationToken cancellationToken = default)
+		{
+			return await _context.Set<Subscriber>()
+				.AnyAsync(x => x.Id != id && x.Mail == email,
+				cancellationToken);
 		}
 
 		private IQueryable<Subscriber> FilterSubcriber(SubcriberQuery condition)

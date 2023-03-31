@@ -26,7 +26,7 @@ namespace TatBlog.Services.Blogs
        string notes,
        string reason,
        CancellationToken cancellationToken = default);
-        Task DeleteSubscriberAsync(
+        Task<bool> DeleteSubscriberAsync(
            int id,
        CancellationToken cancellationToken = default);
         Task<Subscriber>  GetSubscriberByIdAsync(
@@ -41,5 +41,14 @@ namespace TatBlog.Services.Blogs
 		  int pageNumber = 1,
 		  int pageSize = 5,
 		  CancellationToken cancellationToken = default);
-	}
+        Task<IPagedList<Subscriber>> GetPagedSubcriberAsync(
+         IPagingParams pagingParams,
+         string email = null,
+         CancellationToken cancellationToken = default);
+        Task<bool> IsEmailExitedAsync(
+            int id,
+            string email,
+            CancellationToken cancellationToken = default);
+		
+		}
 }
