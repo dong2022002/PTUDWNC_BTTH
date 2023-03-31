@@ -268,9 +268,12 @@ namespace TatBlog.Services.Blogs
 		#region PageList
 		public async Task<IPagedList<TagItem>> GetPagedTagsAsync(
 		 IPagingParams pagingParams,
+		 string name = null,
 		 CancellationToken cancellationToken = default)
 		{
 			var tagQuery = _context.Set<Tag>()
+					.WhereIf(!string.IsNullOrWhiteSpace(name),
+				x => x.Name.Contains(name))
 				.Select(x => new TagItem()
 				{
 					Id = x.Id,
@@ -282,6 +285,8 @@ namespace TatBlog.Services.Blogs
 			return await tagQuery
 				.ToPagedListAsync(pagingParams, cancellationToken);
 		}
+
+	
 		public async Task<IPagedList<CategoryItem>> GetPagedCategoriesAsync(
 		 IPagingParams pagingParams,
 		 string name = null,

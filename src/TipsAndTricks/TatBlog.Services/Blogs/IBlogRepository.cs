@@ -33,6 +33,7 @@ namespace TatBlog.Services.Blogs
             CancellationToken cancellationToken = default);
         Task<IPagedList<TagItem>> GetPagedTagsAsync(
             IPagingParams pagingParams,
+            string name = null,
             CancellationToken cancellationToken = default);
 
         Task<Tag> GetTagFromSlugAsync(
