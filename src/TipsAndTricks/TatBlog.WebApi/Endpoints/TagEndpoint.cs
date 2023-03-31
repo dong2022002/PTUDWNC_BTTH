@@ -47,29 +47,23 @@ namespace TatBlog.WebApi.Endpoints
 				.WithName("GetPostsByTagSlug")
 				.Produces<ApiResponse<PaginationResult<PostDto>>>();
 
-			//	routerGroupBuilder.MapPost("/{id:int}/avatar", SetAuthorPicture)
-			//		.WithName("SetAuthorPicture")
-			//		//.RequireAuthorization()
-			//		.Accepts<IFormFile>("multipart/form-data")
-			//		.Produces(401)
-			//		.Produces<ApiResponse<string>>();
 
-			//	routerGroupBuilder.MapPut(
-			//		"/{id:int}",
-			//		UpdateAuthor)
-			//		.WithName("UpdateAuthor")
-			//		//.RequireAuthorization()
-			//		.AddEndpointFilter<ValidatorFilter<AuthorEditModel>>()
-			//		.Produces(401)
-			//		.Produces<ApiResponse<string>>();
+			routerGroupBuilder.MapPut(
+				"/{id:int}",
+				UpdateTag)
+				.WithName("UpdateTag")
+				//.RequireAuthorization()
+				.AddEndpointFilter<ValidatorFilter<TagEditModel>>()
+				.Produces(401)
+				.Produces<ApiResponse<string>>();
 
-			//	routerGroupBuilder.MapDelete(
-			//		"/{id:int}",
-			//		DeleteAuthor)
-			//		.WithName("DeleteAuthor")
-			//		//.RequireAuthorization()
-			//		.Produces(401)
-			//		.Produces<ApiResponse<string>>();
+			routerGroupBuilder.MapDelete(
+				"/{id:int}",
+				DeleteTag)
+				.WithName("DeleteTag")
+				//.RequireAuthorization()
+				.Produces(401)
+				.Produces<ApiResponse<string>>();
 
 			return app;
 		}
@@ -160,55 +154,39 @@ namespace TatBlog.WebApi.Endpoints
 				mapper.Map<TagItem>(tag), HttpStatusCode.Created));
 		}
 
-		//private static async Task<IResult> SetAuthorPicture(
-		//	int id, IFormFile imageFile,
-		//	IAuthorRepository authorRepository,
-		//	IMediaManager mediaManager)
-		//{
-		//	var imageUrl = await mediaManager.SaveFileAsync(
-		//		imageFile.OpenReadStream(),
-		//		imageFile.FileName, imageFile.ContentType);
-		//	if (string.IsNullOrWhiteSpace(imageUrl))
-		//	{
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, "Không lưu được tập tin"));
-		//	}
+		private static async Task<IResult> UpdateTag(
+			int id, TagEditModel model,
+			IBlogRepository blogRepository,
+			IValidator<TagEditModel> validator,
+			IMapper mapper)
+		{
+			var validationResult = await validator.ValidateAsync(model);
+			if (!validationResult.IsValid)
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, validationResult));
+			}
+			if (await blogRepository.IsTagSlugExitedAsync(id, model.UrlSlug))
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
+			}
 
-		//	await authorRepository.SetImageUrlAsync(id, imageUrl);
+			var tag = mapper.Map<Tag>(model);
 
-		//	return Results.Ok(ApiResponse.Success(imageUrl));
-		//}
+			tag.Id = id;
 
-		//private static async Task<IResult> UpdateAuthor(
-		//	int id, AuthorEditModel model,
-		//	IAuthorRepository authorRepository,
-		//	IValidator<AuthorEditModel> validator,
-		//	IMapper mapper)
-		//{
-		//	var validationResult = await validator.ValidateAsync(model);
-		//	if (!validationResult.IsValid)
-		//	{
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, validationResult));
-		//	}
-		//	if (await authorRepository.IsAuthorSlugExistedAsync(id, model.UrlSlug))
-		//	{
-		//		return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
-		//	}
-		//	var author = mapper.Map<Author>(model);
-		//	author.Id = id;
+			return await blogRepository.AddOrUpdateTagAsync(tag)
+				? Results.Ok(ApiResponse.Success("Tag is updated", HttpStatusCode.NoContent))
+				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find tag"));
 
-		//	return await authorRepository.AddOrUpdateAsync(author)
-		//		? Results.Ok(ApiResponse.Success("Author is updated", HttpStatusCode.NoContent))
-		//		: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find author"));
+		}
 
-		//}
-
-		//private static async Task<IResult> DeleteAuthor(
-		//	int id,
-		//	IAuthorRepository authorRepository)
-		//{
-		//	return await authorRepository.DeleteAuthorAsync(id)
-		//		? Results.Ok(ApiResponse.Success("Author is Deleted", HttpStatusCode.NoContent))
-		//		: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find author"));
-		//}
+		private static async Task<IResult> DeleteTag(
+			int id,
+			IBlogRepository blogRepository)
+		{
+			return await blogRepository.delTagAsync(id)
+				? Results.Ok(ApiResponse.Success("Tag is Deleted", HttpStatusCode.NoContent))
+				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Could not find tag"));
+		}
 	}
 }
