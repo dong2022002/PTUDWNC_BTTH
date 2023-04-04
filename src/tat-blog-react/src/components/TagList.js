@@ -6,12 +6,12 @@ const TagList = ({tagList}) => {
             <>
                 {tagList.map((item,index)=>{
                     return (
-                        <link to={`/blog/tag?slug=${item.name}`}
+                        <Link to={`/blog/tag?slug=${item.name}`}
                         title={item.nam}
                         className='btn btn-sm btn-outline-secondary me-1'
                         key={index}>
                             {item.name}
-                        </link>
+                        </Link>
                     )
                 })
 

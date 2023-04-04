@@ -37,7 +37,9 @@ const PostItem = ({postItem}) => {
                         </div>
                         <div className="text-end">
                             <Link
-                            to={`/blog/post?year=${postedDate.getFullYear()}&month=${postItem.urlSlug}`}
+                            to={`/blog/post?year=${postedDate.getYear()}&month=${postedDate.getMonth()}
+                            &day=${postedDate.getDay()}
+                            &slug=${postItem.urlSlug}`}
                             className="btn btn-primary"
                             title={postItem.title}>
                                 Xem chi tiết
