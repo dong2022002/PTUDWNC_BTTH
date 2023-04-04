@@ -20,17 +20,17 @@ const Navbar = () => {
         >
           <Nav className='mr-auto flex-grow-1'>
             <Nav.Item>
-              <Link to='/blog/about' className='nav-link text-dark'>
+              <Link to='blog/about' className='nav-link text-dark'>
                 Giới thiệu
               </Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to='/blog/contact' className='nav-link text-dark'>
+              <Link to='blog/contact' className='nav-link text-dark'>
                 Liên hệ
               </Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to='/blog/rss' className='nav-link text-dark'>
+              <Link to='blog/rss' className='nav-link text-dark'>
                 Rss Feed
               </Link>
             </Nav.Item>
