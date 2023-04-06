@@ -27,3 +27,31 @@ export async function getFeaturedPosts(linmit =3) {
       return null;
   }
 }
+export async function getDetailPostsBySlug(slug) {
+  try {
+      const respone = await axios.get(`https://localhost:7126/api/posts/byslug/${slug}`);
+      const data  = respone.data;
+      if (data.isSuccess) {
+          return data.result;
+      }else
+      return null;
+  } catch (error) {
+      console.log('Error',error.message);
+      return null;
+  }
+}
+export async function getRandomPosts(limit) {
+  try {
+      const respone = await axios.get(`https://localhost:7126/api/posts/random/${limit}`);
+      const data  = respone.data;
+      if (data.isSuccess) {
+          return data.result;
+      }else
+      return null;
+  } catch (error) {
+      console.log('Error',error.message);
+      return null;
+  }
+}
+
+

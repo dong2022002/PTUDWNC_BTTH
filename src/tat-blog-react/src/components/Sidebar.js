@@ -2,6 +2,8 @@ import React from 'react'
 import SearchForm from './SearchForm'
 import CategoriesWidget from './CategoriesWidget'
 import FeaturedPost from './FeaturedPost'
+import RandomPost from './RandomPost'
+import TagWidgets from './TagWidgets'
 
 const Sidebar = () => {
   return (
@@ -9,8 +11,8 @@ const Sidebar = () => {
       <SearchForm />
       <CategoriesWidget/>
       <FeaturedPost/>
-      <h1>Đăng ký nhận tin mới</h1>
-      <h1>Tag Cloud</h1>
+      <RandomPost/>
+      <TagWidgets />
     </div>
   )
 }

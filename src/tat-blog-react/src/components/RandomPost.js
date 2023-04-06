@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { getFeaturedPosts } from '../Services/BlogRepository';
+import {getRandomPosts } from '../Services/BlogRepository';
 import { Link } from 'react-router-dom';
 import { ListGroup } from 'react-bootstrap';
 
-const FeaturedPost = () => {
+const RandomPost = () => {
   const [postList,setPostList] = useState([]);
   useEffect(() => {
     document.title = 'Trang chủ';
 
-    getFeaturedPosts(3).then(data =>{
+    getRandomPosts(3).then(data =>{
       if (data) {
         setPostList(data);
       }else
@@ -20,7 +20,7 @@ if (postList.length>0) {
   return (
     <div className="mb-4">
         <h3 className='text-success mb-2'>
-            Bài viết nổi bật
+            Bài viết ngẫu nhiên
         </h3>
         {postList.length > 0 &&
             <ListGroup>
@@ -45,4 +45,4 @@ if (postList.length>0) {
 <></>
 )
 }
-export default FeaturedPost
+export default RandomPost

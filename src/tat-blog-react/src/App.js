@@ -9,6 +9,7 @@ import About from './Pages/About'
 import Contact from './Pages/Contact'
 import Rss from './Pages/Rss'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import PostDetail from './Pages/PostDetail'
 function App() {
   return (
     <div>
@@ -21,6 +22,7 @@ function App() {
                 <Route path='/' element={<Layout />}>
                   <Route path='' element={<Index />} />
                   <Route path='blog' element={<Index />} />
+                  <Route path='blog/post' element={<PostDetail />} />
                   <Route path='blog/about' element={<About />} />
                   <Route path='blog/contact' element={<Contact />} />
                   <Route path='blog/RSS' element={<Rss />} />

@@ -1,15 +1,15 @@
-import { useState } from "react"
+import { useRef } from "react"
 import  Form from "react-bootstrap/Form"
 import  Button from "react-bootstrap/Button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 
 const SearchForm = () => {
-    const [keyword,setKeyWord] = useState('');
+    const keyword = useRef('');
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        window.location = `/blog?k=${keyword}`;
+        window.location = `/blog?k=${keyword.current.value}`;
     };
   return (
     <div className="mb-4">
@@ -18,8 +18,7 @@ const SearchForm = () => {
                 <Form.Control
                     type='text'
                     name="k"
-                    value={keyword}
-                    onChange={(e)=> setKeyWord(e.target.value)}
+                    ref={keyword}
                     aria-label="Enter keyword"
                     aria-describedby="btnSearchPost"
                     placeholder="Enter keyword"/>

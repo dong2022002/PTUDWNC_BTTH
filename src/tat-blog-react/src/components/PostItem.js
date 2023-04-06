@@ -13,7 +13,7 @@ const PostItem = ({postItem}) => {
         <Card>
             <div className="row g-0">
                 <div className="col-md-4">
-                    <Card.Img variant="top" src={imageUrl} alt={postItem.title} />
+                    <Card.Img variant="top" style={{width:"300px",height:"250px"}} src={imageUrl} alt={postItem.title} />
                 </div>
                 <div className="col-md-8">
                     <Card.Body>
@@ -40,7 +40,7 @@ const PostItem = ({postItem}) => {
                         </div>
                         <div className="text-end">
                             <Link
-                            to={`/blog/post?year=${date.getFullYear()}&month=${date.getMonth()}&day=${date.getDay()}&slug=${postItem.urlSlug}`}
+                            to={`/blog/post?year=${date.getFullYear()}&month=${date.getMonth()+1}&day=${date.getDate()}&slug=${postItem.urlSlug}`}
                             className="btn btn-primary"
                             title={postItem.title}>
                                 Xem chi tiết
