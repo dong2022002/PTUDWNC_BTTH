@@ -7,8 +7,7 @@ const PostItem = ({postItem}) => {
   let imageUrl = isEmptyOrSpaces(postItem.imageUrl)
   ? process.env.PUBLIC_URL + '/images/image_1.jpg'
   : `${postItem.imageUrl}`;
-
-  let postedDate = new Date(postItem.postedDate);
+  let date = new Date(postItem.postedDate);
     return (
     <article className="blog-entry mb-4">
         <Card>
@@ -21,13 +20,17 @@ const PostItem = ({postItem}) => {
                         <Card.Title>{postItem.title}</Card.Title>
                         <Card.Text>
                             <small className="text-muted">Tác giả</small>
-                            <span className="text-primary m-1">
-                                {postItem.author.fullName}
-                            </span>
+                            <Link to={`blog/author/${postItem.urlSlug}`}
+                            className="text-primary m-1 text-decoration-none"
+                            >
+                            {postItem.author.fullName}
+                            </Link>
                             <small className="text-muted">Chủ đề</small>
-                            <span className="text-primary m-1">
-                                {postItem.category.name}
-                            </span>
+                            <Link to={`blog/author/${postItem.urlSlug}`}
+                            className="text-primary m-1 text-decoration-none"
+                            >
+                            {postItem.category.name}
+                            </Link>
                         </Card.Text>
                         <Card.Text>
                             {postItem.shortDescription}
@@ -37,9 +40,7 @@ const PostItem = ({postItem}) => {
                         </div>
                         <div className="text-end">
                             <Link
-                            to={`/blog/post?year=${postedDate.getYear()}&month=${postedDate.getMonth()}
-                            &day=${postedDate.getDay()}
-                            &slug=${postItem.urlSlug}`}
+                            to={`/blog/post?year=${date.getFullYear()}&month=${date.getMonth()}&day=${date.getDay()}&slug=${postItem.urlSlug}`}
                             className="btn btn-primary"
                             title={postItem.title}>
                                 Xem chi tiết
