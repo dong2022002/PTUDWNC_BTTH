@@ -1,15 +1,6 @@
-import axios from "axios";
+
+import { get_api } from "./Method";
 
 export async function getCategories() {
-    try {
-        const respone = await axios.get(`https://localhost:7126/api/categories?PageSize=10&PageNumber=1`);
-        const data  = respone.data;
-        if (data.isSuccess) {
-            return data.result.items;
-        }else
-        return null;
-    } catch (error) {
-        console.log('Error',error.message);
-        return null;
-    }
+    return get_api(`https://localhost:7126/api/categories?PageSize=10&PageNumber=1`);
 }

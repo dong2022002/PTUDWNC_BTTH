@@ -2,6 +2,7 @@
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net;
 using TatBlog.Core.Collections;
 using TatBlog.Core.DTO;
@@ -40,6 +41,10 @@ namespace TatBlog.WebApi.Endpoints
 			routerGroupBuilder.MapGet("/{id:int}", GetPostsDetails)
 				.WithName("GetPostById")
 				.Produces<ApiResponse<PostDto>>();
+
+			routerGroupBuilder.MapGet("get-filter", GetFilter)
+				.WithName("GetFilter")
+				.Produces<ApiResponse<PostDataFilter>>();
 
 			routerGroupBuilder.MapGet("/{id:int}/comments", GetCommentByPostId)
 				.WithName("GetCommentByPostId")
@@ -167,6 +172,25 @@ namespace TatBlog.WebApi.Endpoints
 			var comment =await commentRepository.GetCommentsFromPostIDAsync(id);
 
 			return Results.Ok(ApiResponse.Success(comment));
+		}
+		private static async Task<IResult> GetFilter(
+			IBlogRepository blogRepository,
+			IAuthorRepository authorRepository)
+		{
+			PostDataFilter postDataFilter = new PostDataFilter();
+			var authors = await authorRepository.GetAuthorsAsync();
+			var categories = await blogRepository.GetCategoriesAsync();
+			postDataFilter.AuthorList = authors.Select(a => new SelectListItem()
+			{
+				Text = a.FullName,
+				Value = a.Id.ToString()
+			});
+			postDataFilter.CategoryList = categories.Select(a => new SelectListItem()
+			{
+				Text = a.Name,
+				Value = a.Id.ToString()
+			});
+			return Results.Ok(ApiResponse.Success(postDataFilter));
 		}
 		private static async Task<IResult> AddPost(
 			PostEditModel model,

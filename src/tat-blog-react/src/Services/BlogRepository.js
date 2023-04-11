@@ -1,17 +1,11 @@
 import axios from "axios";
+import { get_api } from "./Method";
 
-export async function getPosts(keyword = '', pageSize = 10, pageNumber = 1, sortColumn = '', sortOrder = '') {
-    try {
-        const respone = await axios.get(`https://localhost:7126/api/posts?Keyword=${keyword}&PublishedOnly=true&PageSize=${pageSize}&PageNumber=${pageNumber}&SortColumn=${sortColumn}&SortOrder=${sortOrder}`);
-        const data = respone.data;
-        if (data.isSuccess) {
-            return data.result;
-        } else
-            return null;
-    } catch (error) {
-        console.log('Error', error.message);
-        return null;
-    }
+export function getPosts(keyword = '', pageSize = 10, pageNumber = 1, sortColumn = '', sortOrder = '') {
+    return get_api(`https://localhost:7126/api/posts?Keyword=${keyword}&PublishedOnly=true&PageSize=${pageSize}&PageNumber=${pageNumber}&SortColumn=${sortColumn}&SortOrder=${sortOrder}`);
+}
+export function getAuthors(name = '', pageSize = 10, pageNumber = 1, sortColumn = '', sortOrder = '') {
+  return get_api(`https://localhost:7126/api/authors?Name=${name}&PageSize=${pageSize}&PageNumber=${pageNumber}&SortColumn=${sortColumn}&SortOrder=${sortOrder}`);
 }
 
 export async function getFeaturedPosts(linmit = 3) {
