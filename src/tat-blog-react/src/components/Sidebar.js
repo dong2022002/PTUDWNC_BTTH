@@ -4,6 +4,7 @@ import CategoriesWidget from './CategoriesWidget'
 import FeaturedPost from './FeaturedPost'
 import RandomPost from './RandomPost'
 import TagWidgets from './TagWidgets'
+import ArchivesWidget from './ArchivesWidget'
 
 const Sidebar = () => {
   return (
@@ -13,6 +14,7 @@ const Sidebar = () => {
       <FeaturedPost/>
       <RandomPost/>
       <TagWidgets />
+      <ArchivesWidget />
     </div>
   )
 }
