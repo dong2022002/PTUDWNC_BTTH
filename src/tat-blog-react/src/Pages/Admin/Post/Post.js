@@ -1,20 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { getPosts } from "../../../Services/BlogRepository";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import PostFilterPane from "../../../components/Admin/PostFilterPane";
 import Loading from "../../../components/Loading";
+import { getPostFilter } from "../../../Services/BlogRepository";
 const Posts = () => {
   const [postsList, setPostsList] = useState([]);
   const [isVisibleLoading, setIsVisibleLoading] = useState(true);
+  const postFilter = useSelector((state) => state.postFilter);
 
-  let k = "",
-    p = 1,
-    ps = 10;
+  let { id } = useParams();
+  let p = 1;
+  let ps = 10;
 
   useEffect(() => {
     document.title = "Danh sách bài viết";
 
-    getPosts(k, ps, p).then((data) => {
+    getPostFilter(
+      postFilter.keyword,
+      postFilter.authorId,
+      postFilter.categoryId,
+      postFilter.year,
+      postFilter.month,
+      ps,
+      p
+    ).then((data) => {
       if (data) {
         setPostsList(data.items);
       } else {
@@ -22,10 +33,19 @@ const Posts = () => {
       }
       setIsVisibleLoading(false);
     });
-  }, [k, p, ps]);
+  }, [
+    postFilter.keyword,
+    postFilter.authorId,
+    postFilter.categoryId,
+    postFilter.year,
+    postFilter.month,
+    ps,
+    p,
+  ]);
   return (
     <>
       <h1>Danh sách bài viết </h1>
+      <PostFilterPane />
       {isVisibleLoading ? (
         <Loading />
       ) : (
