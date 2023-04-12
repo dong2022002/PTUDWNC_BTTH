@@ -11,5 +11,10 @@ export function useQuery() {
 }
 
 export function isInteger(value) {
-  return Number.isInteger(value);
+  return Number.isInteger(Number(value)) && Number(value) >= 0;
+}
+
+export function decode(value) {
+  let txt = new DOMParser().parseFromString(value, "text/html");
+  return txt.documentElement.textContent;
 }

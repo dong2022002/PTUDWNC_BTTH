@@ -1,21 +1,22 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer";
+import About from "./Pages/About";
+import Authors from "./Pages/Admin/Authors";
+import Categories from "./Pages/Admin/Categories";
+import Comments from "./Pages/Admin/Comments";
+import * as AdminIndex from "./Pages/Admin/Index";
+import AdminLayout from "./Pages/Admin/Layout";
+import Edit from "./Pages/Admin/Post/Edit";
+import Posts from "./Pages/Admin/Post/Post";
+import Tags from "./Pages/Admin/Tags";
+import BadRequest from "./Pages/BadRequest";
+import Contact from "./Pages/Contact";
 import Index from "./Pages/Index";
 import Layout from "./Pages/Layout";
-import About from "./Pages/About";
-import Contact from "./Pages/Contact";
-import Rss from "./Pages/Rss";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PostDetail from "./Pages/PostDetail";
-import AdminLayout from './Pages/Admin/Layout'
-import * as AdminIndex from './Pages/Admin/Index'
-import Authors from './Pages/Admin/Authors'
-import Categories from './Pages/Admin/Categories'
-import Comments from './Pages/Admin/Comments'
-import Posts from './Pages/Admin/Post/Post'
-import Tags from './Pages/Admin/Tags'
 import NotFound from "./Pages/NotFound";
-import BadRequest from "./Pages/BadRequest";
+import PostDetail from "./Pages/PostDetail";
+import Rss from "./Pages/Rss";
 function App() {
   return (
     <div>
@@ -35,6 +36,8 @@ function App() {
             <Route path="/admin/categories" element={<Categories />} />
             <Route path="/admin/comments" element={<Comments />} />
             <Route path="/admin/posts" element={<Posts />} />
+            <Route path="/admin/posts/edit" element={<Edit />} />
+            <Route path="/admin/posts/edit/:id" element={<Edit />} />
             <Route path="/admin/tags" element={<Tags />} />
           </Route>
           <Route path="/400" element={<BadRequest />}></Route>

@@ -44,7 +44,7 @@ const Posts = () => {
   ]);
   return (
     <>
-      <h1>Danh sách bài viết </h1>
+      <h1>Danh sách bài viết {id} </h1>
       <PostFilterPane />
       {isVisibleLoading ? (
         <Loading />

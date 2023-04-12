@@ -1,5 +1,5 @@
 import axios from "axios";
-import { get_api } from "./Method";
+import { get_api, post_api } from "./Method";
 
 export function getPosts(
   keyword = "",
@@ -108,4 +108,14 @@ export function getPostFilter(
   url.searchParams.append("PageSize", pageSize);
   url.searchParams.append("PageNumber", pageNumber);
   return get_api(url.href);
+}
+
+export function getPostById(id = 0) {
+  if (id > 0) {
+    return get_api(`https://localhost:7126/api/posts/${id}`);
+  }
+  return null;
+}
+export function addOrUpdatePost(formData) {
+  return post_api("https://localhost:7126/api/posts", formData);
 }
