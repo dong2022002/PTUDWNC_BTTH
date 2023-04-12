@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import {
   updateKeyword,
   updateYear,
 } from "../../Redux/Reducer";
+import { getFilter } from "../../Services/BlogRepository";
 
 const PostFilterPane = () => {
   // const current = new Date();
@@ -25,23 +26,23 @@ const PostFilterPane = () => {
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   // };
-  // useEffect(() => {
-  //   getFilter().then((data) => {
-  //     if (data) {
-  //       setPostFilter({
-  //         authorList: data.authorList,
-  //         categoryList: data.categoryList,
-  //         monthList: data.monthList,
-  //       });
-  //     } else {
-  //       setPostFilter({
-  //         authorList: [],
-  //         categoryList: [],
-  //         monthList: [],
-  //       });
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    getFilter().then((data) => {
+      if (data) {
+        setFiter({
+          authorList: data.authorList,
+          categoryList: data.categoryList,
+          monthList: data.monthList,
+        });
+      } else {
+        setFiter({
+          authorList: [],
+          categoryList: [],
+          monthList: [],
+        });
+      }
+    });
+  }, []);
 
   const postFilter = useSelector((state) => state.postFilter),
     dispatch = useDispatch(),
