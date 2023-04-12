@@ -8,6 +8,7 @@ using TatBlog.Core.Collections;
 using TatBlog.Core.DTO;
 using TatBlog.Core.Entities;
 using TatBlog.Services.Blogs;
+using TatBlog.Services.Extensions;
 using TatBlog.Services.Media;
 using TatBlog.WebApi.Filters;
 using TatBlog.WebApi.Models;
@@ -57,7 +58,7 @@ namespace TatBlog.WebApi.Endpoints
 			routerGroupBuilder.MapPost(
 				"/",
 				AddPost)
-				.AddEndpointFilter<ValidatorFilter<PostEditModel>>()
+				.Accepts<PostEditModel>("multipart/form-data")
 				.WithName("AddNewPost")
 				//.RequireAuthorization()
 				.Produces(401)
@@ -193,27 +194,45 @@ namespace TatBlog.WebApi.Endpoints
 			return Results.Ok(ApiResponse.Success(postDataFilter));
 		}
 		private static async Task<IResult> AddPost(
-			PostEditModel model,
+			HttpContext context,
+			IMediaManager mediaManager,
 			IBlogRepository blogRepository,
 			IAuthorRepository authorRepository,
 			IMapper mapper)
 		{
+			var model = await PostEditModel.BindAsync(context);
+			var slug = model.Title.GenerateSlug();
+
 			if (await blogRepository
-				.IsPostSlugExitedAsync(0, model.UrlSlug))
+				.IsPostSlugExitedAsync(0, slug))
 			{
 				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
 			}
+			var post = mapper.Map<Post>(model);
 			var category = await blogRepository.GetCategoryFromIDAsync(model.CategoryId);
 			var author = await authorRepository.GetAuthorByIdAsync(model.AuthorId);
 
 			if (category == null || author == null)
 			{
-				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,"Nhập sai Id Chủ đề hoặc Tác giả"));
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, "Nhập sai Id Chủ đề hoặc Tác giả"));
 
 			}
-			var post = mapper.Map<Post>(model);
 			post.PostedDate = DateTime.Now;
-			await blogRepository.AddUpdatePostAsync(post,model.GetSelectedTags());
+			post.UrlSlug = model.Title.GenerateSlug();
+
+            if (model.ImageFile?.Length > 0)
+            {
+				string hostname =
+					$"{context.Request.Scheme}://{context.Request.Host}{context.Request.PathBase}/";
+				string uploadedPath = await mediaManager.SaveFileAsync(model.ImageFile.OpenReadStream(),
+					model.ImageFile.FileName,
+					model.ImageFile.ContentType);
+                if (!string.IsNullOrWhiteSpace(uploadedPath))
+                {
+					post.ImageUrl = uploadedPath;
+                }
+            }
+			await blogRepository.AddUpdatePostAsync(post, model.GetSelectedTags());
 
 			return Results.Ok(ApiResponse.Success(
 				mapper.Map<AuthorItem>(post), HttpStatusCode.Created));

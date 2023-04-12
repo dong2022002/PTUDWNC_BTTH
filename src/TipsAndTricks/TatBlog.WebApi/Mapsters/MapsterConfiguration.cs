@@ -30,7 +30,10 @@ namespace TatBlog.WebApi.Mapsters
 
 			config.NewConfig<Post, PostDto>();
 			config.NewConfig<Post, PostDetail>();
-			config.NewConfig<PostEditModel, Post>();
+			config.NewConfig<PostEditModel, Post>()
+					.Ignore(dest => dest.Id)
+				.Ignore(dest => dest.ImageUrl);
+
 
 			config.NewConfig<PostFilterModel, PostQuery>();
 
