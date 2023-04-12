@@ -34,7 +34,7 @@ const Edit = () => {
   useEffect(() => {
     document.title = "Thêm/ cập nhật bài viết";
 
-    getPostById(id).then((data) => {
+    getPostById(id)?.then((data) => {
       if (data) {
         setPost({
           ...data,
@@ -81,7 +81,7 @@ const Edit = () => {
         >
           <Form.Control type="hidden" name="id" value={post.id} />
           <div className="row mb-3">
-            <Form.Label className="col-sm=2 col-form=label">Tiêu đề</Form.Label>
+            <Form.Label className="col-sm-2 col-form-label">Tiêu đề</Form.Label>
             <div className="col-sm-10">
               <Form.Control
                 type="text"
@@ -99,7 +99,7 @@ const Edit = () => {
             </div>
           </div>
           <div className="row mb-3">
-            <Form.Label className="col-sm=2 col-form=label">Slug</Form.Label>
+            <Form.Label className="col-sm-2 col-form-label">Slug</Form.Label>
             <div className="col-sm-10">
               <Form.Control
                 type="text"
@@ -117,7 +117,7 @@ const Edit = () => {
             </div>
           </div>
           <div className="row mb-3">
-            <Form.Label className="col-sm=2 col-form=label">
+            <Form.Label className="col-sm-2 col-form-label">
               Giới thiệu
             </Form.Label>
             <div className="col-sm-10">
@@ -138,7 +138,7 @@ const Edit = () => {
             </div>
           </div>
           <div className="row mb-3">
-            <Form.Label className="col-sm=2 col-form=label">
+            <Form.Label className="col-sm-2 col-form-label">
               Nội dung
             </Form.Label>
             <div className="col-sm-10">
@@ -160,16 +160,16 @@ const Edit = () => {
             </div>
           </div>
           <div className="row mb-3">
-            <Form.Label className="col-sm=2 col-form=label">
+            <Form.Label className="col-sm-2 col-form-label">
               Metadata
             </Form.Label>
             <div className="col-sm-10">
               <Form.Control
                 type="text"
                 name="meta"
-                title="meta"
+                title="Meta"
                 required
-                value={decode(post.meta || "")}
+                value={post.meta || ""}
                 onChange={(e) =>
                   setPost({
                     ...post,
@@ -180,7 +180,7 @@ const Edit = () => {
             </div>
           </div>
           <div className="row mb-3">
-            <Form.Label className="col-sm=2 col-form=label">Tác giả</Form.Label>
+            <Form.Label className="col-sm-2 col-form-label">Tác giả</Form.Label>
             <div className="col-sm-10">
               <Form.Select
                 name="authorId"
@@ -205,7 +205,7 @@ const Edit = () => {
             </div>
           </div>
           <div className="row mb-3">
-            <Form.Label className="col-sm=2 col-form=label">Chủ đề</Form.Label>
+            <Form.Label className="col-sm-2 col-form-label">Chủ đề</Form.Label>
             <div className="col-sm-10">
               <Form.Select
                 name="categoryId"
@@ -230,7 +230,7 @@ const Edit = () => {
             </div>
           </div>
           <div className="row mb-3">
-            <Form.Label className="col-sm=2 col-form=label">
+            <Form.Label className="col-sm-2 col-form-label">
               Từ khóa (Mỗi từ 1 dòng)
             </Form.Label>
             <div className="col-sm-10">
@@ -253,7 +253,7 @@ const Edit = () => {
           </div>
           {!isEmptyOrSpaces(post.imageUrl) && (
             <div className="row mb-3">
-              <Form.Label className="col-sm=2 col-form=label">
+              <Form.Label className="col-sm-2 col-form-label">
                 Hình hiện tại
               </Form.Label>
               <div className="col-sm-10">
@@ -262,7 +262,7 @@ const Edit = () => {
             </div>
           )}
           <div className="row mb-3">
-            <Form.Label className="col-sm=2 col-form=label">
+            <Form.Label className="col-sm-2 col-form-label">
               Chọn hình ảnh
             </Form.Label>
             <div className="col-sm-10">
@@ -271,7 +271,7 @@ const Edit = () => {
                 name="imageFile"
                 accept="image/*"
                 title="Image file"
-                value={decode(post.meta || "")}
+                value={decode(post.ImageFile || "")}
                 onChange={(e) =>
                   setPost({
                     ...post,
