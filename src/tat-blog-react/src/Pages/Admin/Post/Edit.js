@@ -27,6 +27,7 @@ const Edit = () => {
     authorList: [],
     categoryList: [],
   });
+  const [validated, setValidated] = useState(false);
   let { id } = useParams();
   id = id ?? 0;
 
@@ -62,15 +63,20 @@ const Edit = () => {
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    let form = new FormData(e.target);
-    console.log(post);
-    addOrUpdatePost(form).then((data) => {
-      if (data) {
-        alert("Đã lưu thành công");
-      } else {
-        alert("Đã xảy ra lỗi!");
-      }
-    });
+    if (e.currentTarget.checkValidity() == false) {
+      e.stopPropagation();
+      setValidated(true);
+    } else {
+      let form = new FormData(e.target);
+      console.log(post);
+      addOrUpdatePost(form).then((data) => {
+        if (data) {
+          alert("Đã lưu thành công");
+        } else {
+          alert("Đã xảy ra lỗi!");
+        }
+      });
+    }
   };
   if (id && !isInteger(id)) {
     return <Navigate to={`/400?redirecTo=/admin/posts`} />;
@@ -81,6 +87,8 @@ const Edit = () => {
           method="post"
           encType="multipart/form-data"
           onSubmit={handleSubmit}
+          noValidate
+          validated={validated}
         >
           <Form.Control type="hidden" name="id" value={post.id} />
           <div className="row mb-3">
@@ -99,8 +107,12 @@ const Edit = () => {
                   })
                 }
               />
+              <Form.Control.Feedback type="invalid">
+                Không được bỏ trống
+              </Form.Control.Feedback>
             </div>
           </div>
+
           <div className="row mb-3">
             <Form.Label className="col-sm-2 col-form-label">Slug</Form.Label>
             <div className="col-sm-10">
