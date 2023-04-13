@@ -110,12 +110,12 @@ export function getPostFilter(
   return get_api(url.href);
 }
 
-export function getPostById(id = 0) {
+export function getPostById(id) {
   if (id > 0) {
     return get_api(`https://localhost:7126/api/posts/${id}`);
   }
   return null;
 }
-export function addOrUpdatePost(formData) {
-  return post_api("https://localhost:7126/api/posts", formData);
+export async function addOrUpdatePost(formData) {
+  return await post_api("https://localhost:7126/api/posts", formData);
 }

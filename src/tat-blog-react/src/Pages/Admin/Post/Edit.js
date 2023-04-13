@@ -16,7 +16,6 @@ const Edit = () => {
     urlSlug: "",
     meta: "",
     imageUrl: "",
-    ImageFile: null,
     category: {},
     author: {},
     tags: {},
@@ -36,14 +35,17 @@ const Edit = () => {
 
     getPostById(id)?.then((data) => {
       if (data) {
+        const tagsList = Array.isArray(data.tags) ? data.tags : "";
         setPost({
           ...data,
-          selectedTags: data.tags.map((tag) => tag?.name).Join("\r\n"),
+          selectedTags: tagsList.map((tag) => tag.name).join("\r\n"),
         });
       } else {
         setPost(initialState);
       }
+      console.log(post);
     });
+
     getFilter().then((data) => {
       if (data) {
         setFilter({
@@ -61,6 +63,7 @@ const Edit = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let form = new FormData(e.target);
+    console.log(post);
     addOrUpdatePost(form).then((data) => {
       if (data) {
         alert("Đã lưu thành công");
@@ -257,7 +260,7 @@ const Edit = () => {
                 Hình hiện tại
               </Form.Label>
               <div className="col-sm-10">
-                <img src={post.imageUrl} alt={post.title} />
+                <img src={post.imageUrl} alt={post.imageUrl} />
               </div>
             </div>
           )}
@@ -271,7 +274,6 @@ const Edit = () => {
                 name="imageFile"
                 accept="image/*"
                 title="Image file"
-                value={decode(post.ImageFile || "")}
                 onChange={(e) =>
                   setPost({
                     ...post,

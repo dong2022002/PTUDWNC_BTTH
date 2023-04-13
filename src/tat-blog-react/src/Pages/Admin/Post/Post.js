@@ -64,7 +64,7 @@ const Posts = () => {
                 <tr key={index}>
                   <td>
                     <Link
-                      to={`/admin/post/edit/${item.id}`}
+                      to={`/admin/posts/edit/${item.id}`}
                       className="text-bold"
                     >
                       {item.title}
