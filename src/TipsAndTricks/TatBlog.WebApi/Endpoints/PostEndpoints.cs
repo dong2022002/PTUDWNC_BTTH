@@ -74,11 +74,9 @@ namespace TatBlog.WebApi.Endpoints
 				.Produces<ApiResponse<string>>();
 
 			routerGroupBuilder.MapPut(
-				"/{id:int}",
-				UpdatePost)
-				.WithName("UpdatePost")
-				//.RequireAuthorization()
-				.AddEndpointFilter<ValidatorFilter<PostEditModel>>()
+				"/{id:int}/changePublished",
+				ChangePublished)
+				.WithName("ChangePublished")
 				.Produces(401)
 				.Produces<ApiResponse<string>>();
 
@@ -165,6 +163,16 @@ namespace TatBlog.WebApi.Endpoints
 
 		}
 
+		private static async Task<IResult> ChangePublished(
+			int id,
+			IBlogRepository blogRepository)
+		{
+			await blogRepository
+				.SetPublishedPostAsync(id);
+			return Results.Ok(ApiResponse.Success("Thay đổi thành công"));
+
+		}
+
 
 		private static async Task<IResult> GetCommentByPostId(
 			int id,
@@ -204,11 +212,12 @@ namespace TatBlog.WebApi.Endpoints
 			var slug = model.Title.GenerateSlug();
 
 			if (await blogRepository
-				.IsPostSlugExitedAsync(0, slug))
+				.IsPostSlugExitedAsync(model.Id, slug))
 			{
 				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
 			}
-			var post = mapper.Map<Post>(model);
+
+			
 			var category = await blogRepository.GetCategoryFromIDAsync(model.CategoryId);
 			var author = await authorRepository.GetAuthorByIdAsync(model.AuthorId);
 
@@ -217,7 +226,24 @@ namespace TatBlog.WebApi.Endpoints
 				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, "Nhập sai Id Chủ đề hoặc Tác giả"));
 
 			}
-			post.PostedDate = DateTime.Now;
+			var post = model.Id > 0 ? await blogRepository.GetPostByIdAsync(model.Id, true)
+				: null;
+			if (post == null)
+			{
+				post = new Post()
+				{
+					PostedDate = DateTime.Now
+				};
+			}
+			
+			post.Title = model.Title;
+			post.AuthorId = model.AuthorId;
+			post.CategoryId = model.CategoryId;
+			post.ShortDescription = model.ShortDescription;
+			post.Description = model.Description;
+			post.Meta = model.Meta;
+			post.Published = model.Published;
+			post.ModifiedDate = DateTime.Now;
 			post.UrlSlug = model.Title.GenerateSlug();
 
             if (model.ImageFile?.Length > 0)
@@ -229,7 +255,7 @@ namespace TatBlog.WebApi.Endpoints
 					model.ImageFile.ContentType);
                 if (!string.IsNullOrWhiteSpace(uploadedPath))
                 {
-					post.ImageUrl = uploadedPath;
+					post.ImageUrl = hostname + uploadedPath;
                 }
             }
 			await blogRepository.AddUpdatePostAsync(post, model.GetSelectedTags());

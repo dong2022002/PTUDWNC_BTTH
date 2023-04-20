@@ -5,11 +5,15 @@ import { Link, useParams } from "react-router-dom";
 import PostFilterPane from "../../../components/Admin/PostFilterPane";
 import Loading from "../../../components/Loading";
 import PagerAdmin from "../../../components/PagerAdmin";
-import { getPostFilter } from "../../../Services/BlogRepository";
+import {
+  changePublished,
+  getPostFilter,
+} from "../../../Services/BlogRepository";
 import { useQuery } from "../../../Utils/Utils";
 const Posts = () => {
   const [postsList, setPostsList] = useState([]);
   const [metadata, setMetadata] = useState([]);
+  const [reload, setReload] = useState(false);
   const [isVisibleLoading, setIsVisibleLoading] = useState(true);
   const postFilter = useSelector((state) => state.postFilter);
 
@@ -38,6 +42,8 @@ const Posts = () => {
       }
       setIsVisibleLoading(false);
     });
+    setReload(false);
+    console.log(reload);
   }, [
     postFilter.keyword,
     postFilter.authorId,
@@ -46,8 +52,14 @@ const Posts = () => {
     postFilter.month,
     ps,
     p,
+    reload,
   ]);
-
+  function onchangePublished(e) {
+    changePublished(e.target.value).then(() => {
+      console.log("setReload");
+      setReload(true);
+    });
+  }
   return (
     <>
       <h1>Danh sách bài viết {id} </h1>
@@ -79,7 +91,17 @@ const Posts = () => {
                   </td>
                   <td>{item.author.fullName}</td>
                   <td>{item.category.name}</td>
-                  <td>{item.published ? "Có" : "Không"}</td>
+                  <td>
+                    <button
+                      class={
+                        item.published ? "btn btn-primary" : "btn btn-danger"
+                      }
+                      onClick={onchangePublished}
+                      value={item.id}
+                    >
+                      {item.published ? "Có" : "Không"}
+                    </button>
+                  </td>
                 </tr>
               ))
             ) : (

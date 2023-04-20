@@ -39,7 +39,7 @@ namespace TatBlog.WebApi.Models.PostsModel
 				ShortDescription = form["ShortDescription"],
 				Description = form["Description"],
 				Meta = form["Meta"],
-				Published = bool.Parse(form["Published"]),
+				Published = form["Published"] != "false",
 				CategoryId = int.Parse(form["CategoryId"]),
 				AuthorId = int.Parse(form["AuthorId"]),
 				SelectedTags = form["SelectedTags"]

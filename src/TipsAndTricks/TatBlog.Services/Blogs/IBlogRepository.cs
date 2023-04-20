@@ -114,7 +114,7 @@ namespace TatBlog.Services.Blogs
            CancellationToken cancellationToken = default);
 
         Task<bool> SetPublishedPostAsync(
-            int isPuslished,
+            int PostId,
             CancellationToken cancellationToken = default);
 
         Task<IList<Post>> GetPostsRandomAsync(

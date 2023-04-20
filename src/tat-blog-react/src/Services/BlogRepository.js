@@ -1,5 +1,5 @@
 import axios from "axios";
-import { get_api, post_api } from "./Method";
+import { get_api, post_api, put_api } from "./Method";
 
 export function getPosts(
   keyword = "",
@@ -97,7 +97,7 @@ export function getPostFilter(
   sortColumn = "",
   sortOrder = ""
 ) {
-  let url = new URL("https://localhost:7126/api/posts?PublishedOnly=true");
+  let url = new URL("https://localhost:7126/api/posts?PublishedOnly=false");
   keyword !== "" && url.searchParams.append("Keyword", keyword);
   authorId !== "" && url.searchParams.append("AuthorId", authorId);
   categoryId !== "" && url.searchParams.append("CategoryId", categoryId);
@@ -118,4 +118,10 @@ export function getPostById(id) {
 }
 export async function addOrUpdatePost(formData) {
   return await post_api("https://localhost:7126/api/posts", formData);
+}
+
+export async function changePublished(id) {
+  return await put_api(
+    `https://localhost:7126/api/posts/${id}/changePublished`
+  );
 }
