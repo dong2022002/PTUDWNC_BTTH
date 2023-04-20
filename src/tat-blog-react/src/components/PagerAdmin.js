@@ -3,21 +3,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
-const Pager = ({ postQuery, metadata, link }) => {
+const PagerAdmin = ({ metadata, controller = "", actionName = "" }) => {
   let pageCount = metadata.pageCount,
     hasNextPage = metadata.hasNextPage,
     hasPreviousPage = metadata.hasPreviousPage,
     pageNumber = metadata.pageNumber,
     pageSize = metadata.pageSize,
-    actionName = "",
-    slug = "",
-    keyword = postQuery.keyword ?? "";
+    slug = "";
   if (pageCount > 1) {
     return (
       <div className="text-center my-4">
         {hasPreviousPage ? (
           <Link
-            to={`/blog/${actionName}?slug=${slug}&k=${keyword}&p=${
+            to={`${controller}/${actionName}?slug=${slug}&p=${
               pageNumber - 1
             }&ps=${pageSize}`}
             className="btn btn-info"
@@ -33,7 +31,7 @@ const Pager = ({ postQuery, metadata, link }) => {
         )}
         {hasNextPage ? (
           <Link
-            to={`/blog/${actionName}?slug=${slug}&k=${keyword}&p=${
+            to={`${controller}/${actionName}?slug=${slug}&p=${
               pageNumber + 1
             }&ps=${pageSize}`}
             className="btn btn-info ms-1"
@@ -53,4 +51,4 @@ const Pager = ({ postQuery, metadata, link }) => {
   return <Link></Link>;
 };
 
-export default Pager;
+export default PagerAdmin;

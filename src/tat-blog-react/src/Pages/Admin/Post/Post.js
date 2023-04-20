@@ -4,15 +4,19 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import PostFilterPane from "../../../components/Admin/PostFilterPane";
 import Loading from "../../../components/Loading";
+import PagerAdmin from "../../../components/PagerAdmin";
 import { getPostFilter } from "../../../Services/BlogRepository";
+import { useQuery } from "../../../Utils/Utils";
 const Posts = () => {
   const [postsList, setPostsList] = useState([]);
+  const [metadata, setMetadata] = useState([]);
   const [isVisibleLoading, setIsVisibleLoading] = useState(true);
   const postFilter = useSelector((state) => state.postFilter);
 
   let { id } = useParams();
-  let p = 1;
-  let ps = 10;
+  let query = useQuery();
+  let p = query.get("p") ?? 1;
+  let ps = query.get("ps") ?? 10;
 
   useEffect(() => {
     document.title = "Danh sách bài viết";
@@ -28,6 +32,7 @@ const Posts = () => {
     ).then((data) => {
       if (data) {
         setPostsList(data.items);
+        setMetadata(data.metadata);
       } else {
         setPostsList([]);
       }
@@ -42,6 +47,7 @@ const Posts = () => {
     ps,
     p,
   ]);
+
   return (
     <>
       <h1>Danh sách bài viết {id} </h1>
@@ -85,6 +91,9 @@ const Posts = () => {
                 </td>
               </tr>
             )}
+            <div className="p-4 ">
+              <PagerAdmin metadata={metadata} controller={"/admin/posts"} />
+            </div>
           </tbody>
         </Table>
       )}
