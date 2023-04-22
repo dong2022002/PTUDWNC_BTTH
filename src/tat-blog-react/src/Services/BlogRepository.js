@@ -1,5 +1,5 @@
 import axios from "axios";
-import { get_api, post_api, put_api } from "./Method";
+import { delete_api, get_api, post_api, put_api } from "./Method";
 
 export function getPosts(
   keyword = "",
@@ -124,4 +124,8 @@ export async function changePublished(id) {
   return await put_api(
     `https://localhost:7126/api/posts/${id}/changePublished`
   );
+}
+
+export async function deletePost(id) {
+  return await delete_api(`https://localhost:7126/api/posts/${id}`);
 }

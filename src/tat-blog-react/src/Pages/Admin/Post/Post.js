@@ -1,5 +1,7 @@
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Button, Modal, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import PostFilterPane from "../../../components/Admin/PostFilterPane";
@@ -7,6 +9,7 @@ import Loading from "../../../components/Loading";
 import PagerAdmin from "../../../components/PagerAdmin";
 import {
   changePublished,
+  deletePost,
   getPostFilter,
 } from "../../../Services/BlogRepository";
 import { useQuery } from "../../../Utils/Utils";
@@ -16,6 +19,14 @@ const Posts = () => {
   const [reload, setReload] = useState(false);
   const [isVisibleLoading, setIsVisibleLoading] = useState(true);
   const postFilter = useSelector((state) => state.postFilter);
+  const [show, setShow] = useState(false);
+  const [idPost, SetIdPost] = useState(-1);
+
+  const handleClose = () => setShow(false);
+  const handleShow = (e) => {
+    SetIdPost(e.target.value);
+    setShow(true);
+  };
 
   let { id } = useParams();
   let query = useQuery();
@@ -43,7 +54,6 @@ const Posts = () => {
       setIsVisibleLoading(false);
     });
     setReload(false);
-    console.log(reload);
   }, [
     postFilter.keyword,
     postFilter.authorId,
@@ -55,8 +65,16 @@ const Posts = () => {
     reload,
   ]);
   function onchangePublished(e) {
+    console.log(e.target.value);
+
     changePublished(e.target.value).then(() => {
-      console.log("setReload");
+      setReload(true);
+    });
+  }
+  function handleDeletePost() {
+    if (idPost === undefined) return;
+    deletePost(idPost).then(() => {
+      setShow(false);
       setReload(true);
     });
   }
@@ -101,6 +119,29 @@ const Posts = () => {
                     >
                       {item.published ? "Có" : "Không"}
                     </button>
+                  </td>
+                  <td>
+                    <Button
+                      value={item.id}
+                      variant="secondary"
+                      onClick={handleShow}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </Button>
+                    <Modal show={show} onHide={handleClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Xóa bài viết</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>Bạn có chắc chắn muốn xóa ?</Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                          Hủy bỏ
+                        </Button>
+                        <Button variant="primary" onClick={handleDeletePost}>
+                          Xác nhận
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
                   </td>
                 </tr>
               ))
